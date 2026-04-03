@@ -20,7 +20,7 @@
 @utility mobile-subheader-2 {
   font-size: 32px;
   line-height: 36px;
-  font-weight: 500;
+  font-weight: 300;
   font-style: normal;
   letter-spacing: 0em;
 }
@@ -28,7 +28,7 @@
 @utility mobile-subheader-3 {
   font-size: 24px;
   line-height: 28px;
-  font-weight: 500;
+  font-weight: 300;
   font-style: normal;
   letter-spacing: 0em;
 }
@@ -69,7 +69,7 @@
 @utility desktop-subheader-2 {
   font-size: 48px;
   line-height: 56px;
-  font-weight: 500;
+  font-weight: 300;
   font-style: normal;
   letter-spacing: 0em;
 }
@@ -102,7 +102,8 @@
   --color-t-primary: #060d29;
   --color-t-secondary: #f3f8fc;
   --color-t-tertiary: #3054f1;
-  --color-background: #eaeff3;
+  --color-t-details: #324ab3;
+  --color-background: #ffffff;
   --color-cta-primary: #3054f1;
   --color-black: #060d29;
   --color-white: #f3f8fc;
