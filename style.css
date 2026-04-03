@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/* === MOBILE === */
+@utility mobile-header-1 {
+  font-size: 48px;
+  line-height: 52px;
+  font-weight: 300;
+  font-style: normal;
+  letter-spacing: 0em;
+}
+
+@utility mobile-subheader-1 {
+  font-size: 40px;
+  line-height: 44px;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0em;
+}
+
+@utility mobile-subheader-2 {
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0em;
+}
+
+@utility mobile-subheader-3 {
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0em;
+}
+
+@utility mobile-body-1 {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 300;
+  font-style: normal;
+  letter-spacing: 0em;
+}
+
+@utility mobile-body-2 {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 300;
+  font-style: normal;
+  letter-spacing: 0em;
+}
+
+/* === DESKTOP === */
+@utility desktop-header-1 {
+  font-size: 96px;
+  line-height: 102px;
+  font-weight: 300;
+  font-style: normal;
+  letter-spacing: 0em;
+}
+
+@utility desktop-subheader-1 {
+  font-size: 64px;
+  line-height: 68px;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0em;
+}
+
+@utility desktop-subheader-2 {
+  font-size: 48px;
+  line-height: 56px;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0em;
+}
+
+@utility desktop-subheader-3 {
+  font-size: 32px;
+  line-height: 42px;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0em;
+}
+
+@utility desktop-body-1 {
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 300;
+  font-style: normal;
+  letter-spacing: 0em;
+}
+
+@utility desktop-body-2 {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 300;
+  font-style: normal;
+  letter-spacing: 0em;
+}
+
+@theme {
+  --color-t-primary: #060d29;
+  --color-t-secondary: #f3f8fc;
+  --color-t-tertiary: #3054f1;
+  --color-background: #eaeff3;
+  --color-cta-primary: #3054f1;
+  --color-black: #060d29;
+  --color-white: #f3f8fc;
+  --color-grey: #b6c1f1;
+}
