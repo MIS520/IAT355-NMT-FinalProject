@@ -1,7 +1,16 @@
 async function fetchData() {
-  const useCasesLong = await d3.csv("data/IAT355_Final_Proj_Dataset(Uses Cases) - Long.csv", d3.autoType);
-  const evidentAIRanks = await d3.csv("data/IAT_355_Final_Proj_Dataset(Evident AI - Oct) - IAT_355_Final_Proj_Dataset(Evident AI - Oct.csv", d3.autoType);
-  const financials = await d3.csv("data/IAT_355_Final_Proj_Dataset(Fin - IAT_355_Final_Proj_Dataset(Fin (1).csv", d3.autoType);
+  const useCasesLong = await d3.csv(
+    "data/IAT355_Final_Proj_Dataset(Uses Cases) - Long.csv",
+    d3.autoType,
+  );
+  const evidentAIRanks = await d3.csv(
+    "data/IAT_355_Final_Proj_Dataset(Evident AI - Oct) - IAT_355_Final_Proj_Dataset(Evident AI - Oct.csv",
+    d3.autoType,
+  );
+  const financials = await d3.csv(
+    "data/IAT_355_Final_Proj_Dataset(Fin - IAT_355_Final_Proj_Dataset(Fin (1).csv",
+    d3.autoType,
+  );
   return { useCasesLong, evidentAIRanks, financials };
 }
 
@@ -11,8 +20,9 @@ function createViz1(useCasesLong) {
 
   const spec = {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-    width: 700,
+    width: "container",
     height: 360,
+    padding: { top: 64, bottom: 24 },
     data: { values: cleaned },
     mark: { type: "bar", cornerRadiusTopLeft: 4, cornerRadiusTopRight: 4 },
     encoding: {
@@ -57,8 +67,13 @@ function createViz1(useCasesLong) {
           labelColor: "#1F2937",
           titleColor: "#1F2937",
           title: "AI Category",
+          orient: "top",
+          columns: 1,
+          columnPadding: 0,
+          padding: 0,
         },
       },
+
       tooltip: [
         { field: "Region", type: "nominal" },
         { field: "Category", type: "nominal" },
@@ -82,4 +97,3 @@ async function init() {
 }
 
 init();
-
