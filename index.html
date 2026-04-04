@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,16 +8,16 @@
   </head>
   <body class="bg-background text-t-primary">
     <!-- default web nav bar and side menu -->
-    <nav class="absolute w-fit left-12 top-12">
+    <nav class="absolute w-20 lg:w-fit lg:left-12 lg:top-12 top-8 left-8">
       <img src="assets/nmtLogo.svg" />
     </nav>
     <!-- nav for mobile menu -->
     <nav></nav>
-    <section class="flex flex-col items-center">
+    <section class="flex flex-col items-center px-8 lg:px-96">
       <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
+        class="h-screen flex flex-col items-center justify-around py-20 w-full bg-red-300"
       >
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center w-full">
           <h1 class="mobile-header-1 lg:desktop-header-1">Banking on</h1>
           <h1
             class="mobile-header-1 lg:desktop-header-1 bg-linear-to-l from-[#977DFF] via-[#0033FF] to-[#0600AB] font-medium! pb-2 bg-clip-text w-fit text-transparent"
@@ -28,13 +28,13 @@
 
         <div class="mt-12 flex flex-col items-center gap-4">
           <p
-            class="mobile-subheader-2 lg:desktop-subheader-2 max-w-120 text-center"
+            class="mobile-subheader-2 lg:desktop-subheader-2 max-w-80 lg:max-w-120 text-center"
           >
             Learn about AI within the banking landscape.
           </p>
           <!-- link to next section for auto scroll -->
           <a
-            href="#"
+            href="#project-overview"
             class="flex flex-row p-1 pl-2 border-cta-primary w-fit border-2 rounded-xl"
           >
             <p
@@ -45,18 +45,21 @@
 
             <img
               src="assets/downArrow.svg"
-              class="min-h-full p-1.5 pr-0 object-cover"
+              class="min-h-full p-.5 pr-0 object-cover"
             />
           </a>
         </div>
       </section>
       <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
+        id="project-overview"
+        class="min-h-screen h-fit flex flex-col items-center justify-around py-20"
       >
-        <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
+        <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
           Project Overview
         </h2>
-        <div class="flex flex-col lg:flex-row gap-4 lg:gap-24">
+        <div
+          class="flex flex-col lg:flex-row gap-8 lg:gap-24 max-w-80 lg:max-w-fit"
+        >
           <div>
             <h3
               class="mobile-subheader-3 lg:desktop-subheader-3 text-t-tertiary"
@@ -85,11 +88,9 @@
           </div>
         </div>
       </section>
-      <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
-      >
+      <section class="min-h-screen h-fit flex flex-col items-center justify-around py-20">
         <div class="flex flex-col gap-4">
-          <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
+          <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
             Artificial Intelligence is Everywhere
           </h2>
           <p class="mobile-subheader-2 lg:desktop-subheader-2">
@@ -102,23 +103,19 @@
             Visualization 1 - Hover over each point for more info!
           </p>
           <!-- vizualization 1 goes here -->
-          <div id="viz-1" class="min-w-220 min-h-100 rounded-xl"></div>
+          <div id="viz-1" class="w-full max-w-3xl rounded-xl"></div>
         </div>
       </section>
-      <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
-      >
-        <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
+      <section class="min-h-screen h-fit flex flex-col items-center justify-around py-20">
+        <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
           The (Short) History of AI in Banking
         </h2>
         <!-- timeline go here -->
         <div></div>
       </section>
-      <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
-      >
+      <section class="min-h-screen h-fit flex flex-col items-center justify-around py-20">
         <div class="flex flex-col gap-4">
-          <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
+          <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
             Performance of Banks with AI
           </h2>
           <p class="mobile-subheader-2 lg:desktop-subheader-2">
@@ -134,17 +131,15 @@
           <!-- vizualization 2 goes here -->
           <!-- <div id="viz-2"></div> -->
           <div
-            class="min-w-220 min-h-100 bg-grey rounded-xl flex items-center justify-center"
+            class="min-h-100 bg-grey rounded-xl flex items-center justify-center"
           >
             <p class="mobile-subheader-2 lg:desktop-header-2">VIZ GOES HERE</p>
           </div>
         </div>
       </section>
-      <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
-      >
+      <section class="min-h-screen h-fit flex flex-col items-center justify-around py-20">
         <div class="flex flex-col gap-4">
-          <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
+          <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
             Different Types of AI Integration
           </h2>
           <p class="mobile-subheader-2 lg:desktop-subheader-2">
@@ -160,17 +155,15 @@
           <!-- vizualization 3 goes here -->
           <!-- <div id="viz-3"></div> -->
           <div
-            class="min-w-220 min-h-100 bg-grey rounded-xl flex items-center justify-center"
+            class="min-h-100 bg-grey rounded-xl flex items-center justify-center"
           >
             <p class="mobile-subheader-2 lg:desktop-header-2">VIZ GOES HERE</p>
           </div>
         </div>
       </section>
-      <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
-      >
+      <section class="min-h-screen h-fit flex flex-col items-center justify-around py-20">
         <div class="flex flex-col gap-4">
-          <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
+          <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
             AI in Banking, Across the Globe
           </h2>
           <p class="mobile-subheader-2 lg:desktop-subheader-2">
@@ -185,16 +178,14 @@
           <!-- vizualization 4 goes here -->
           <!-- <div id="viz-4"></div> -->
           <div
-            class="min-w-220 min-h-100 bg-grey rounded-xl flex items-center justify-center"
+            class="min-h-100 bg-grey rounded-xl flex items-center justify-center"
           >
             <p class="mobile-subheader-2 lg:desktop-header-2">VIZ GOES HERE</p>
           </div>
         </div>
       </section>
-      <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
-      >
-        <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
+      <section class="min-h-screen h-fit flex flex-col items-center justify-around py-20">
+        <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
           Why is this important?
         </h2>
         <div>
@@ -204,10 +195,8 @@
           </div>
         </div>
       </section>
-      <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
-      >
-        <h2 class="mobile-subheader-1 lg:desktop-subheader-1">Thank You!</h2>
+      <section class="min-h-screen h-fit flex flex-col items-center justify-around py-20">
+        <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">Thank You!</h2>
         <div class="flex flex-col gap-4">
           <h3 class="mobile-subheader-3 lg:desktop-subheader-3">
             Resources for Further Learning
