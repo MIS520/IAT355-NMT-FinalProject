@@ -1,0 +1,39 @@
+Bank,Region,AI Rank,Use Case,Category,Internal/External
+JPMorganChase,USA,1,LLM Suite,Productivity & Automation,Internal
+JPMorganChase,USA,1,Fraud Prevention AI,Risk & Fraud,Internal
+Capital One,USA,2,Chat Concierge,Customer Experience,External
+Capital One,USA,2,Agent Servicing Tool,Customer Experience,External
+Capital One,USA,2,Databolt tokenization,Operations & Infrastructure,Internal
+Royal Bank of Canada,Canada,3,ATOM (Personalized Solutions),Customer Experience,External
+Royal Bank of Canada,Canada,3,NOMI Forecast (Personal Finance),Customer Experience,External
+Royal Bank of Canada,Canada,3,Lumina (Platform Engineering),Operations & Infrastructure,Internal
+Royal Bank of Canada,Canada,3,Aiden (Capital Markets),Capital Markets & Research,Internal
+CommBank,APAC,4,Payment disupute resolution,Customer Experience,External
+CommBank,APAC,4,Project Coral (code),Operations & Infrastructure,Internal
+CommBank,APAC,4,Synthetic customer personas,Capital Markets & Research,Internal
+Morgan Stanley,USA,5,AI@MS Debrief (meeting summaries),Productivity & Automation,Internal
+Morgan Stanley,USA,5,AskResearch GPT,Capital Markets & Research,Internal
+Morgan Stanley,USA,5,DevGen.AI (legacy code review),Operations & Infrastructure,Internal
+UBS,Europe,7,UBS Red (Client Advisor),Customer Experience,External
+Goldman Sachs,USA,9,GS AI Assistant,Productivity & Automation,Internal
+Goldman Sachs,USA,9,GitHub CoPilot,Productivity & Automation,Internal
+Goldman Sachs,USA,9,Legend AI Query tool,Capital Markets & Research,Internal
+Goldman Sachs,USA,9,IPO drafting tool,Capital Markets & Research,Internal
+Goldman Sachs,USA,9,Devin (autonomous coding agent),Operations & Infrastructure,Internal
+Bank of America,USA,10,Erica for Employees,Productivity & Automation,Internal
+Bank of America,USA,10,ask MERRILL,Customer Experience,External
+Bank of America,USA,10,ask PRIVATEBANK,Customer Experience,External
+BNP Paribas,France,11,LLM Suite,Operations & Infrastructure,Internal
+BNP Paribas,France,11,Multilingual document search,Productivity & Automation,Internal
+BNP Paribas,France,11,Automated content generation,Productivity & Automation,Internal
+BBVA,Europe,14,Bias stress test for GenAI,Risk & Fraud,Internal
+Lloyds Banking Group,UK ,15,Athena (CS Hub),Customer Experience,External
+Lloyds Banking Group,UK ,15,Global Correlation Engine (cybersecurity),Risk & Fraud,Internal
+Santander,Europe,21,ChatGPT Enterprise,Productivity & Automation,Internal
+Group BPCE,France,25,MAiA Internal AI Portal,Productivity & Automation,Internal
+Charles Schwab,USA,35,Schwab Knowledge Assistant,Customer Experience,External
+Ally Financial ,USA ,N/A,Ally.ai enterprise platform,Operations & Infrastructure,Internal
+Ally Financial ,USA ,N/A,Digital Avatar Assistant,Customer Experience,External
+Bankinter,Europe,N/A,Dahlia (Wealth Management),Customer Experience,External
+AIB,Europe,N/A,Microsoft Copilot ,Productivity & Automation,Internal
+AIB,Europe,N/A,Abi (digital assistant),Customer Experience,External
