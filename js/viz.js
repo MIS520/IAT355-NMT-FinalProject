@@ -1,8 +1,9 @@
 async function fetchData() {
   const useCasesLong = await d3.csv("data/IAT355_Final_Proj_Dataset(Uses Cases) - Long.csv", d3.autoType);
+  const useCases = await d3.csv("data/IAT_355_Final_Proj_Dataset(Use Cases).csv", d3.autoType);
   const evidentAIRanks = await d3.csv("data/IAT_355_Final_Proj_Dataset(Evident AI - Oct) - IAT_355_Final_Proj_Dataset(Evident AI - Oct.csv", d3.autoType);
   const financials = await d3.csv("data/IAT_355_Final_Proj_Dataset(Fin - IAT_355_Final_Proj_Dataset(Fin (1).csv", d3.autoType);
-  return { useCasesLong, evidentAIRanks, financials };
+  return { useCasesLong, useCases, evidentAIRanks, financials };
 }
 
 function createViz1(useCasesLong) {
@@ -76,9 +77,157 @@ function createViz1(useCasesLong) {
   vegaEmbed("#viz-1", spec, { actions: false });
 }
 
+function createVizRegions(useCases) {
+  // Strip BOM/non-ASCII characters from Region field (raw CSV has "UK﻿", "USA﻿")
+  const cleaned = useCases.map((d) => ({
+    ...d,
+    Region: d.Region.trim().replace(/[^\x20-\x7E]/g, ""),
+  }));
+
+  const regionSort = ["USA", "Europe", "UK", "Canada", "France", "APAC"];
+  const categorySort = [
+    "Customer Experience",
+    "Productivity & Automation",
+    "Operations & Infrastructure",
+    "Capital Markets & Research",
+    "Risk & Fraud",
+  ];
+
+  const axisStyle = {
+    labelColor: "#1F2937",
+    titleColor: "#1F2937",
+    domainColor: "#9CA3AF",
+    tickColor: "#9CA3AF",
+  };
+
+  const spec = {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    width: 560,
+    height: 300,
+    data: { values: cleaned },
+    layer: [
+      {
+        mark: { type: "rect", cornerRadius: 6 },
+        encoding: {
+          x: {
+            field: "Region",
+            type: "nominal",
+            sort: regionSort,
+            axis: { ...axisStyle, title: "Region", labelAngle: 0 },
+          },
+          y: {
+            field: "Category",
+            type: "nominal",
+            sort: categorySort,
+            axis: { ...axisStyle, title: null },
+          },
+          color: {
+            aggregate: "count",
+            type: "quantitative",
+            scale: { range: ["#DDD8FF", "#6B5CE7", "#0600AB"] },
+            legend: {
+              labelColor: "#1F2937",
+              titleColor: "#1F2937",
+              title: "Use Cases",
+            },
+          },
+          tooltip: [
+            { field: "Region", type: "nominal" },
+            { field: "Category", type: "nominal" },
+            { aggregate: "count", title: "Use Cases", type: "quantitative" },
+          ],
+        },
+      },
+      {
+        mark: { type: "text", fontSize: 15, fontWeight: "bold" },
+        encoding: {
+          x: { field: "Region", type: "nominal", sort: regionSort },
+          y: { field: "Category", type: "nominal", sort: categorySort },
+          text: { aggregate: "count", type: "quantitative" },
+          color: {
+            condition: { test: "datum['count'] >= 3", value: "white" },
+            value: "#1F2937",
+          },
+        },
+      },
+    ],
+    background: "transparent",
+    config: {
+      view: { stroke: "transparent" },
+    },
+  };
+
+  vegaEmbed("#viz-regions", spec, { actions: false });
+}
+
+function createVizUseCases(useCases) {
+  const cleaned = useCases
+    .filter((d) => d["Internal/External"])
+    .map((d) => ({
+      ...d,
+      Region: d.Region.trim().replace(/[^\x20-\x7E]/g, ""),
+      Bank: d.Bank.trim().replace(/[^\x20-\x7E]/g, ""),
+    }));
+
+  const axisStyle = {
+    labelColor: "#1F2937",
+    titleColor: "#1F2937",
+    domainColor: "#9CA3AF",
+    tickColor: "#9CA3AF",
+  };
+
+  const spec = {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    width: 560,
+    height: 300,
+    data: { values: cleaned },
+    mark: { type: "bar", cornerRadiusTopRight: 4, cornerRadiusBottomRight: 4 },
+    encoding: {
+      y: {
+        field: "Category",
+        type: "nominal",
+        sort: "-x",
+        axis: { ...axisStyle, title: null, labelLimit: 200 },
+      },
+      x: {
+        aggregate: "count",
+        type: "quantitative",
+        title: "Number of Use Cases",
+        axis: { ...axisStyle, gridColor: "#E5E7EB" },
+      },
+      color: {
+        field: "Internal/External",
+        type: "nominal",
+        scale: {
+          domain: ["Internal", "External"],
+          range: ["#3A4FE8", "#977DFF"],
+        },
+        legend: {
+          labelColor: "#1F2937",
+          titleColor: "#1F2937",
+          title: "Audience",
+        },
+      },
+      tooltip: [
+        { field: "Category", type: "nominal" },
+        { field: "Internal/External", type: "nominal", title: "Audience" },
+        { aggregate: "count", type: "quantitative", title: "Use Cases" },
+      ],
+    },
+    background: "transparent",
+    config: {
+      view: { stroke: "transparent" },
+    },
+  };
+
+  vegaEmbed("#viz-usecases", spec, { actions: false });
+}
+
 async function init() {
-  const { useCasesLong, evidentAIRanks, financials } = await fetchData();
+  const { useCasesLong, useCases, evidentAIRanks, financials } = await fetchData();
   createViz1(useCasesLong);
+  createVizUseCases(useCases);
+  createVizRegions(useCases);
 }
 
 init();
