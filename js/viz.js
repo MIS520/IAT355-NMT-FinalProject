@@ -12,8 +12,9 @@ function createViz1(useCasesLong) {
 
   const spec = {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-    width: 700,
+    width: "container",
     height: 360,
+    padding: { top: 64, bottom: 24 },
     data: { values: cleaned },
     mark: { type: "bar", cornerRadiusTopLeft: 4, cornerRadiusTopRight: 4 },
     encoding: {
@@ -58,8 +59,13 @@ function createViz1(useCasesLong) {
           labelColor: "#1F2937",
           titleColor: "#1F2937",
           title: "AI Category",
+          orient: "top",
+          columns: 1,
+          columnPadding: 0,
+          padding: 0,
         },
       },
+
       tooltip: [
         { field: "Region", type: "nominal" },
         { field: "Category", type: "nominal" },
@@ -231,4 +237,3 @@ async function init() {
 }
 
 init();
-
