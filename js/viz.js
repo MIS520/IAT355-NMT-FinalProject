@@ -7,7 +7,6 @@ async function fetchData() {
 }
 
 function createViz1(useCasesLong) {
-  // Trim whitespace from Region values (CSV has "UK " with trailing space)
   const cleaned = useCasesLong.map((d) => ({ ...d, Region: d.Region.trim() }));
 
   const spec = {
@@ -65,7 +64,6 @@ function createViz1(useCasesLong) {
           padding: 0,
         },
       },
-
       tooltip: [
         { field: "Region", type: "nominal" },
         { field: "Category", type: "nominal" },
@@ -84,7 +82,6 @@ function createViz1(useCasesLong) {
 }
 
 function createVizRegions(useCases) {
-  // Strip BOM/non-ASCII characters from Region field (raw CSV has "UK﻿", "USA﻿")
   const cleaned = useCases.map((d) => ({
     ...d,
     Region: d.Region.trim().replace(/[^\x20-\x7E]/g, ""),
@@ -108,7 +105,7 @@ function createVizRegions(useCases) {
 
   const spec = {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-    width: 560,
+    width: "container",
     height: 300,
     data: { values: cleaned },
     layer: [
@@ -135,6 +132,9 @@ function createVizRegions(useCases) {
               labelColor: "#1F2937",
               titleColor: "#1F2937",
               title: "Use Cases",
+              orient: "top",
+              direction: "horizontal",
+              gradientLength: 120,
             },
           },
           tooltip: [
@@ -184,7 +184,7 @@ function createVizUseCases(useCases) {
 
   const spec = {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-    width: 560,
+    width: "container",
     height: 300,
     data: { values: cleaned },
     mark: { type: "bar", cornerRadiusTopRight: 4, cornerRadiusBottomRight: 4 },
@@ -212,6 +212,10 @@ function createVizUseCases(useCases) {
           labelColor: "#1F2937",
           titleColor: "#1F2937",
           title: "Audience",
+          orient: "top",
+          direction: "horizontal",
+          columnPadding: 16,
+          padding: 0,
         },
       },
       tooltip: [

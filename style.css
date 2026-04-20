@@ -1,5 +1,37 @@
 @import "tailwindcss";
 
+body,
+a {
+  cursor: none;
+}
+
+.custom-cursor {
+  cursor: none;
+  width: 15px;
+  height: 15px;
+  background: #3054f1;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.1s ease-in-out,
+    height 0.1s ease-in-out;
+}
+
+body:has(a:hover) .custom-cursor,
+body:has(button:hover) .custom-cursor {
+  cursor: none;
+  width: 25px;
+  height: 25px;
+  background: #3053f130;
+  border: 2px solid #3053f1;
+  transition:
+    width 0.1s ease-in-out,
+    height 0.1s ease-in-out;
+}
+
 /* === MOBILE === */
 @utility mobile-header-1 {
   font-size: 48px;
