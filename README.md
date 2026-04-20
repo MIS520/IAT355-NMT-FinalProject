@@ -4,12 +4,17 @@
 
 ## Citations & Learning Resources:
 
-- ## General Website Development (HTML, CSS, JS)
+- General Website Development (HTML, CSS, JS)
+  - Mozilla. Intersection Observer API. https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+  - Mozilla. Use data attributes. https://developer.mozilla.org/en-US/docs/Web/HTML/How_to/Use_data_attributes
+  - Tailwind Labs. TailwindCSS Documentation. https://tailwindcss.com/docs
+  - W3 Schools. CSS Borders. https://www.w3schools.com/css/css_border.asp
+  - W3 Schools. CSS Transitions. https://www.w3schools.com/css//css3_transitions.asp
+  - W3 Schools. HTML `<a>` target Attribute. https://www.w3schools.com/tags/att_a_target.asp
 
 - ## Visualization Development
 
 - Topic Research
-  
   - Capitol Technology University. (2025, Jan 10). How Banks & Financial Industry are Navigating the Artificial Intelligence Landscape. https://www.captechu.edu/blog/ai-in-the-banking-and-financial-industry#:~:text=AI%20has%20been%20a%20part,extend%20credit%20to%20underserved%20populations
 
   - Evident - Banking AI index. Evident Insights. (2025, October). https://evidentinsights.com/ai-index/
