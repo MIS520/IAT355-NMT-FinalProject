@@ -1,23 +1,67 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth transition duration-150 ease-in-out">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Banking On Intelligence</title>
+    <link rel="icon" type="image/x-icon" href="/assets/nmt-favicon-round.svg" />
     <link rel="stylesheet" href="output.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
+
   <body class="bg-background text-t-primary">
-    <!-- default web nav bar and side menu -->
-    <nav class="absolute w-fit left-12 top-12">
-      <img src="assets/nmtLogo.svg" />
+    <!-- div for the custom cursor  -->
+    <!-- this uses a div to make a circle shape that follows the users mouse position -->
+    <div class="custom-cursor"></div>
+
+    <!-- nav bar for desktop sizing -->
+    <nav
+      class="fixed w-20 lg:w-fit lg:left-12 lg:top-12 top-8 left-8 z-10 lg:flex-col"
+    >
+      <!-- logo which also functions as a clickable link to return to the top of the page -->
+      <a href="#hero"><img src="assets/nmtLogo.svg" alt="logo" /></a>
+      <div class="flex-col flex-nowrap my-12 gap-3 hidden lg:flex">
+        <a
+          href="#hero"
+          class="text-bg-black hover:text-cta-primary mobile-body-2 lg:desktop-body-2 transition-colors duration-1500 ease-in-out"
+          >The Beginning</a
+        >
+        <a
+          href="#project-overview"
+          class="text-bg-black hover:text-cta-primary mobile-body-2 lg:desktop-body-2 transition-colors duration-150 ease-in-out"
+          >Project Overview</a
+        >
+        <a
+          href="#timeline"
+          class="text-bg-black hover:text-cta-primary mobile-body-2 lg:desktop-body-2 transition-colors duration-150 ease-in-out"
+          >Timeline</a
+        >
+        <a
+          href="#vizualizations"
+          class="text-bg-black hover:text-cta-primary mobile-body-2 lg:desktop-body-2 transition-colors duration-150 ease-in-out"
+          >AI in the Banking Industry</a
+        >
+        <a
+          href="#conclusion"
+          class="text-bg-black hover:text-cta-primary mobile-body-2 lg:desktop-body-2 transition-colors duration-150 ease-in-out"
+          >Conclusion</a
+        >
+        <a
+          href="#sources"
+          class="text-bg-black hover:text-cta-primary mobile-body-2 lg:desktop-body-2 transition-colors duration-150 ease-in-out"
+          >Sources</a
+        >
+      </div>
     </nav>
-    <!-- nav for mobile menu -->
-    <nav></nav>
-    <section class="flex flex-col items-center">
+
+    <!-- main content -->
+    <section class="flex flex-col items-center px-8 lg:px-96">
+      <!-- hero section -->
       <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
+        id="hero"
+        class="h-screen flex flex-col items-center justify-around py-20 w-full"
       >
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center w-full">
           <h1 class="mobile-header-1 lg:desktop-header-1">Banking on</h1>
           <h1
             class="mobile-header-1 lg:desktop-header-1 bg-linear-to-l from-[#977DFF] via-[#0033FF] to-[#0600AB] font-medium! pb-2 bg-clip-text w-fit text-transparent"
@@ -28,13 +72,13 @@
 
         <div class="mt-12 flex flex-col items-center gap-4">
           <p
-            class="mobile-subheader-2 lg:desktop-subheader-2 max-w-120 text-center"
+            class="mobile-subheader-2 lg:desktop-subheader-2 max-w-80 lg:max-w-120 text-center"
           >
             Learn about AI within the banking landscape.
           </p>
           <!-- link to next section for auto scroll -->
           <a
-            href="#"
+            href="#project-overview"
             class="flex flex-row p-1 pl-2 border-cta-primary w-fit border-2 rounded-xl"
           >
             <p
@@ -45,18 +89,23 @@
 
             <img
               src="assets/downArrow.svg"
-              class="min-h-full p-1.5 pr-0 object-cover"
+              class="min-h-full p-.5 pr-0 object-cover"
             />
           </a>
         </div>
       </section>
+
+      <!-- project overview section -->
       <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
+        id="project-overview"
+        class="min-h-screen h-fit flex flex-col items-center justify-around py-20"
       >
-        <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
+        <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
           Project Overview
         </h2>
-        <div class="flex flex-col lg:flex-row gap-4 lg:gap-24">
+        <div
+          class="flex flex-col lg:flex-row gap-8 lg:gap-24 max-w-80 lg:max-w-fit"
+        >
           <div>
             <h3
               class="mobile-subheader-3 lg:desktop-subheader-3 text-t-tertiary"
@@ -64,10 +113,10 @@
               What We're Analyzing
             </h3>
             <p class="mobile-body-1 lg:desktop-body-1">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+              The following is an analysis of the top 50 banks in Evident
+              Insights’s AI index, their financial performance based on
+              available data from Yahoo Finance and the Wall Street Journal, and
+              supplemented with historical data from company profiles in Forbes.
             </p>
           </div>
           <div>
@@ -77,24 +126,34 @@
               Our Learning Goals
             </h3>
             <p class="mobile-body-1 lg:desktop-body-1">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+              We aim to explore how the integration of artificial intelligence
+              has affected the banking industry, both internally (development
+              processes) and externally (customer perceptions and satisfaction).
             </p>
           </div>
         </div>
       </section>
+
+      <!-- ai in different industries section -->
       <section
-        class="min-h-screen flex flex-col items-center justify-around py-20 w-300"
+        id="viz1Container"
+        class="min-h-screen h-fit w-full flex flex-col items-start justify-around py-20"
       >
         <div class="flex flex-col gap-4">
-          <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
+          <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
             Artificial Intelligence is Everywhere
           </h2>
-          <p class="mobile-subheader-2 lg:desktop-subheader-2">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the...
+          <p class="mobile-body-2 lg:desktop-body-2 mb-4 lg:mb-8 max-w-200">
+            Every major bank now runs AI in production, yet their
+            implementations reveal fundamentally different strategies. Among the
+            top 50 banks globally, AI deployment concentrates in five core
+            categories: Customer Experience (CX) leads with the most use cases,
+            followed by Productivity & Automation, Operations & Infrastructure,
+            Capital Markets & Research, and Risk & Fraud detection. The US
+            dominates AI adoption with nearly 20 documented use cases, while
+            Europe and Canada show moderate integration. This geographic
+            concentration raises a central question: what determines how banks
+            choose to deploy AI?
           </p>
         </div>
         <div>
@@ -105,21 +164,131 @@
           <div id="viz-radar"></div>
         </div>
       </section>
+
+      <!-- timeline section -->
       <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
+        id="timeline"
+        class="relative min-h-screen h-fit flex flex-col items-start w-full justify-around py-20 gap-4"
       >
-        <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
-          The (Short) History of AI in Banking
+        <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
+          The History of AI in Banking
         </h2>
-        <!-- timeline go here -->
-        <div></div>
+
+        <div class="relative flex flex-col items-center gap-12 w-full">
+          <!-- animated scrollbar which follows the user as the view the timeline -->
+          <div
+            id="timeline-bar"
+            class="absolute w-4 h-full ml-3 rounded-full bg-grey self-start pointer-events-none"
+          ></div>
+          <div
+            id="timeline-scrubber"
+            class="sticky top-[50vh] w-4 h-8 ml-3 rounded-full bg-cta-primary self-start z-2 pointer-events-none"
+          >
+            <p
+              id="scrubber-name"
+              class="text-nowrap ml-8 hidden lg:flex desktop-body-1"
+            ></p>
+          </div>
+
+          <!-- using data-years as a label for the scrubber to list the correct years -->
+          <div class="timeline-item" data-years="1950 - 1969">
+            <img />
+            <div>
+              <h3
+                class="mobile-subheader-3 lg:desktop-subheader-3 text-t-tertiary"
+              >
+                Early Automation
+              </h3>
+              <p class="mobile-body-1 lg:desktop-body-1 max-w-120">
+                The introduction of “AI” in banking was with automated processes
+                like ATMs during the 50s and 60s. This was primarily internal,
+                assisting bank employees in completing calculations and daily
+                tasks with a new level of efficiency. While different from what
+                we know as AI today, methods developed during this time, such as
+                Bayesian Statistics, laid the groundwork for the AI models of
+                today.
+              </p>
+            </div>
+          </div>
+          <div class="timeline-item" data-years="1970 - 1989">
+            <img />
+            <div>
+              <h3
+                class="mobile-subheader-3 lg:desktop-subheader-3 text-t-tertiary"
+              >
+                The Advent of AI
+              </h3>
+              <p class="mobile-body-1 lg:desktop-body-1 max-w-120">
+                The years between 1970 and 1989 were spent integrating more
+                automated processes in the customer flow, such as electronic
+                credit cards. Additionally, the 1980s saw the beginning of AI
+                development as we know it, with “over two-thirds of Fortune 1000
+                companies [developing] at least one AI project.” These systems
+                involved creating artificial neural networks to predict stock
+                market movement to optimize investing strategies, as well as
+                creating financial plans for clients based on their income
+                level. While they were not reliably effective, this proved the
+                value of AI in finance and showed promise for the years to come.
+              </p>
+            </div>
+          </div>
+          <div class="timeline-item" data-years="1990 - 2009">
+            <img />
+            <div>
+              <h3
+                class="mobile-subheader-3 lg:desktop-subheader-3 text-t-tertiary"
+              >
+                Reliable Integration
+              </h3>
+              <p class="mobile-body-1 lg:desktop-body-1 max-w-120">
+                The 1990s saw a growth in the use of AI for fraud detection and
+                prevention by financial institutions. The implementation
+                involved using AI to filter through transactions and financial
+                behaviour to look for suspicious activity. One example of this
+                is the FinCEN Artificial Intelligence System (FAIS) in 1993.
+              </p>
+            </div>
+          </div>
+          <div class="timeline-item" data-years="2010 - Today">
+            <img />
+            <div>
+              <h3
+                class="mobile-subheader-3 lg:desktop-subheader-3 text-t-tertiary"
+              >
+                Customer Facing Agents
+              </h3>
+              <p class="mobile-body-1 lg:desktop-body-1 max-w-120">
+                In today’s current scope (particularly the past 5 years), the
+                progression of AI integration has exponentially increased in
+                both internal and external fronts. Internally, generative AI is
+                being used for fraud detection, software development, and
+                financial prediction. Externally, this can be seen in online and
+                mobile banking interfaces, as AI chatbots and “digital
+                assistants” are used for customer service purposes.
+              </p>
+            </div>
+          </div>
+        </div>
+        <p
+          class="mobile-body-2 self-center lg:desktop-body-2 italic! mt-8 z-10"
+        >
+          See the
+          <a
+            href="#sources"
+            class="underline text-t-primary hover:text-t-tertiary"
+            >Sources</a
+          >
+          section for more info!
+        </p>
       </section>
+
+      <!-- performance visualization section -->
       <section
         class="flex flex-col items-center justify-around py-20 w-300"
         style="min-height:100vh; gap: 48px;"
       >
         <div class="flex flex-col gap-4">
-          <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
+          <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
             Performance of Banks with AI
           </h2>
           <p class="mobile-subheader-2 lg:desktop-subheader-2">
@@ -182,78 +351,272 @@
             <h3 class="mobile-subheader-3 lg:desktop-subheader-3" style="font-weight:300;">Operations &amp; Infrastructure</h3>
             <p class="mobile-body-1 lg:desktop-body-1">Modernizes bank tech stacks by automating code review, data security, and platform monitoring and maintenance.</p>
           </div>
+        <div>
+          <p class="mobile-subheader-3 lg:desktop-subheader-3 text-t-details">
+            Visualization 2 - Hover over each point for more info!
+          </p>
+          <!-- vizualization 2 goes here -->
+          <!-- <div id="viz-2"></div> -->
+          <div
+            class="min-h-100 bg-grey rounded-xl flex items-center justify-center"
+          >
+            <p class="mobile-subheader-2 lg:desktop-header-2">VIZ GOES HERE</p>
+          </div>
         </div>
       </section>
+
+      <!-- types of integration section -->
       <section
-        class="min-h-screen flex flex-col items-center justify-around py-20 w-300"
+        class="min-h-screen h-fit flex flex-col items-start w-full justify-around py-20"
       >
         <div class="flex flex-col gap-4">
-          <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
+          <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
+            Different Types of AI Integration
+          </h2>
+          <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8">
+            <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
+              How banks prioritized these newly tractable problems reveal
+              distinct implementation philosophies. CX applications are the most
+              prevalent with 13 use cases, addressing conversational AI
+              (chatbots), personalized recommendations, and intelligent routing.
+              These visible deployments carry risk in reputation, with failures
+              directly impacting brand perception. Productivity and automation
+              follows closely with 10 cases, streamlining internal processes
+              such as document processing, workflow optimization, and automated
+              reporting. These implementations offer lower differentiation but
+              with it, lower risk exposure.
+            </p>
+            <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
+              The internal-external distinction carries technical implications
+              beyond strategic position. External AI systems operate under
+              stricter constraints of regulatory scrutiny and explainability. A
+              customer-facing chatbot that generates incorrect information
+              erodes trust, while a fraud detection system that’s unable to
+              justify its decisions fails compliance requirements. This
+              technical risk profile explains the divergent bank strategies.
+              Organizations prioritizing customer experience accept the
+              engineering complexity of deploying AI under regulatory and
+              reputational constraints. Those focusing on operations optimize
+              for accuracy gains in controlled environments where failures
+              impose limited external costs.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <p class="mobile-subheader-3 lg:desktop-subheader-3 text-t-details">
+            Visualization 3 - Hover over each point for more info!
+          </p>
+          <!-- vizualization 3 goes here -->
+          <div id="viz-usecases" class="w-full max-w-3xl rounded-xl"></div>
+        </div>
+      </section>
+
+      <!-- banking across the globe section -->
+      <section
+        class="min-h-screen h-fit flex flex-col items-start w-full justify-around py-20"
+      >
+        <div class="flex flex-col gap-4">
+          <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
             AI in Banking, Across the Globe
           </h2>
-          <p class="mobile-subheader-2 lg:desktop-subheader-2">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the...
-          </p>
+          <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8">
+            <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
+              Regional patterns reflect distinct technical and regulatory
+              systems that shape deployment feasibility. US banks concentrate on
+              CX (5 cases), operating in markets with high digital adoption and
+              permissive AI regulation. European banks distribute investment
+              more evenly, constrained by General Data Protection Regulation
+              requirements. Canadian banks emphasize CX and Productivity within
+              smaller, more regulated markets.
+            </p>
+            <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
+              APAC banks demonstrate notable emphasis on Operations and Capital
+              Markets applications. Many bypass legacy infrastructure
+              constraints entirely, focusing on cloud-native core systems where
+              AI integration presents fewer architectural challenges. The
+              technical debt constraining Western institutions exerts less
+              influence on their deployment choices. These variations represent
+              system-level constraints that determine which AI implementations
+              are technically feasible, legally permissible, and economically
+              rational within specific contexts.
+            </p>
+          </div>
         </div>
         <div>
           <p class="mobile-subheader-3 lg:desktop-subheader-3 text-t-details">
             Visualization 4 - Hover over each point for more info!
           </p>
           <!-- vizualization 4 goes here -->
-          <div id="viz-map" class="min-w-220 rounded-xl"></div>
+          <div id="viz-regions" class="w-full max-w-3xl rounded-xl"></div>
         </div>
       </section>
+
+      <!-- conclusion section -->
       <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
+        class="h-fit flex flex-col items-start w-full justify-start py-20 gap-4"
       >
-        <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
+        <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
           Why is this important?
         </h2>
-        <div>
-          <div>
-            <img src="" alt="" />
-            <p></p>
-          </div>
+        <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8 max-w-200">
+          <p class="mobile-body-2 lg:desktop-body-2">
+            The geographic and categorical patterns in AI deployment reveal that
+            banks face different technical and regulatory constraints, leading
+            them to prioritize distinct use cases rather than following a
+            universal guideline. Successful AI deployment in banking depends not
+            on model superiority, but on strategic problem
+            selection/prioritization within institutional constraints. Banks
+            aligning implementation with their technical infrastructure,
+            regulatory environment, and competitive position show measurable
+            advantages.
+          </p>
+          <p class="mobile-body-2 lg:desktop-body-2">
+            These patterns carry implications beyond sector competition. Banks
+            process trillions in transactions, determine credit access for
+            billions, and influence global economic stability. The AI systems
+            that deploy shape tangible outcomes at scale. Credit models trained
+            on historical data risk perpetuating bias, fraud detection systems
+            may disproportionately flag specific populations, or customer
+            service AI may lack appropriate escalation and cause compliance
+            exposure.
+          </p>
+          <p class="mobile-body-2 lg:desktop-body-2">
+            This environment provides a high-stakes case study in AI deployment
+            when systems are complex and have significant consequences. The
+            patterns observed here anticipate challenges every sector faces as
+            AI transitions from experimental deployment to production
+            infrastructure shaping millions of decisions daily.
+          </p>
         </div>
       </section>
+
+      <!-- sources section -->
       <section
-        class="h-screen flex flex-col items-center justify-around py-20 w-300"
+        id="sources"
+        class="min-h-screen h-fit flex flex-col w-full items-start justify-around gap-12 py-20"
       >
         <h2 class="mobile-subheader-1 lg:desktop-subheader-1">Thank You!</h2>
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-4 w-full items-start">
           <h3 class="mobile-subheader-3 lg:desktop-subheader-3">
             Resources for Further Learning
           </h3>
-          <ul class="list-disc pl-5 flex flex-col gap-2">
+          <ul class="w-full flex flex-col gap-4 max-w-100">
             <li class="">
               <p class="mobile-body-1 lg:desktop-body-1">
                 Evident Insights AI Index
               </p>
               <a
-                class="text-t-details mobile-body-1 lg:desktop-body-1"
+                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                target="_blank"
                 href="https://evidentinsights.com/ai-index/"
-                >https://evidentinsights.com/ai-index/</a
+                >Link to Website -></a
               >
             </li>
             <li class="">
               <p class="mobile-body-1 lg:desktop-body-1">
-                Evident Insights AI Index
+                SBS - Core banking: How AI can transform legacy systems
               </p>
               <a
-                class="text-t-details mobile-body-1 lg:desktop-body-1"
-                href="https://evidentinsights.com/ai-index/"
-                >https://evidentinsights.com/ai-index/</a
+                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                target="_blank"
+                href="https://sbs-software.com/insights/core-banking/core-banking-ai-transform-legacy-systems/#:~:text=However%2C%20few%20(if%20any),are%20the%20future%20of%20banking"
+                >Link to Website -></a
               >
             </li>
             <li class="">
               <p class="mobile-body-1 lg:desktop-body-1">
-                Evident Insights AI Index
+                The Economist: Intelligence Unit - Forging new frontiers:
+                advanced technologies will revolutionise banking
               </p>
               <a
-                class="text-t-details mobile-body-1 lg:desktop-body-1"
-                href="https://evidentinsights.com/ai-index/"
-                >https://evidentinsights.com/ai-index/</a
+                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                target="_blank"
+                href="https://www.temenos.com/wp-content/uploads/2020/05/EIU-2020-report-2020-May-27.pdf"
+                >Link to PDF -></a
+              >
+            </li>
+            <li class="">
+              <p class="mobile-body-1 lg:desktop-body-1">
+                IBM - Accelerating AI & Innovation: The future of banking
+                depends on core modernization
+              </p>
+              <a
+                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                target="_blank"
+                href="https://www.ibm.com/think/insights/core-banking-ai-future"
+                >Link to Website -></a
+              >
+            </li>
+            <li class="">
+              <p class="mobile-body-1 lg:desktop-body-1">
+                MIT Management - Inside the Bank: How Artificial Intelligence is
+                Changing Banking Operations
+              </p>
+              <a
+                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                target="_blank"
+                href="https://executive.mit.edu/inside-the-bank-how-artificial-intelligence-is-changing-banking-operations.html"
+                >Link to Website -></a
+              >
+            </li>
+            <li class="">
+              <p class="mobile-body-1 lg:desktop-body-1">
+                Utilization of artificial intelligence in the banking sector: a
+                systematic literature review
+              </p>
+              <a
+                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                target="_blank"
+                href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9366789/"
+                >Link to Website -></a
+              >
+            </li>
+            <li class="">
+              <p class="mobile-body-1 lg:desktop-body-1">
+                The Five-Year Evolution of AI in Banking: Promise, Progress, and
+                Hidden Pitfalls
+              </p>
+              <a
+                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                target="_blank"
+                href="https://www.linkedin.com/pulse/five-year-evolution-ai-banking-promise-progress-hidden-jovan-njegic-uep2e/ "
+                >Link to Website -></a
+              >
+            </li>
+            <li class="">
+              <p class="mobile-body-1 lg:desktop-body-1">
+                How Banks & Financial Industry are Navigating the Artificial
+                Intelligence Landscape
+              </p>
+              <a
+                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                target="_blank"
+                href="https://www.captechu.edu/blog/ai-in-the-banking-and-financial-industry#:~:text=AI%20has%20been%20a%20part,extend%20credit%20to%20underserved%20populations"
+                >Link to Website -></a
+              >
+            </li>
+            <li class="">
+              <p class="mobile-body-1 lg:desktop-body-1">
+                The History of AI in Finance
+              </p>
+              <a
+                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                target="_blank"
+                href="https://medium.com/district3/the-history-of-ai-in-finance-7a03fcb4a498"
+                >Link to Website -></a
+              >
+            </li>
+            <li class="">
+              <p class="mobile-body-1 lg:desktop-body-1">
+                Banks have used A.I. for decades—but now it’s going to take off
+                like never before
+              </p>
+              <a
+                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                target="_blank"
+                href="https://fortune.com/2023/07/21/ai-finance-history-regressions-generative-artificial-intelligence-pagaya-kasisto/"
+                >Link to Website -></a
               >
             </li>
           </ul>
@@ -266,5 +629,48 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
     <script src="js/viz.js"></script>
+    <!-- script for interactions on this page (cursor, timeline, etc) -->
+    <script>
+      // select the custom cursor div
+      const cursor = document.querySelector(".custom-cursor");
+
+      // add an event listener to listen for changes in mouse position, and make the div follow the mouse
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+      });
+
+      // select all elements with class name timeline-item
+      const items = document.querySelectorAll("#timeline .timeline-item");
+      // select the element with the id scrubber-name
+      const scrubberName = document.querySelector("#scrubber-name");
+      // assign the value of the initial timeline-items data-years label to the scrubberName by default
+      scrubberName.textContent = items[0].dataset.years;
+
+      // use an intersection observer to detect when the user has scrolled to each timeline-item element
+      // for each entry make opacity 50%, but the current entry's opacity 100%
+      // then set scrubberName to match the data-years of the current section
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              items.forEach((elem) => (elem.style.opacity = "0.5"));
+              entry.target.style.opacity = "1";
+
+              scrubberName.textContent = entry.target.dataset.years;
+            }
+          });
+        },
+
+        // controls the entry area for detecting changes with intersection observer
+        // -45% from top and -45% from bottom means it looks for the current element in the middle of the screen
+        {
+          rootMargin: "-45% 0px -45% 0px",
+          threshold: 0,
+        },
+      );
+      // observe each timeline-item
+      items.forEach((item) => observer.observe(item));
+    </script>
   </body>
 </html>
