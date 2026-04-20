@@ -4,17 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Banking On Intelligence</title>
+    <link rel="icon" type="image/x-icon" href="/assets/nmt-favicon-round.svg" />
     <link rel="stylesheet" href="output.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <!-- <header class="fixed">Hello</header> -->
 
   <body class="bg-background text-t-primary">
-    <!-- default web nav bar and side menu -->
+    <!-- div for the custom cursor  -->
+    <!-- this uses a div to make a circle shape that follows the users mouse position -->
     <div class="custom-cursor"></div>
+
+    <!-- nav bar for desktop sizing -->
     <nav
       class="fixed w-20 lg:w-fit lg:left-12 lg:top-12 top-8 left-8 z-10 lg:flex-col"
     >
+      <!-- logo which also functions as a clickable link to return to the top of the page -->
       <a href="#hero"><img src="assets/nmtLogo.svg" alt="logo" /></a>
       <div class="flex-col flex-nowrap my-12 gap-3 hidden lg:flex">
         <a
@@ -38,9 +42,9 @@
           >AI in the Banking Industry</a
         >
         <a
-          href="#trends"
+          href="#conclusion"
           class="text-bg-black hover:text-cta-primary mobile-body-2 lg:desktop-body-2 transition-colors duration-150 ease-in-out"
-          >Trends</a
+          >Conclusion</a
         >
         <a
           href="#sources"
@@ -49,10 +53,12 @@
         >
       </div>
     </nav>
-    <!-- nav for mobile menu -->
-    <nav></nav>
-    <section id="hero" class="flex flex-col items-center px-8 lg:px-96">
+
+    <!-- main content -->
+    <section class="flex flex-col items-center px-8 lg:px-96">
+      <!-- hero section -->
       <section
+        id="hero"
         class="h-screen flex flex-col items-center justify-around py-20 w-full"
       >
         <div class="flex flex-col items-center w-full">
@@ -88,6 +94,8 @@
           </a>
         </div>
       </section>
+
+      <!-- project overview section -->
       <section
         id="project-overview"
         class="min-h-screen h-fit flex flex-col items-center justify-around py-20"
@@ -125,15 +133,17 @@
           </div>
         </div>
       </section>
+
+      <!-- ai in different industries section -->
       <section
         id="viz1Container"
-        class="min-h-screen h-fit flex flex-col items-center justify-around py-20"
+        class="min-h-screen h-fit w-full flex flex-col items-start justify-around py-20"
       >
         <div class="flex flex-col gap-4">
           <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
             Artificial Intelligence is Everywhere
           </h2>
-          <p class="mobile-body-2 lg:desktop-body-2 mb-4 lg:mb-8">
+          <p class="mobile-body-2 lg:desktop-body-2 mb-4 lg:mb-8 max-w-200">
             Every major bank now runs AI in production, yet their
             implementations reveal fundamentally different strategies. Among the
             top 50 banks globally, AI deployment concentrates in five core
@@ -154,29 +164,33 @@
           <div id="viz-1" class="w-full max-w-3xl rounded-xl"></div>
         </div>
       </section>
+
+      <!-- timeline section -->
       <section
         id="timeline"
-        class="relative min-h-screen h-fit flex flex-col items-center justify-around py-20 gap-4"
+        class="relative min-h-screen h-fit flex flex-col items-start w-full justify-around py-20 gap-4"
       >
         <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
           The History of AI in Banking
         </h2>
 
-        <div class="relative flex flex-col items-end gap-12 w-full">
+        <div class="relative flex flex-col items-center gap-12 w-full">
+          <!-- animated scrollbar which follows the user as the view the timeline -->
           <div
             id="timeline-bar"
-            class="absolute w-4 h-full rounded-full bg-grey self-start pointer-events-none"
+            class="absolute w-4 h-full ml-3 rounded-full bg-grey self-start pointer-events-none"
           ></div>
           <div
             id="timeline-scrubber"
-            class="sticky top-[50vh] w-4 h-8 rounded-full bg-cta-primary self-start z-2 pointer-events-none"
+            class="sticky top-[50vh] w-4 h-8 ml-3 rounded-full bg-cta-primary self-start z-2 pointer-events-none"
           >
             <p
-              id="scrubberName"
+              id="scrubber-name"
               class="text-nowrap ml-8 hidden lg:flex desktop-body-1"
             ></p>
           </div>
 
+          <!-- using data-years as a label for the scrubber to list the correct years -->
           <div class="timeline-item" data-years="1950 - 1969">
             <img />
             <div>
@@ -255,7 +269,9 @@
             </div>
           </div>
         </div>
-        <p class="mobile-body-2 lg:desktop-body-2 italic! mt-8 z-10">
+        <p
+          class="mobile-body-2 self-center lg:desktop-body-2 italic! mt-8 z-10"
+        >
           See the
           <a
             href="#sources"
@@ -265,8 +281,10 @@
           section for more info!
         </p>
       </section>
+
+      <!-- performance visualization section -->
       <section
-        class="min-h-screen h-fit flex flex-col items-center justify-around py-20"
+        class="min-h-screen h-fit flex flex-col items-start w-full justify-around py-20"
       >
         <div class="flex flex-col gap-4">
           <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
@@ -291,15 +309,17 @@
           </div>
         </div>
       </section>
+
+      <!-- types of integration section -->
       <section
-        class="min-h-screen h-fit flex flex-col items-center justify-around py-20"
+        class="min-h-screen h-fit flex flex-col items-start w-full justify-around py-20"
       >
         <div class="flex flex-col gap-4">
           <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
             Different Types of AI Integration
           </h2>
           <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8">
-            <p class="mobile-body-2 lg:desktop-body-2">
+            <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
               How banks prioritized these newly tractable problems reveal
               distinct implementation philosophies. CX applications are the most
               prevalent with 13 use cases, addressing conversational AI
@@ -311,7 +331,7 @@
               reporting. These implementations offer lower differentiation but
               with it, lower risk exposure.
             </p>
-            <p class="mobile-body-2 lg:desktop-body-2">
+            <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
               The internal-external distinction carries technical implications
               beyond strategic position. External AI systems operate under
               stricter constraints of regulatory scrutiny and explainability. A
@@ -336,15 +356,17 @@
           <div id="viz-usecases" class="w-full max-w-3xl rounded-xl"></div>
         </div>
       </section>
+
+      <!-- banking across the globe section -->
       <section
-        class="min-h-screen h-fit flex flex-col items-center justify-around py-20"
+        class="min-h-screen h-fit flex flex-col items-start w-full justify-around py-20"
       >
         <div class="flex flex-col gap-4">
           <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
             AI in Banking, Across the Globe
           </h2>
           <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8">
-            <p class="mobile-body-2 lg:desktop-body-2">
+            <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
               Regional patterns reflect distinct technical and regulatory
               systems that shape deployment feasibility. US banks concentrate on
               CX (5 cases), operating in markets with high digital adoption and
@@ -353,7 +375,7 @@
               requirements. Canadian banks emphasize CX and Productivity within
               smaller, more regulated markets.
             </p>
-            <p class="mobile-body-2 lg:desktop-body-2">
+            <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
               APAC banks demonstrate notable emphasis on Operations and Capital
               Markets applications. Many bypass legacy infrastructure
               constraints entirely, focusing on cloud-native core systems where
@@ -374,59 +396,59 @@
           <div id="viz-regions" class="w-full max-w-3xl rounded-xl"></div>
         </div>
       </section>
+
+      <!-- conclusion section -->
       <section
-        class="min-h-screen h-fit flex flex-col items-center justify-around py-20"
+        class="h-fit flex flex-col items-start w-full justify-start py-20 gap-4"
       >
         <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
           Why is this important?
         </h2>
-        <div>
-          <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8">
-            <p class="mobile-body-2 lg:desktop-body-2">
-              The geographic and categorical patterns in AI deployment reveal
-              that banks face different technical and regulatory constraints,
-              leading them to prioritize distinct use cases rather than
-              following a universal guideline. Successful AI deployment in
-              banking depends not on model superiority, but on strategic problem
-              selection/prioritization within institutional constraints. Banks
-              aligning implementation with their technical infrastructure,
-              regulatory environment, and competitive position show measurable
-              advantages.
-            </p>
-            <p class="mobile-body-2 lg:desktop-body-2">
-              These patterns carry implications beyond sector competition. Banks
-              process trillions in transactions, determine credit access for
-              billions, and influence global economic stability. The AI systems
-              that deploy shape tangible outcomes at scale. Credit models
-              trained on historical data risk perpetuating bias, fraud detection
-              systems may disproportionately flag specific populations, or
-              customer service AI may lack appropriate escalation and cause
-              compliance exposure.
-            </p>
-            <p class="mobile-body-2 lg:desktop-body-2">
-              This environment provides a high-stakes case study in AI
-              deployment when systems are complex and have significant
-              consequences. The patterns observed here anticipate challenges
-              every sector faces as AI transitions from experimental deployment
-              to production infrastructure shaping millions of decisions daily.
-            </p>
-          </div>
+        <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8 max-w-200">
+          <p class="mobile-body-2 lg:desktop-body-2">
+            The geographic and categorical patterns in AI deployment reveal that
+            banks face different technical and regulatory constraints, leading
+            them to prioritize distinct use cases rather than following a
+            universal guideline. Successful AI deployment in banking depends not
+            on model superiority, but on strategic problem
+            selection/prioritization within institutional constraints. Banks
+            aligning implementation with their technical infrastructure,
+            regulatory environment, and competitive position show measurable
+            advantages.
+          </p>
+          <p class="mobile-body-2 lg:desktop-body-2">
+            These patterns carry implications beyond sector competition. Banks
+            process trillions in transactions, determine credit access for
+            billions, and influence global economic stability. The AI systems
+            that deploy shape tangible outcomes at scale. Credit models trained
+            on historical data risk perpetuating bias, fraud detection systems
+            may disproportionately flag specific populations, or customer
+            service AI may lack appropriate escalation and cause compliance
+            exposure.
+          </p>
+          <p class="mobile-body-2 lg:desktop-body-2">
+            This environment provides a high-stakes case study in AI deployment
+            when systems are complex and have significant consequences. The
+            patterns observed here anticipate challenges every sector faces as
+            AI transitions from experimental deployment to production
+            infrastructure shaping millions of decisions daily.
+          </p>
         </div>
       </section>
+
+      <!-- sources section -->
       <section
         id="sources"
-        class="min-h-screen h-fit flex flex-col w-full items-center justify-around gap-12 py-20"
+        class="min-h-screen h-fit flex flex-col w-full items-start justify-around gap-12 py-20"
       >
-        <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-center">
-          Thank You!
-        </h2>
+        <h2 class="mobile-subheader-1 lg:desktop-subheader-1">Thank You!</h2>
         <div class="flex flex-col gap-4 w-full items-start">
           <h3 class="mobile-subheader-3 lg:desktop-subheader-3">
             Resources for Further Learning
           </h3>
           <ul class="w-full flex flex-col gap-4 max-w-100">
             <li class="">
-              <p class="mobile-body-1 lg:desktop-body-1 font-medium!">
+              <p class="mobile-body-1 lg:desktop-body-1">
                 Evident Insights AI Index
               </p>
               <a
@@ -553,16 +575,25 @@
     <script src="js/viz.js"></script>
     <!-- script for interactions on this page (cursor, timeline, etc) -->
     <script>
+      // select the custom cursor div
       const cursor = document.querySelector(".custom-cursor");
+
+      // add an event listener to listen for changes in mouse position, and make the div follow the mouse
       document.addEventListener("mousemove", (e) => {
         cursor.style.left = e.clientX + "px";
         cursor.style.top = e.clientY + "px";
       });
 
+      // select all elements with class name timeline-item
       const items = document.querySelectorAll("#timeline .timeline-item");
-      const scrubberName = document.querySelector("#scrubberName");
+      // select the element with the id scrubber-name
+      const scrubberName = document.querySelector("#scrubber-name");
+      // assign the value of the initial timeline-items data-years label to the scrubberName by default
       scrubberName.textContent = items[0].dataset.years;
 
+      // use an intersection observer to detect when the user has scrolled to each timeline-item element
+      // for each entry make opacity 50%, but the current entry's opacity 100%
+      // then set scrubberName to match the data-years of the current section
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -574,13 +605,15 @@
             }
           });
         },
+
+        // controls the entry area for detecting changes with intersection observer
+        // -45% from top and -45% from bottom means it looks for the current element in the middle of the screen
         {
           rootMargin: "-45% 0px -45% 0px",
           threshold: 0,
         },
       );
-
-      items.forEach((el) => (el.style.opacity = "0.5"));
+      // observe each timeline-item
       items.forEach((item) => observer.observe(item));
     </script>
   </body>
