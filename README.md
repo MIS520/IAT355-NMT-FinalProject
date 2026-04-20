@@ -5,7 +5,7 @@
 ## Citations & Learning Resources:
 
 - Visualization Development
-  - 
+  -
 
 - Topic Research
   - Capitol Technology University. (2025, Jan 10). How Banks & Financial Industry are Navigating the Artificial Intelligence Landscape. https://www.captechu.edu/blog/ai-in-the-banking-and-financial-industry#:~:text=AI%20has%20been%20a%20part,extend%20credit%20to%20underserved%20populations
@@ -31,9 +31,16 @@
   - Weiss, B. (2023, July 21). Banks have used A.I. for decades—but now it’s going to take off like never before. Fortune. https://fortune.com/2023/07/21/ai-finance-history-regressions-generative-artificial-intelligence-pagaya-kasisto/
 
 - General Website Development (HTML, CSS, JS)
+  - Coding2GO. CSS ONLY Carousel? Learn ::scroll-button() in 9 Minutes. YouTube. https://www.youtube.com/watch?v=gmI5nvzv170
+
   - Mozilla. Intersection Observer API. https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+
   - Mozilla. Use data attributes. https://developer.mozilla.org/en-US/docs/Web/HTML/How_to/Use_data_attributes
+
   - Tailwind Labs. TailwindCSS Documentation. https://tailwindcss.com/docs
+
   - W3 Schools. CSS Borders. https://www.w3schools.com/css/css_border.asp
+
   - W3 Schools. CSS Transitions. https://www.w3schools.com/css//css3_transitions.asp
+
   - W3 Schools. HTML `<a>` target Attribute. https://www.w3schools.com/tags/att_a_target.asp

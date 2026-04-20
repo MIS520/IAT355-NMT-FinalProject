@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth transition duration-150 ease-in-out">
+<html
+  lang="en"
+  class="scroll-smooth transition duration-150 ease-in-out text-pretty"
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -285,7 +288,7 @@
       <!-- performance visualization section -->
       <section
         class="flex flex-col items-center justify-around py-20 w-300"
-        style="min-height:100vh; gap: 48px;"
+        style="min-height: 100vh; gap: 48px"
       >
         <div class="flex flex-col gap-4">
           <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
@@ -299,116 +302,138 @@
 
         <div id="viz-3" class="rounded-xl"></div>
       </section>
-      <section style="min-height:100vh; padding:80px 0; width:100%; box-sizing:border-box;">
-        <div id="carousel-heading" class="w-300" style="margin:0 auto; padding-bottom:48px;">
-          <h2 class="mobile-subheader-1 lg:desktop-subheader-1">Different Types of AI Integration</h2>
-          <p class="mobile-subheader-2 lg:desktop-subheader-2" style="margin-top:16px;">
+
+      <!-- types of integration section -->
+      <section
+        style="
+          min-height: 100vh;
+          padding: 80px 0;
+          width: 100%;
+          box-sizing: border-box;
+        "
+      >
+        <div
+          id="carousel-heading"
+          class="w-300"
+          style="margin: 0 auto; padding-bottom: 48px"
+        >
+          <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
+            Different Types of AI Integration
+          </h2>
+          <p
+            class="mobile-subheader-2 lg:desktop-subheader-2"
+            style="margin-top: 16px"
+          >
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the...
           </p>
         </div>
 
+        <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8">
+          <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
+            How banks prioritized these newly tractable problems reveal distinct
+            implementation philosophies. CX applications are the most prevalent
+            with 13 use cases, addressing conversational AI (chatbots),
+            personalized recommendations, and intelligent routing. These visible
+            deployments carry risk in reputation, with failures directly
+            impacting brand perception. Productivity and automation follows
+            closely with 10 cases, streamlining internal processes such as
+            document processing, workflow optimization, and automated reporting.
+            These implementations offer lower differentiation but with it, lower
+            risk exposure.
+          </p>
+          <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
+            The internal-external distinction carries technical implications
+            beyond strategic position. External AI systems operate under
+            stricter constraints of regulatory scrutiny and explainability. A
+            customer-facing chatbot that generates incorrect information erodes
+            trust, while a fraud detection system that’s unable to justify its
+            decisions fails compliance requirements. This technical risk profile
+            explains the divergent bank strategies. Organizations prioritizing
+            customer experience accept the engineering complexity of deploying
+            AI under regulatory and reputational constraints. Those focusing on
+            operations optimize for accuracy gains in controlled environments
+            where failures impose limited external costs.
+          </p>
+        </div>
+
+        <!-- carousel element goes here -->
+
         <div
-          id="category-carousel"
-          style="display:flex; flex-wrap:nowrap; gap:32px; overflow-x:scroll; padding-bottom:24px; -webkit-overflow-scrolling:touch; scrollbar-width:none; -ms-overflow-style:none; cursor:grab;"
+          id="carousel-new"
+          class="flex gap-4 overflow-x-auto h-fit w-full pb-8 snap-x [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:py-4 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-grey [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-cta-primary"
         >
-          <div style="flex:0 0 420px; display:flex; flex-direction:column; gap:16px;">
-            <div style="width:420px; height:360px; border-radius:16px; overflow:hidden;">
-              <img src="assets/customerExp.svg" alt="Customer Experience" style="width:100%; height:100%; object-fit:cover; display:block;" />
-            </div>
-            <h3 class="mobile-subheader-3 lg:desktop-subheader-3" style="font-weight:300;">Customer Experience</h3>
-            <p class="mobile-body-1 lg:desktop-body-1">AI-powered assistants and advisors help customers manage money, get instant answers, and receive personalized financial guidance.</p>
-          </div>
-
-          <div style="flex:0 0 420px; display:flex; flex-direction:column; gap:16px;">
-            <div style="width:420px; height:360px; border-radius:16px; overflow:hidden;">
-              <img src="assets/Productivity&Automation.svg" alt="Productivity and Automation" style="width:100%; height:100%; object-fit:cover; display:block;" />
-            </div>
-            <h3 class="mobile-subheader-3 lg:desktop-subheader-3" style="font-weight:300;">Productivity and Automation</h3>
-            <p class="mobile-body-1 lg:desktop-body-1">AI handles meeting summaries, internal Q&amp;A, and content generation so employees can focus on higher priority work.</p>
-          </div>
-
-          <div style="flex:0 0 420px; display:flex; flex-direction:column; gap:16px;">
-            <div style="width:420px; height:360px; border-radius:16px; overflow:hidden;">
-              <img src="assets/Risk&Fraud.svg" alt="Risk and Fraud" style="width:100%; height:100%; object-fit:cover; display:block;" />
-            </div>
-            <h3 class="mobile-subheader-3 lg:desktop-subheader-3" style="font-weight:300;">Risk and Fraud</h3>
-            <p class="mobile-body-1 lg:desktop-body-1">Real-time AI systems detect suspicious transactions, flag anomalies, and strengthen cybersecurity across global networks.</p>
-          </div>
-
-          <div style="flex:0 0 420px; display:flex; flex-direction:column; gap:16px;">
-            <div style="width:420px; height:360px; border-radius:16px; overflow:hidden;">
-              <img src="assets/capitalResearch.svg" alt="Capital Markets and Research" style="width:100%; height:100%; object-fit:cover; display:block;" />
-            </div>
-            <h3 class="mobile-subheader-3 lg:desktop-subheader-3" style="font-weight:300;">Capital Markets &amp; Research</h3>
-            <p class="mobile-body-1 lg:desktop-body-1">AI accelerates how analysts query data, synthesize research, and draft complex financial documents.</p>
-          </div>
-
-          <div style="flex:0 0 420px; display:flex; flex-direction:column; gap:16px; padding-right:80px;">
-            <div style="width:420px; height:360px; border-radius:16px; overflow:hidden;">
-              <img src="assets/Ops&Infrastructure.svg" alt="Operations and Infrastructure" style="width:100%; height:100%; object-fit:cover; display:block;" />
-            </div>
-            <h3 class="mobile-subheader-3 lg:desktop-subheader-3" style="font-weight:300;">Operations &amp; Infrastructure</h3>
-            <p class="mobile-body-1 lg:desktop-body-1">Modernizes bank tech stacks by automating code review, data security, and platform monitoring and maintenance.</p>
-          </div>
-        <div>
-          <p class="mobile-subheader-3 lg:desktop-subheader-3 text-t-details">
-            Visualization 2 - Hover over each point for more info!
-          </p>
-          <!-- vizualization 2 goes here -->
-          <!-- <div id="viz-2"></div> -->
           <div
-            class="min-h-100 bg-grey rounded-xl flex items-center justify-center"
+            class="h-fit snap-start w-96 flex-none p-4 rounded-xl text-center content-center overflow-visible"
           >
-            <p class="mobile-subheader-2 lg:desktop-header-2">VIZ GOES HERE</p>
+            <img src="assets/card-1.webp" />
+            <div class="flex flex-col items-start text-left gap-4 mt-4">
+              <h3 class="mobile-subheader-3 lg:desktop-subheader-3">
+                Customer Experience
+              </h3>
+              <p class="mobile-body-1 lg:desktop-body-1 text-left">
+                AI-powered assistants and advisors help customers manage money,
+                get instant answers, and receive personalized financial
+                guidance.
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <!-- types of integration section -->
-      <section
-        class="min-h-screen h-fit flex flex-col items-start w-full justify-around py-20"
-      >
-        <div class="flex flex-col gap-4">
-          <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
-            Different Types of AI Integration
-          </h2>
-          <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8">
-            <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
-              How banks prioritized these newly tractable problems reveal
-              distinct implementation philosophies. CX applications are the most
-              prevalent with 13 use cases, addressing conversational AI
-              (chatbots), personalized recommendations, and intelligent routing.
-              These visible deployments carry risk in reputation, with failures
-              directly impacting brand perception. Productivity and automation
-              follows closely with 10 cases, streamlining internal processes
-              such as document processing, workflow optimization, and automated
-              reporting. These implementations offer lower differentiation but
-              with it, lower risk exposure.
-            </p>
-            <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
-              The internal-external distinction carries technical implications
-              beyond strategic position. External AI systems operate under
-              stricter constraints of regulatory scrutiny and explainability. A
-              customer-facing chatbot that generates incorrect information
-              erodes trust, while a fraud detection system that’s unable to
-              justify its decisions fails compliance requirements. This
-              technical risk profile explains the divergent bank strategies.
-              Organizations prioritizing customer experience accept the
-              engineering complexity of deploying AI under regulatory and
-              reputational constraints. Those focusing on operations optimize
-              for accuracy gains in controlled environments where failures
-              impose limited external costs.
-            </p>
+          <div
+            class="h-144 snap-start bg-[url('/img/hero.jpg')] w-96 flex-none p-4 rounded-xl text-center content-center"
+          >
+            <img src="assets/card-2.webp" />
+            <div class="flex flex-col items-start text-left gap-4 mt-4">
+              <h3 class="mobile-subheader-3 lg:desktop-subheader-3">
+                Productivity and Automation
+              </h3>
+              <p class="mobile-body-1 lg:desktop-body-1 text-left">
+                AI handles meeting summaries, internal Q&amp;A, and content
+                generation so employees can focus on higher priority work.
+              </p>
+            </div>
           </div>
-        </div>
-
-        <div>
-          <p class="mobile-subheader-3 lg:desktop-subheader-3 text-t-details">
-            Visualization 3 - Hover over each point for more info!
-          </p>
-          <!-- vizualization 3 goes here -->
-          <div id="viz-usecases" class="w-full max-w-3xl rounded-xl"></div>
+          <div
+            class="h-144 snap-start bg-[url('/img/hero.jpg')] w-96 flex-none p-4 rounded-xl text-center content-center"
+          >
+            <img src="assets/card-3.webp" />
+            <div class="flex flex-col items-start text-left gap-4 mt-4">
+              <h3 class="mobile-subheader-3 lg:desktop-subheader-3">
+                Risk and Fraud
+              </h3>
+              <p class="mobile-body-1 lg:desktop-body-1 text-left">
+                Real-time AI systems detect suspicious transactions, flag
+                anomalies, and strengthen cybersecurity across global networks.
+              </p>
+            </div>
+          </div>
+          <div
+            class="h-144 snap-start bg-[url('/img/hero.jpg')] w-96 flex-none p-4 rounded-xl text-center content-center"
+          >
+            <img src="assets/card-4.webp" />
+            <div class="flex flex-col items-start text-left gap-4 mt-4">
+              <h3 class="mobile-subheader-3 lg:desktop-subheader-3">
+                Capital Markets &amp; Research
+              </h3>
+              <p class="mobile-body-1 lg:desktop-body-1 text-left">
+                AI accelerates how analysts query data, synthesize research, and
+                draft complex financial documents.
+              </p>
+            </div>
+          </div>
+          <div
+            class="h-144 snap-start bg-[url('/img/hero.jpg')] w-96 flex-none p-4 rounded-xl text-center content-center"
+          >
+            <img src="assets/card-5.webp" />
+            <div class="flex flex-col items-start text-left gap-4 mt-4">
+              <h3 class="mobile-subheader-3 lg:desktop-subheader-3">
+                Operations &amp; Infrastructure
+              </h3>
+              <p class="mobile-body-1 lg:desktop-body-1 text-left">
+                Modernizes bank tech stacks by automating code review, data
+                security, and platform monitoring and maintenance.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -448,7 +473,7 @@
             Visualization 4 - Hover over each point for more info!
           </p>
           <!-- vizualization 4 goes here -->
-          <div id="viz-regions" class="w-full max-w-3xl rounded-xl"></div>
+          <div id="viz-map" class="min-w-220 rounded-xl"></div>
         </div>
       </section>
 
