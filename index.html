@@ -171,7 +171,7 @@
       <!-- timeline section -->
       <section
         id="timeline"
-        class="relative min-h-screen h-fit flex flex-col items-start w-full justify-around py-20 gap-4"
+        class="relative min-h-screen h-fit flex flex-col items-end xl:items-center w-full justify-around py-20 gap-4"
       >
         <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
           The History of AI in Banking
@@ -181,15 +181,15 @@
           <!-- animated scrollbar which follows the user as the view the timeline -->
           <div
             id="timeline-bar"
-            class="absolute w-4 h-full ml-3 rounded-full bg-grey self-start pointer-events-none"
+            class="absolute w-4 h-full ml-3 opacity-0 xl:opacity-100 rounded-full bg-grey self-start pointer-events-none"
           ></div>
           <div
             id="timeline-scrubber"
-            class="sticky top-[50vh] w-4 h-8 ml-3 rounded-full bg-cta-primary self-start z-2 pointer-events-none"
+            class="sticky top-[50vh] w-4 h-8 ml-3 opacity-0 xl:opacity-100 rounded-full bg-cta-primary self-start z-2 pointer-events-none"
           >
             <p
               id="scrubber-name"
-              class="text-nowrap ml-8 hidden lg:flex desktop-body-1"
+              class="text-nowrap ml-8 hidden opacity-0 2xl:opacity-100 lg:flex desktop-body-1"
             ></p>
           </div>
 
