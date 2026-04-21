@@ -10,7 +10,6 @@
     --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-400: oklch(70.7% 0.022 261.325);
     --spacing: 0.25rem;
-    --container-3xl: 48rem;
     --font-weight-light: 300;
     --font-weight-medium: 500;
     --radius-xl: 0.75rem;
@@ -245,9 +244,6 @@
   .mt-12 {
     margin-top: calc(var(--spacing) * 12);
   }
-  .mb-1 {
-    margin-bottom: calc(var(--spacing) * 1);
-  }
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
   }
@@ -268,12 +264,6 @@
   }
   .h-8 {
     height: calc(var(--spacing) * 8);
-  }
-  .h-12 {
-    height: calc(var(--spacing) * 12);
-  }
-  .h-36 {
-    height: calc(var(--spacing) * 36);
   }
   .h-144 {
     height: calc(var(--spacing) * 144);
@@ -299,20 +289,11 @@
   .w-20 {
     width: calc(var(--spacing) * 20);
   }
-  .w-72 {
-    width: calc(var(--spacing) * 72);
-  }
   .w-96 {
     width: calc(var(--spacing) * 96);
   }
-  .w-256 {
-    width: calc(var(--spacing) * 256);
-  }
   .w-300 {
     width: calc(var(--spacing) * 300);
-  }
-  .w-1256 {
-    width: calc(var(--spacing) * 1256);
   }
   .w-fit {
     width: fit-content;
@@ -328,6 +309,9 @@
   }
   .max-w-120 {
     max-width: calc(var(--spacing) * 120);
+  }
+  .max-w-160 {
+    max-width: calc(var(--spacing) * 160);
   }
   .max-w-200 {
     max-width: calc(var(--spacing) * 200);
@@ -361,9 +345,6 @@
   }
   .flex-nowrap {
     flex-wrap: nowrap;
-  }
-  .flex-wrap {
-    flex-wrap: wrap;
   }
   .content-center {
     align-content: center;
@@ -400,12 +381,6 @@
   }
   .self-start {
     align-self: flex-start;
-  }
-  .overflow-hidden {
-    overflow: hidden;
-  }
-  .overflow-scroll {
-    overflow: scroll;
   }
   .overflow-visible {
     overflow: visible;
@@ -449,15 +424,6 @@
     }
     background-image: linear-gradient(var(--tw-gradient-stops));
   }
-  .bg-\[url\(\'\/assets\/\'\)\] {
-    background-image: url('/assets/');
-  }
-  .bg-\[url\(\'\/assets\/card-1\'\)\] {
-    background-image: url('/assets/card-1');
-  }
-  .bg-\[url\(\'\/assets\/card-1\.webp\'\)\] {
-    background-image: url('/assets/card-1.webp');
-  }
   .bg-\[url\(\'\/img\/hero\.jpg\'\)\] {
     background-image: url('/img/hero.jpg');
   }
@@ -474,17 +440,8 @@
     --tw-gradient-to: #0600AB;
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
   }
-  .bg-contain {
-    background-size: contain;
-  }
-  .bg-cover {
-    background-size: cover;
-  }
   .bg-clip-text {
     background-clip: text;
-  }
-  .bg-center {
-    background-position: center;
   }
   .object-cover {
     object-fit: cover;
@@ -506,9 +463,6 @@
   }
   .pb-2 {
     padding-bottom: calc(var(--spacing) * 2);
-  }
-  .pb-4 {
-    padding-bottom: calc(var(--spacing) * 4);
   }
   .pb-8 {
     padding-bottom: calc(var(--spacing) * 8);
@@ -781,29 +735,9 @@
       background-color: var(--color-cta-primary);
     }
   }
-  .\[\&\:\:-webkit-scrollbar-thumb\]\:bg-gray-400 {
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--color-gray-400);
-    }
-  }
-  .\[\&\:\:-webkit-scrollbar-track\]\:my-1 {
-    &::-webkit-scrollbar-track {
-      margin-block: calc(var(--spacing) * 1);
-    }
-  }
-  .\[\&\:\:-webkit-scrollbar-track\]\:my-4 {
-    &::-webkit-scrollbar-track {
-      margin-block: calc(var(--spacing) * 4);
-    }
-  }
   .\[\&\:\:-webkit-scrollbar-track\]\:rounded-full {
     &::-webkit-scrollbar-track {
       border-radius: calc(infinity * 1px);
-    }
-  }
-  .\[\&\:\:-webkit-scrollbar-track\]\:bg-gray-100 {
-    &::-webkit-scrollbar-track {
-      background-color: var(--color-gray-100);
     }
   }
   .\[\&\:\:-webkit-scrollbar-track\]\:bg-grey {
