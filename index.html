@@ -287,7 +287,7 @@
 
       <!-- performance visualization section -->
       <section
-        class="flex flex-col items-center justify-around py-20 w-300"
+        class="flex flex-col items-start justify-around py-20 w-300"
         style="min-height: 100vh; gap: 48px"
       >
         <div class="flex flex-col gap-4">
@@ -300,7 +300,25 @@
           </p>
         </div>
 
-        <div id="viz-3" class="rounded-xl"></div>
+        <div class="flex gap-6 items-start">
+          <div>
+            <div id="viz-3" class="rounded-xl"></div>
+            <div style="margin-top:16px; width:700px; background:#eef0fc; border:1px solid #b6c1f1; border-radius:14px; padding:16px 20px; box-sizing:border-box;">
+              <div style="font-size:13px; font-weight:700; color:#3054f1; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:6px;">How to read this</div>
+              <div style="font-size:13px; color:#324ab3; line-height:1.65;">
+                Each dot is one of the <span style="color:#060d29; font-weight:500;">top 15 banks</span> ranked by AI maturity.<br/>
+                The <span style="color:#060d29; font-weight:500;">horizontal position</span> shows Return on Equity: further right means stronger financial performance.<br/>
+                The <span style="color:#060d29; font-weight:500;">vertical position</span> shows AI Maturity Rank: higher up means a stronger AI program.<br/>
+                <span style="color:#060d29; font-weight:500;">Circle size</span> represents total revenue. Scroll to zoom, drag to pan, click a dot to highlight it.
+              </div>
+            </div>
+          </div>
+
+          <div id="viz-3-info-card" style="width:260px; min-height:260px; background:#eef0fc; border:1px solid #b6c1f1; border-radius:14px; padding:20px; box-sizing:border-box; display:flex; flex-direction:column; gap:12px;">
+            <div style="font-size:13px; font-weight:700; color:#3054f1; letter-spacing:0.06em; text-transform:uppercase;">Bank Details</div>
+            <div style="font-size:13px; color:#b6c1f1; line-height:1.65; margin-top:4px;">Hover or click a bank to explore its details.</div>
+          </div>
+        </div>
       </section>
 
       <!-- types of integration section -->
