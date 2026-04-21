@@ -447,7 +447,22 @@ function createViz3(evidentAIRanks, financials) {
         },
       },
       {
-        mark: { type: "point", filled: true, opacity: 0.9 },
+        params: [
+          {
+            name: "grid",
+            select: "interval",
+            bind: "scales",
+          },
+          {
+            name: "hover",
+            select: { type: "point", on: "mouseover", clear: "mouseout" },
+          },
+          {
+            name: "select",
+            select: "point",
+          },
+        ],
+        mark: { type: "point", filled: true, cursor: "pointer" },
         encoding: {
           x: {
             field: "ROE",
@@ -468,7 +483,34 @@ function createViz3(evidentAIRanks, financials) {
             scale: { range: [40, 900] },
             legend: null,
           },
-          color: { value: "#3A4FE8" },
+          color: {
+            condition: [
+              { param: "select", empty: false, value: "#ff6b35" },
+              { param: "hover", empty: false, value: "#5e72f0" },
+            ],
+            value: "#3A4FE8",
+          },
+          opacity: {
+            condition: [
+              { param: "select", empty: false, value: 1 },
+              { param: "hover", empty: false, value: 1 },
+            ],
+            value: 0.35,
+          },
+          stroke: {
+            condition: [
+              { param: "select", empty: false, value: "#ff6b35" },
+              { param: "hover", empty: false, value: "#324ab3" },
+            ],
+            value: "transparent",
+          },
+          strokeWidth: {
+            condition: [
+              { param: "select", empty: false, value: 2.5 },
+              { param: "hover", empty: false, value: 1.5 },
+            ],
+            value: 0,
+          },
           tooltip: [
             { field: "Company", type: "nominal", title: "Bank" },
             { field: "AIRank", type: "quantitative", title: "AI Maturity Rank" },
@@ -483,7 +525,6 @@ function createViz3(evidentAIRanks, financials) {
           align: "left",
           dx: 14,
           fontSize: 11,
-          color: "#060d29",
           fontWeight: 300,
         },
         encoding: {
@@ -494,6 +535,24 @@ function createViz3(evidentAIRanks, financials) {
             scale: { reverse: true, domainMin: 0, domainMax: 20 },
           },
           text: { field: "Company", type: "nominal" },
+          color: {
+            condition: [
+              { param: "select", empty: false, value: "#ff6b35" },
+              { param: "hover", empty: false, value: "#060d29" },
+            ],
+            value: "#9aa3cc",
+          },
+          opacity: {
+            condition: [
+              { param: "select", empty: false, value: 1 },
+              { param: "hover", empty: false, value: 1 },
+            ],
+            value: 0.4,
+          },
+          fontWeight: {
+            condition: { param: "select", empty: false, value: "bold" },
+            value: 300,
+          },
         },
       },
     ],
@@ -501,7 +560,59 @@ function createViz3(evidentAIRanks, financials) {
     config: { view: { stroke: "transparent" } },
   };
 
-  vegaEmbed("#viz-3", spec, { actions: false });
+  vegaEmbed("#viz-3", spec, { actions: false }).then(({ view }) => {
+    const card = document.getElementById("viz-3-info-card");
+
+    function formatRevenue(v) {
+      if (v >= 1e9) return `$${(v / 1e9).toFixed(1)}B`;
+      if (v >= 1e6) return `$${(v / 1e6).toFixed(1)}M`;
+      return `$${v.toLocaleString()}`;
+    }
+
+    function renderCard(d) {
+      if (!d || !d.Company) {
+        card.innerHTML = `
+          <div style="font-size:13px; font-weight:700; color:#3054f1; letter-spacing:0.06em; text-transform:uppercase;">Bank Details</div>
+          <div style="font-size:13px; color:#b6c1f1; line-height:1.65; margin-top:4px;">Hover or click a bank to explore its details.</div>`;
+        return;
+      }
+      card.innerHTML = `
+        <div style="font-size:13px; font-weight:700; color:#3054f1; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:4px;">Bank Details</div>
+        <div style="font-size:20px; font-weight:500; color:#060d29; line-height:1.2;">${d.Company}</div>
+        <hr style="border:none; border-top:1px solid #b6c1f1; margin:4px 0;"/>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-top:4px;">
+          <div>
+            <div style="font-size:11px; font-weight:700; color:#3054f1; letter-spacing:0.06em; text-transform:uppercase;">AI Maturity Rank</div>
+            <div style="font-size:22px; font-weight:500; color:#060d29;">#${d.AIRank}</div>
+          </div>
+          <div>
+            <div style="font-size:11px; font-weight:700; color:#3054f1; letter-spacing:0.06em; text-transform:uppercase;">Return on Equity</div>
+            <div style="font-size:22px; font-weight:500; color:#060d29;">${Number(d.ROE).toFixed(2)}%</div>
+          </div>
+          <div>
+            <div style="font-size:11px; font-weight:700; color:#3054f1; letter-spacing:0.06em; text-transform:uppercase;">Total Revenue</div>
+            <div style="font-size:22px; font-weight:500; color:#060d29;">${formatRevenue(d.TotalRevenue)}</div>
+          </div>
+        </div>`;
+    }
+
+    let selected = null;
+
+    view.addEventListener("mouseover", (_, item) => {
+      if (item && item.datum && item.datum.Company) renderCard(item.datum);
+    });
+
+    view.addEventListener("mouseout", (_, item) => {
+      if (item && item.datum && item.datum.Company) renderCard(selected);
+    });
+
+    view.addEventListener("click", (_, item) => {
+      if (item && item.datum && item.datum.Company) {
+        selected = selected && selected.Company === item.datum.Company ? null : item.datum;
+        renderCard(selected);
+      }
+    });
+  });
 }
 
 async function createVizWorldMap(useCases) {
