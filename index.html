@@ -1,7 +1,7 @@
 <!doctype html>
 <html
   lang="en"
-  class="scroll-smooth transition duration-150 ease-in-out text-pretty"
+  class="scroll-smooth **:transition-all **:duration-150 **:ease-in-out text-pretty"
 >
   <head>
     <meta charset="UTF-8" />
@@ -40,7 +40,7 @@
           >Timeline</a
         >
         <a
-          href="#vizualizations"
+          href="#performance-viz"
           class="text-bg-black hover:text-cta-primary mobile-body-2 lg:desktop-body-2 transition-colors duration-150 ease-in-out"
           >AI in the Banking Industry</a
         >
@@ -296,6 +296,7 @@
 
       <!-- performance visualization section -->
       <section
+        id="performance-viz"
         class="flex flex-col items-start w-full justify-around py-20"
         style="min-height: 100vh; gap: 48px"
       >
@@ -303,7 +304,7 @@
           <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
             Performance of Banks with AI
           </h2>
-
+          <div id="viz-radar"></div>
           <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8">
             <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
               Banks with higher AI maturity demonstrate stronger financial
@@ -325,7 +326,6 @@
               reduced operational friction and improved decision-making.
             </p>
           </div>
-          <div id="viz-radar"></div>
         </div>
       </section>
 
@@ -497,6 +497,7 @@
 
       <!-- conclusion section -->
       <section
+        id="conclusion"
         class="h-fit flex flex-col items-start w-full justify-start py-20 gap-4"
       >
         <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
