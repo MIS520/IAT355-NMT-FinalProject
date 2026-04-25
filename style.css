@@ -135,6 +135,20 @@ body:has(#viz-map:hover) .custom-cursor {
   letter-spacing: 0em;
 }
 
+@keyframes gradient-shift {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+.gradient-text-animated {
+  background-image: linear-gradient(to left, #977DFF, #0033FF, #0600AB, #977DFF, #0033FF, #0600AB);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 6s linear infinite;
+}
+
 @theme {
   --color-t-primary: #060d29;
   --color-t-secondary: #f3f8fc;
