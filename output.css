@@ -7,7 +7,7 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-red-400: oklch(70.4% 0.191 22.216);
+    --color-black: #060d29;
     --spacing: 0.25rem;
     --font-weight-light: 300;
     --font-weight-medium: 500;
@@ -231,11 +231,11 @@
       max-width: 96rem;
     }
   }
+  .my-2 {
+    margin-block: calc(var(--spacing) * 2);
+  }
   .my-12 {
     margin-block: calc(var(--spacing) * 12);
-  }
-  .mt-4 {
-    margin-top: calc(var(--spacing) * 4);
   }
   .mt-8 {
     margin-top: calc(var(--spacing) * 8);
@@ -264,17 +264,8 @@
   .hidden {
     display: none;
   }
-  .table {
-    display: table;
-  }
   .h-8 {
     height: calc(var(--spacing) * 8);
-  }
-  .h-20 {
-    height: calc(var(--spacing) * 20);
-  }
-  .h-144 {
-    height: calc(var(--spacing) * 144);
   }
   .h-fit {
     height: fit-content;
@@ -297,9 +288,6 @@
   .w-20 {
     width: calc(var(--spacing) * 20);
   }
-  .w-96 {
-    width: calc(var(--spacing) * 96);
-  }
   .w-fit {
     width: fit-content;
   }
@@ -321,26 +309,14 @@
   .min-w-220 {
     min-width: calc(var(--spacing) * 220);
   }
-  .flex-none {
-    flex: none;
-  }
   .flex-shrink {
     flex-shrink: 1;
-  }
-  .border-collapse {
-    border-collapse: collapse;
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
   .resize {
     resize: both;
-  }
-  .snap-x {
-    scroll-snap-type: x var(--tw-scroll-snap-strictness);
-  }
-  .snap-start {
-    scroll-snap-align: start;
   }
   .flex-col {
     flex-direction: column;
@@ -350,12 +326,6 @@
   }
   .flex-nowrap {
     flex-wrap: nowrap;
-  }
-  .flex-wrap {
-    flex-wrap: wrap;
-  }
-  .content-center {
-    align-content: center;
   }
   .items-center {
     align-items: center;
@@ -393,12 +363,6 @@
   .self-start {
     align-self: flex-start;
   }
-  .overflow-visible {
-    overflow: visible;
-  }
-  .overflow-x-auto {
-    overflow-x: auto;
-  }
   .scroll-smooth {
     scroll-behavior: smooth;
   }
@@ -416,6 +380,9 @@
     border-style: var(--tw-border-style);
     border-width: 2px;
   }
+  .border-black {
+    border-color: var(--color-black);
+  }
   .border-cta-primary {
     border-color: var(--color-cta-primary);
   }
@@ -428,18 +395,12 @@
   .bg-grey {
     background-color: var(--color-grey);
   }
-  .bg-red-400 {
-    background-color: var(--color-red-400);
-  }
   .bg-linear-to-l {
     --tw-gradient-position: to left;
     @supports (background-image: linear-gradient(in lab, red, red)) {
       --tw-gradient-position: to left in oklab;
     }
     background-image: linear-gradient(var(--tw-gradient-stops));
-  }
-  .bg-\[url\(\'\/img\/hero\.jpg\'\)\] {
-    background-image: url('/img/hero.jpg');
   }
   .from-\[\#977DFF\] {
     --tw-gradient-from: #977DFF;
@@ -463,8 +424,8 @@
   .p-1 {
     padding: calc(var(--spacing) * 1);
   }
-  .p-4 {
-    padding: calc(var(--spacing) * 4);
+  .p-2 {
+    padding: calc(var(--spacing) * 2);
   }
   .px-8 {
     padding-inline: calc(var(--spacing) * 8);
@@ -478,17 +439,11 @@
   .pb-2 {
     padding-bottom: calc(var(--spacing) * 2);
   }
-  .pb-8 {
-    padding-bottom: calc(var(--spacing) * 8);
-  }
   .pl-2 {
     padding-left: calc(var(--spacing) * 2);
   }
   .text-center {
     text-align: center;
-  }
-  .text-left {
-    text-align: left;
   }
   .desktop-body-1 {
     font-size: 24px;
@@ -539,17 +494,9 @@
     font-style: normal;
     letter-spacing: 0em;
   }
-  .font-light {
-    --tw-font-weight: var(--font-weight-light);
-    font-weight: var(--font-weight-light);
-  }
   .font-light\! {
     --tw-font-weight: var(--font-weight-light) !important;
     font-weight: var(--font-weight-light) !important;
-  }
-  .font-medium {
-    --tw-font-weight: var(--font-weight-medium);
-    font-weight: var(--font-weight-medium);
   }
   .font-medium\! {
     --tw-font-weight: var(--font-weight-medium) !important;
@@ -560,9 +507,6 @@
   }
   .text-pretty {
     text-wrap: pretty;
-  }
-  .text-wrap {
-    text-wrap: wrap;
   }
   .text-cta-primary {
     color: var(--color-cta-primary);
@@ -594,10 +538,6 @@
   .ring {
     --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-  .outline {
-    outline-style: var(--tw-outline-style);
-    outline-width: 1px;
   }
   .filter {
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
@@ -767,36 +707,6 @@
       opacity: 100%;
     }
   }
-  .\[\&\:\:-webkit-scrollbar\]\:w-2 {
-    &::-webkit-scrollbar {
-      width: calc(var(--spacing) * 2);
-    }
-  }
-  .\[\&\:\:-webkit-scrollbar-thumb\]\:rounded-full {
-    &::-webkit-scrollbar-thumb {
-      border-radius: calc(infinity * 1px);
-    }
-  }
-  .\[\&\:\:-webkit-scrollbar-thumb\]\:bg-cta-primary {
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--color-cta-primary);
-    }
-  }
-  .\[\&\:\:-webkit-scrollbar-track\]\:rounded-full {
-    &::-webkit-scrollbar-track {
-      border-radius: calc(infinity * 1px);
-    }
-  }
-  .\[\&\:\:-webkit-scrollbar-track\]\:bg-grey {
-    &::-webkit-scrollbar-track {
-      background-color: var(--color-grey);
-    }
-  }
-  .\[\&\:\:-webkit-scrollbar-track\]\:py-4 {
-    &::-webkit-scrollbar-track {
-      padding-block: calc(var(--spacing) * 4);
-    }
-  }
 }
 body, a {
   cursor: none;
@@ -812,6 +722,9 @@ body, a {
   z-index: 9999;
   transform: translate(-50%, -50%);
   transition: width 0.1s ease-in-out, height 0.1s ease-in-out;
+}
+body:has(#use-case-bar:hover) .custom-cursor {
+  border: 2px solid #f3f8fc;
 }
 body:has(a:hover) .custom-cursor, body:has(button:hover) .custom-cursor {
   cursor: none;
@@ -840,11 +753,6 @@ body:has(a:hover) .custom-cursor, body:has(button:hover) .custom-cursor {
 @property --tw-skew-y {
   syntax: "*";
   inherits: false;
-}
-@property --tw-scroll-snap-strictness {
-  syntax: "*";
-  inherits: false;
-  initial-value: proximity;
 }
 @property --tw-border-style {
   syntax: "*";
@@ -962,11 +870,6 @@ body:has(a:hover) .custom-cursor, body:has(button:hover) .custom-cursor {
   inherits: false;
   initial-value: 0 0 #0000;
 }
-@property --tw-outline-style {
-  syntax: "*";
-  inherits: false;
-  initial-value: solid;
-}
 @property --tw-blur {
   syntax: "*";
   inherits: false;
@@ -1036,7 +939,6 @@ body:has(a:hover) .custom-cursor, body:has(button:hover) .custom-cursor {
       --tw-rotate-z: initial;
       --tw-skew-x: initial;
       --tw-skew-y: initial;
-      --tw-scroll-snap-strictness: proximity;
       --tw-border-style: solid;
       --tw-gradient-position: initial;
       --tw-gradient-from: #0000;
@@ -1062,7 +964,6 @@ body:has(a:hover) .custom-cursor, body:has(button:hover) .custom-cursor {
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
-      --tw-outline-style: solid;
       --tw-blur: initial;
       --tw-brightness: initial;
       --tw-contrast: initial;

@@ -1,3 +1,5 @@
+// const { use } = require("react");
+
 async function fetchData() {
   const useCasesLong = await d3.csv(
     "data/IAT355_Final_Proj_Dataset(Uses Cases) - Long.csv",
@@ -1137,7 +1139,9 @@ function initCarousel() {
   });
 }
 
-async function createUseCaseBar(useCases) {
+var selectedBank = null;
+
+async function createUseCaseBar(useCases, updatePie) {
   // set the dimensions and margins of the graph
   const margin = { top: 30, right: 30, bottom: 100, left: 60 },
     width = 720 - margin.left - margin.right,
@@ -1193,10 +1197,120 @@ async function createUseCaseBar(useCases) {
     .attr("y", (d) => y(d.value))
     .attr("width", x.bandwidth())
     .attr("height", (d) => height - y(d.value))
-    .attr("fill", "#69b3a2");
+    .attr("fill", "#B6C1F1")
+    // .attr("hover", "fill", "#B6C1F1")
+    .on("mouseover", function (event, d) {
+      d3.select(this).transition().duration(150).style("fill", "#3054F1");
+    })
+    .on("mouseleave", function (event, d) {
+      d3.select(this).transition().duration(200).style("fill", "#B6C1F1");
+    })
+    .on("click", function (event, d) {
+      updatePie(d.key); // d.key is the bank name
+      console.log(d.key);
+    });
+
+  // Add X axis label:
+  svg
+    .append("text")
+    .attr("text-anchor", "end")
+    .attr("x", width)
+    .attr("y", height + margin.top + 50)
+    .text("Financial Institutions");
+
+  // Y axis label:
+  svg
+    .append("text")
+    .attr("text-anchor", "end")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -margin.left + 20)
+    .attr("x", 0)
+    .text("Number of AI Use Cases");
 }
 
-async function createUseCasePie(useCases) {}
+async function createUseCasePie(useCases) {
+  const margin = { top: 200, right: 30, bottom: 100, left: 200 },
+    width = 720 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
+
+  const r = height / 2 - 10; // radius constant
+  const color = d3
+    .scaleOrdinal()
+    .domain(["Internal", "External"])
+    .range(["#B6C1F1", "#3054F1"]);
+
+  const svg = d3
+    .select("#use-case-pie")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  const arc = d3
+    .arc()
+    .innerRadius(r * 0.3)
+    .outerRadius(r * 0.6);
+
+  const pie = d3
+    .pie()
+    .sort(null)
+    .value((d) => d.value);
+
+  function getStartingData() {
+    const counts = d3.rollup(
+      useCases,
+      (v) => v.length, // Reducer: returns the count of rows in the group
+      (d) => d["Internal/External"], // Key: the column to group by
+    );
+
+    return Array.from(counts, ([key, value]) => ({ key, value }));
+  }
+
+  function getBankData(bankName) {
+    const filtered = useCases.filter((d) => d.Bank === bankName);
+    const counts = d3.rollup(
+      filtered,
+      (v) => v.length,
+      (d) => d["Internal/External"],
+    );
+    return Array.from(counts, ([key, value]) => ({ key, value }));
+  }
+
+  let paths = svg
+    .selectAll("path")
+    .data(pie(getStartingData()))
+    .join("path")
+    .attr("fill", (d) => color(d.data.key))
+    .attr("d", arc)
+    .each(function (d) {
+      this._current = d;
+    });
+
+  function arcTween(a) {
+    const i = d3.interpolate(this._current, a);
+    this._current = i(0);
+    return (t) => arc(i(t));
+  }
+
+  function updatePie(bankName) {
+    const newData = bankName ? getBankData(bankName) : getStartingData();
+
+    paths = svg
+      .selectAll("path")
+      .data(pie(newData))
+      .join("path")
+      .attr("fill", (d) => color(d.data.key))
+      .each(function (d) {
+        if (!this._current) this._current = d;
+      })
+      .transition()
+      .duration(750)
+      .attrTween("d", arcTween);
+  }
+
+  return { updatePie };
+}
 
 async function init() {
   const { useCases, evidentAIRanks, financials } = await fetchData();
@@ -1204,9 +1318,13 @@ async function init() {
   createVizWorldMap(useCases);
   createVizRadar(evidentAIRanks, financials);
   // createViz3(evidentAIRanks, financials);
-  createUseCaseBar(useCases);
-  createUseCasePie(useCases);
-  initCarousel();
+  // createUseCaseBar(useCases);
+  // createUseCasePie(useCases);
+  // initCarousel();
+
+  // const { useCases } = await fetchData();
+  const { updatePie } = await createUseCasePie(useCases); // get the update fn
+  createUseCaseBar(useCases, updatePie); // pass it to bar chart
 }
 
 init();

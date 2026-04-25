@@ -20,6 +20,10 @@ a {
     height 0.1s ease-in-out;
 }
 
+body:has(#use-case-bar:hover) .custom-cursor {
+  border: 2px solid #f3f8fc;
+}
+
 body:has(a:hover) .custom-cursor,
 body:has(button:hover) .custom-cursor {
   cursor: none;
