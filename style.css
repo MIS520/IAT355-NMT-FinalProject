@@ -20,7 +20,8 @@ a {
     height 0.1s ease-in-out;
 }
 
-body:has(#use-case-bar:hover) .custom-cursor {
+body:has(#use-case-bar:hover) .custom-cursor,
+body:has(#use-case-pie:hover) .custom-cursor {
   border: 2px solid #f3f8fc;
 }
 

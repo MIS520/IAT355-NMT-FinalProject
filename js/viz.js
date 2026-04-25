@@ -1166,7 +1166,7 @@ async function createUseCaseBar(useCases, updatePie) {
   const plotData = Array.from(useCaseCounts, ([key, value]) => ({
     key,
     value,
-  }));
+  })).sort((a, b) => b.value - a.value);
 
   // X axis
   const x = d3
@@ -1203,11 +1203,17 @@ async function createUseCaseBar(useCases, updatePie) {
       d3.select(this).transition().duration(150).style("fill", "#3054F1");
     })
     .on("mouseleave", function (event, d) {
-      d3.select(this).transition().duration(200).style("fill", "#B6C1F1");
+      if (d.key !== selectedBank) {
+        d3.select(this).transition().duration(200).style("fill", "#B6C1F1");
+      }
     })
     .on("click", function (event, d) {
+      selectedBank = d.key;
       updatePie(d.key); // d.key is the bank name
       console.log(d.key);
+
+      svg.selectAll("rect").style("fill", "#B6C1F1");
+      d3.select(this).style("fill", "#3054F1");
     });
 
   // Add X axis label:
@@ -1226,14 +1232,24 @@ async function createUseCaseBar(useCases, updatePie) {
     .attr("y", -margin.left + 20)
     .attr("x", 0)
     .text("Number of AI Use Cases");
+
+  // title
+  svg
+    .append("text")
+    .attr("text-anchor", "end")
+    .attr("x", width * 0.8)
+    .attr("y", -10)
+    .text("How many AI Use Cases are in Each Bank?")
+    .style("font-weight", "700")
+    .style("font-size", "20px");
 }
 
 async function createUseCasePie(useCases) {
   const margin = { top: 200, right: 30, bottom: 100, left: 200 },
-    width = 720 - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom;
+    width = 350 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
-  const r = height / 2 - 10; // radius constant
+  const r = height * 2.5 - 10; // radius constant
   const color = d3
     .scaleOrdinal()
     .domain(["Internal", "External"])
@@ -1249,7 +1265,7 @@ async function createUseCasePie(useCases) {
 
   const arc = d3
     .arc()
-    .innerRadius(r * 0.3)
+    .innerRadius(r * 0.2)
     .outerRadius(r * 0.6);
 
   const pie = d3
@@ -1296,6 +1312,9 @@ async function createUseCasePie(useCases) {
   function updatePie(bankName) {
     const newData = bankName ? getBankData(bankName) : getStartingData();
 
+    // update title
+    svg.select("text.pie-title").text(bankName ? bankName : "All Banks");
+
     paths = svg
       .selectAll("path")
       .data(pie(newData))
@@ -1307,7 +1326,79 @@ async function createUseCasePie(useCases) {
       .transition()
       .duration(750)
       .attrTween("d", arcTween);
+
+    updateLabels(newData);
   }
+
+  function updateLabels(data) {
+    svg
+      .selectAll("text.slice-label")
+      .data(pie(data))
+      .join("text")
+      .attr("class", "slice-label")
+      .attr("transform", (d) => `translate(${arc.centroid(d)})`)
+      .attr("text-anchor", "middle")
+      .style("fill", (d) => (d.data.key === "External" ? "#F3F8FC" : "#060d29"))
+      .style("font-weight", "700")
+      .each(function (d) {
+        const pct = Math.round(
+          ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100,
+        );
+        d3.select(this).selectAll("tspan").remove();
+        d3.select(this)
+          .append("tspan")
+          .attr("x", 0)
+          .attr("dy", 0)
+          .text(d.data.key);
+
+        d3.select(this)
+          .append("tspan")
+          .attr("x", 0)
+          .attr("dy", "1.2em")
+          .text(`${pct}%`);
+      });
+  }
+
+  updateLabels(getStartingData());
+
+  // legend
+  // svg
+  //   .append("circle")
+  //   .attr("cx", 200)
+  //   .attr("cy", -140)
+  //   .attr("r", 6)
+  //   .style("fill", "#B6C1F1");
+  // svg
+  //   .append("circle")
+  //   .attr("cx", 200)
+  //   .attr("cy", -110)
+  //   .attr("r", 6)
+  //   .style("fill", "#3054F1");
+  // svg
+  //   .append("text")
+  //   .attr("x", 220)
+  //   .attr("y", -140)
+  //   .text("Internal")
+  //   .style("font-size", "15px")
+  //   .attr("alignment-baseline", "middle");
+  // svg
+  //   .append("text")
+  //   .attr("x", 220)
+  //   .attr("y", -110)
+  //   .text("External")
+  //   .style("font-size", "15px")
+  //   .attr("alignment-baseline", "middle");
+
+  // title
+  svg
+    .append("text")
+    .attr("class", "pie-title")
+    .attr("text-anchor", "middle")
+    .attr("x", 0)
+    .attr("y", -175)
+    .text("All Banks")
+    .style("font-weight", "700")
+    .style("font-size", "20px");
 
   return { updatePie };
 }
@@ -1323,7 +1414,7 @@ async function init() {
   // initCarousel();
 
   // const { useCases } = await fetchData();
-  const { updatePie } = await createUseCasePie(useCases); // get the update fn
+  const { updatePie } = await createUseCasePie(useCases); // get the update function
   createUseCaseBar(useCases, updatePie); // pass it to bar chart
 }
 

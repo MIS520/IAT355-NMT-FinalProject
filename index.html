@@ -331,7 +331,7 @@
 
       <!-- types of integration section -->
       <section
-        class="min-h-screen h-fit w-full flex flex-col items-start justify-around py-20"
+        class="min-h-screen h-fit w-full flex flex-col items-start justify-start"
       >
         <div id="carousel-heading" class="flex flex-col gap-4">
           <h2 class="mobile-subheader-1 lg:desktop-subheader-1">
@@ -354,21 +354,12 @@
           </div>
         </div>
 
-        <div id="use-case-viz-container" class="flex flex-col h-fit w-full">
-          <div id="use-case-bar"></div>
-          <!-- <button
-            onclick="update(data1)"
-            class="border-black border-2 w-fit p-2 my-2"
-          >
-            Data 1
-          </button>
-          <button
-            onclick="createUseCasePie.update(data2)"
-            class="border-black border-2 w-fit p-2 my-2"
-          >
-            Data 2
-          </button> -->
-          <div id="use-case-pie"></div>
+        <div
+          id="use-case-viz-container"
+          class="flex flex-row flex-wrap h-fit w-full"
+        >
+          <div id="use-case-bar" class=""></div>
+          <div id="use-case-pie" class=""></div>
         </div>
       </section>
 
