@@ -371,7 +371,7 @@ function createVizRadar(evidentAIRanks, financials) {
     },
     {
       label: "Lower AI (Rank 11–15)",
-      color: "#b6c1f1",
+      color: "#8088ae",
       banks: data.filter((d) => d.Rank >= 11),
     },
   ];
@@ -417,7 +417,9 @@ function createVizRadar(evidentAIRanks, financials) {
   buttons
     .append("button")
     .text("All Ranks")
+    .style("padding", "8px 16px") 
     .style("border", `2px solid black`)
+    .style("border-radius", "8px")
     .style("color", "#000000")
     .on("click", function () {
       tiers.forEach((tier) => {
@@ -435,6 +437,8 @@ function createVizRadar(evidentAIRanks, financials) {
       .append("button")
       .text(t.label)
       .style("border", `2px solid ${t.color}`)
+      .style("border-radius", "8px")
+      .style("padding", "8px 16px") 
       .style("color", t.color)
       .on("click", function () {
         // loop through ALL tiers
