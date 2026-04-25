@@ -1,11 +1,26 @@
 // const { use } = require("react");
 
 async function fetchData() {
-  const useCasesLong = await d3.csv("data/IAT355_Final_Proj_Dataset(Uses Cases) - Long.csv", d3.autoType);
-  const useCases = await d3.csv("data/IAT_355_Final_Proj_Dataset(Use Cases).csv", d3.autoType);
-  const evidentAIRanks = await d3.csv("data/IAT_355_Final_Proj_Dataset(Evident AI - Oct) - IAT_355_Final_Proj_Dataset(Evident AI - Oct.csv", d3.autoType);
-  const financials = await d3.csv("data/IAT_355_Final_Proj_Dataset(Fin - IAT_355_Final_Proj_Dataset(Fin (1).csv", d3.autoType);
-  const aiIndustries = await d3.csv("data/IAT_355_Final_Proj_Dataset(AI Use Across Industries).csv", d3.autoType);
+  const useCasesLong = await d3.csv(
+    "data/IAT355_Final_Proj_Dataset(Uses Cases) - Long.csv",
+    d3.autoType,
+  );
+  const useCases = await d3.csv(
+    "data/IAT_355_Final_Proj_Dataset(Use Cases).csv",
+    d3.autoType,
+  );
+  const evidentAIRanks = await d3.csv(
+    "data/IAT_355_Final_Proj_Dataset(Evident AI - Oct) - IAT_355_Final_Proj_Dataset(Evident AI - Oct.csv",
+    d3.autoType,
+  );
+  const financials = await d3.csv(
+    "data/IAT_355_Final_Proj_Dataset(Fin - IAT_355_Final_Proj_Dataset(Fin (1).csv",
+    d3.autoType,
+  );
+  const aiIndustries = await d3.csv(
+    "data/IAT_355_Final_Proj_Dataset(AI Use Across Industries).csv",
+    d3.autoType,
+  );
   return { useCasesLong, useCases, evidentAIRanks, financials, aiIndustries };
 }
 
@@ -78,7 +93,12 @@ function createViz1(useCasesLong) {
     background: "transparent",
     config: {
       view: { stroke: "transparent" },
-      axis: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12, titleFontSize: 12 },
+      axis: {
+        labelFontWeight: 300,
+        titleFontWeight: 300,
+        labelFontSize: 12,
+        titleFontSize: 12,
+      },
       legend: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12 },
     },
   };
@@ -89,8 +109,8 @@ function createViz1(useCasesLong) {
 function createVizIndustries(aiIndustries) {
   // Remove the aggregate "All businesses" row, we only want individual industry rows
   const cleaned = aiIndustries
-    .filter(d => d["% of businesses"] !== "All businesses")
-    .map(d => ({
+    .filter((d) => d["% of businesses"] !== "All businesses")
+    .map((d) => ({
       industry: d["% of businesses"],
       q2024: +d["3rd Quarter of 2024"],
       q2025: +d["3rd Quarter of 2025"],
@@ -101,7 +121,7 @@ function createVizIndustries(aiIndustries) {
   // Pre-compute the y-axis sort order (highest Q3 2025 adoption at the top)
   const sortOrder = [...cleaned]
     .sort((a, b) => b.q2025 - a.q2025)
-    .map(d => d.industry);
+    .map((d) => d.industry);
 
   // Shared axis styling using the site's design tokens
   const axisStyle = {
@@ -122,7 +142,10 @@ function createVizIndustries(aiIndustries) {
       // Reshape wide (q2024, q2025) into long format so both years share one x scale
       { fold: ["q2024", "q2025"], as: ["period", "pct"] },
       // Create a human-readable label for the legend ("Q3 2024" / "Q3 2025")
-      { calculate: "datum.period === 'q2025' ? 'Q3 2025' : 'Q3 2024'", as: "label" },
+      {
+        calculate: "datum.period === 'q2025' ? 'Q3 2025' : 'Q3 2024'",
+        as: "label",
+      },
     ],
     layer: [
       // Connecting line between the two dots
@@ -179,16 +202,30 @@ function createVizIndustries(aiIndustries) {
           tooltip: [
             { field: "industry", type: "nominal", title: "Industry" },
             { field: "label", type: "nominal", title: "Period" },
-            { field: "pct", type: "quantitative", title: "% using AI", format: ".1f" },
+            {
+              field: "pct",
+              type: "quantitative",
+              title: "% using AI",
+              format: ".1f",
+            },
           ],
         },
       },
       // "Banking" label on Finance & Insurance Q3 2025 dot
       {
         transform: [
-          { filter: "datum.industry === 'Finance and insurance' && datum.period === 'q2025'" },
+          {
+            filter:
+              "datum.industry === 'Finance and insurance' && datum.period === 'q2025'",
+          },
         ],
-        mark: { type: "text", align: "left", dx: 8, fontSize: 11, fontStyle: "italic" },
+        mark: {
+          type: "text",
+          align: "left",
+          dx: 8,
+          fontSize: 11,
+          fontStyle: "italic",
+        },
         encoding: {
           y: { field: "industry", type: "nominal", sort: sortOrder },
           x: { field: "pct", type: "quantitative" },
@@ -201,12 +238,20 @@ function createVizIndustries(aiIndustries) {
     // to prevent Vega-Lite from trying to merge their color scales into one
     resolve: { scale: { color: "independent" } },
     background: "transparent",
-    config: { view: { stroke: "transparent" }, axis: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12, titleFontSize: 12 }, legend: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12 } },
+    config: {
+      view: { stroke: "transparent" },
+      axis: {
+        labelFontWeight: 300,
+        titleFontWeight: 300,
+        labelFontSize: 12,
+        titleFontSize: 12,
+      },
+      legend: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12 },
+    },
   };
 
   vegaEmbed("#viz-industries", spec, { actions: false });
 }
-
 
 function createVizUseCases(useCases) {
   const cleaned = useCases
@@ -269,7 +314,12 @@ function createVizUseCases(useCases) {
     background: "transparent",
     config: {
       view: { stroke: "transparent" },
-      axis: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12, titleFontSize: 12 },
+      axis: {
+        labelFontWeight: 300,
+        titleFontWeight: 300,
+        labelFontSize: 12,
+        titleFontSize: 12,
+      },
       legend: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12 },
     },
   };
@@ -278,7 +328,7 @@ function createVizUseCases(useCases) {
 }
 
 function createVizRadar(evidentAIRanks, financials) {
-    // Helper to parse numbers that may be stored as comma-formatted strings (e.g. "1,234.5")
+  // Helper to parse numbers that may be stored as comma-formatted strings (e.g. "1,234.5")
   const parseNum = (v) =>
     typeof v === "string" ? parseFloat(v.replace(/,/g, "")) : +v;
 
@@ -292,7 +342,7 @@ function createVizRadar(evidentAIRanks, financials) {
         Rank: rank["Overall Rank"],
         ROE: parseNum(d["ROE (%)"]),
         CostToIncome: parseNum(d["Cost-To-Income Ratio"]),
-         // Revenue growth = percentage change from 2022 to 2025
+        // Revenue growth = percentage change from 2022 to 2025
         RevGrowth:
           ((parseNum(d["Revenue 2025"]) - parseNum(d["Revenue 2022"])) /
             parseNum(d["Revenue 2022"])) *
@@ -328,7 +378,7 @@ function createVizRadar(evidentAIRanks, financials) {
 
   // Average each metric across all banks in a tier to get one polygon per tier
   // Efficiency is inverted: lower cost-to-income ratio = more efficient, so we subtract from 100
-  const groups = tiers.map(t => ({
+  const groups = tiers.map((t) => ({
     label: t.label,
     color: t.color,
     values: {
@@ -347,9 +397,14 @@ function createVizRadar(evidentAIRanks, financials) {
   });
 
   // Canvas dimensions — cx/cy is the radar centre, R is the outer radius, levels = ring count
-  const W = 780, H = 680, cx = W / 2, cy = H / 2 + 10, R = 250, levels = 4;
+  const W = 780,
+    H = 680,
+    cx = W / 2,
+    cy = H / 2 + 10,
+    R = 250,
+    levels = 4;
   // Spread axes evenly around a full circle, starting straight up (−π/2)
-  const angleFor = i => -Math.PI / 2 + (i * 2 * Math.PI) / axes.length;
+  const angleFor = (i) => -Math.PI / 2 + (i * 2 * Math.PI) / axes.length;
 
   const container = d3.select("#viz-radar").style("position", "relative");
 
@@ -651,7 +706,7 @@ function createViz3(evidentAIRanks, financials) {
           {
             name: "grid",
             select: "interval",
-            bind: "scales",   // binds the interval selection to the axis scales for pan/zoom
+            bind: "scales", // binds the interval selection to the axis scales for pan/zoom
           },
           {
             name: "hover",
@@ -772,7 +827,16 @@ function createViz3(evidentAIRanks, financials) {
       },
     ],
     background: "transparent",
-    config: { view: { stroke: "transparent" }, axis: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12, titleFontSize: 12 }, legend: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12 } },
+    config: {
+      view: { stroke: "transparent" },
+      axis: {
+        labelFontWeight: 300,
+        titleFontWeight: 300,
+        labelFontSize: 12,
+        titleFontSize: 12,
+      },
+      legend: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12 },
+    },
   };
 
   vegaEmbed("#viz-3", spec, { actions: false }).then(({ view }) => {
@@ -814,7 +878,7 @@ function createViz3(evidentAIRanks, financials) {
     }
 
     let selected = null;
-    renderCard(null);  // Show placeholder text on initial load
+    renderCard(null); // Show placeholder text on initial load
 
     // Hover: show hovered bank (falls back to selected on mouseout)
     view.addEventListener("mouseover", (_, item) => {
@@ -855,8 +919,10 @@ async function createVizWorldMap(useCases) {
   const regionCategoryBreakdown = {};
   cleaned.forEach((d) => {
     if (!d.Region || !d.Category) return;
-    if (!regionCategoryBreakdown[d.Region]) regionCategoryBreakdown[d.Region] = {};
-    regionCategoryBreakdown[d.Region][d.Category] = (regionCategoryBreakdown[d.Region][d.Category] || 0) + 1;
+    if (!regionCategoryBreakdown[d.Region])
+      regionCategoryBreakdown[d.Region] = {};
+    regionCategoryBreakdown[d.Region][d.Category] =
+      (regionCategoryBreakdown[d.Region][d.Category] || 0) + 1;
   });
 
   // Category colors mirror the other charts so colors are consistent across the whole page
@@ -927,29 +993,33 @@ async function createVizWorldMap(useCases) {
 
   // Search / snap-to input, only regions that have data
   const regionAliases = {
-    "USA":    ["United States"],
-    "UK":     ["United Kingdom", "England"],
-    "Canada": [],
-    "France": [],
-    "Europe": [],
-    "APAC":   [],
+    USA: ["United States"],
+    UK: ["United Kingdom", "England"],
+    Canada: [],
+    France: [],
+    Europe: [],
+    APAC: [],
   };
 
   const searchTargets = {};
   Object.entries(regionLabelCoords).forEach(([region, coords]) => {
     if (!regionCounts[region]) return;
     searchTargets[region] = coords;
-    (regionAliases[region] || []).forEach(alias => { searchTargets[alias] = coords; });
+    (regionAliases[region] || []).forEach((alias) => {
+      searchTargets[alias] = coords;
+    });
   });
 
-  const searchWrap = container.append("div")
+  const searchWrap = container
+    .append("div")
     .style("display", "flex")
     .style("gap", "8px")
     .style("align-items", "center")
     .style("width", `${width}px`)
     .style("box-sizing", "border-box");
 
-  const searchInput = searchWrap.append("input")
+  const searchInput = searchWrap
+    .append("input")
     .attr("type", "text")
     .attr("placeholder", "Snap to region or country… (e.g. Japan, USA, Europe)")
     .attr("list", "globe-search-list")
@@ -962,14 +1032,16 @@ async function createVizWorldMap(useCases) {
     .style("font-size", "13px")
     .style("outline", "none");
 
-  searchWrap.append("datalist")
+  searchWrap
+    .append("datalist")
     .attr("id", "globe-search-list")
     .selectAll("option")
     .data(Object.keys(searchTargets))
     .join("option")
-    .attr("value", d => d);
+    .attr("value", (d) => d);
 
-  const svg = container.append("svg")
+  const svg = container
+    .append("svg")
     .attr("width", width)
     .attr("height", height)
     .style("border-radius", "12px")
@@ -1055,7 +1127,7 @@ async function createVizWorldMap(useCases) {
   const countries = topojson.feature(world, world.objects.countries);
 
   // Returns true if a country's ISO numeric ID maps to a region that has use-case data
-  const hasData = d => {
+  const hasData = (d) => {
     const region = countryToRegion[+d.id];
     return region && regionCounts[region] > 0;
   };
@@ -1097,15 +1169,18 @@ async function createVizWorldMap(useCases) {
       const breakdown = regionCategoryBreakdown[region] || {};
       d3.select(this).attr("stroke", "#977DFF").attr("stroke-width", 1.8);
       const sortedCats = Object.entries(breakdown).sort((a, b) => b[1] - a[1]);
-      const rows = sortedCats.map(([cat, n]) =>
-        `<span style="display:inline-flex;align-items:center;gap:5px;">` +
-        `<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${categoryColors[cat]};flex-shrink:0;"></span>` +
-        `<span style="color:#b6c1f1;">${cat}:</span> <strong style="color:#f3f8fc;">${n}</strong>` +
-        `</span>`
-      ).join("<br/>");
+      const rows = sortedCats
+        .map(
+          ([cat, n]) =>
+            `<span style="display:inline-flex;align-items:center;gap:5px;">` +
+            `<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${categoryColors[cat]};flex-shrink:0;"></span>` +
+            `<span style="color:#b6c1f1;">${cat}:</span> <strong style="color:#f3f8fc;">${n}</strong>` +
+            `</span>`,
+        )
+        .join("<br/>");
       infoPanel.html(
         `<strong style="color:#f3f8fc;font-size:14px;">${region}</strong>` +
-        `<div style="margin-top:4px;font-size:12px;line-height:1.9;">${rows}</div>`
+          `<div style="margin-top:4px;font-size:12px;line-height:1.9;">${rows}</div>`,
       );
     })
     .on("mouseleave", function (_event, d) {
@@ -1133,7 +1208,7 @@ async function createVizWorldMap(useCases) {
     .attr("pointer-events", "none");
 
   // Build each region's pill badge (rect + text) — x/y position is set per-frame in render()
-  labelEls.each(function(d) {
+  labelEls.each(function (d) {
     const g = d3.select(this);
     const bh = 18;
     g.append("rect")
@@ -1208,7 +1283,8 @@ async function createVizWorldMap(useCases) {
     .html("Drag to rotate<br>Scroll to zoom<br>Dbl-click to reset");
 
   // Category legend
-  const catLegendWrap = container.append("div")
+  const catLegendWrap = container
+    .append("div")
     .style("display", "flex")
     .style("flex-wrap", "wrap")
     .style("align-items", "flex-start")
@@ -1219,7 +1295,8 @@ async function createVizWorldMap(useCases) {
     .style("width", `${width}px`)
     .style("box-sizing", "border-box");
 
-  catLegendWrap.append("div")
+  catLegendWrap
+    .append("div")
     .style("font-size", "10px")
     .style("font-weight", "700")
     .style("color", "#3054f1")
@@ -1229,20 +1306,42 @@ async function createVizWorldMap(useCases) {
     .text("AI Use Case Categories");
 
   const categoryDefs = [
-    { name: "Customer Experience",         color: "#977DFF", desc: "Chatbots, personalization, advisors" },
-    { name: "Productivity & Automation",   color: "#6B5CE7", desc: "Workflows, document processing" },
-    { name: "Operations & Infrastructure", color: "#3A4FE8", desc: "Monitoring, code review, security" },
-    { name: "Capital Markets & Research",  color: "#0033FF", desc: "Data queries, research synthesis" },
-    { name: "Risk & Fraud",                color: "#0600AB", desc: "Transaction monitoring, anomaly detection" },
+    {
+      name: "Customer Experience",
+      color: "#977DFF",
+      desc: "Chatbots, personalization, advisors",
+    },
+    {
+      name: "Productivity & Automation",
+      color: "#6B5CE7",
+      desc: "Workflows, document processing",
+    },
+    {
+      name: "Operations & Infrastructure",
+      color: "#3A4FE8",
+      desc: "Monitoring, code review, security",
+    },
+    {
+      name: "Capital Markets & Research",
+      color: "#0033FF",
+      desc: "Data queries, research synthesis",
+    },
+    {
+      name: "Risk & Fraud",
+      color: "#0600AB",
+      desc: "Transaction monitoring, anomaly detection",
+    },
   ];
 
-  categoryDefs.forEach(cat => {
-    const item = catLegendWrap.append("div")
+  categoryDefs.forEach((cat) => {
+    const item = catLegendWrap
+      .append("div")
       .style("display", "flex")
       .style("align-items", "flex-start")
       .style("gap", "7px")
       .style("min-width", "180px");
-    item.append("div")
+    item
+      .append("div")
       .style("width", "10px")
       .style("height", "10px")
       .style("border-radius", "50%")
@@ -1250,13 +1349,15 @@ async function createVizWorldMap(useCases) {
       .style("flex-shrink", "0")
       .style("margin-top", "2px");
     const txt = item.append("div");
-    txt.append("div")
+    txt
+      .append("div")
       .style("font-size", "11px")
       .style("font-weight", "600")
       .style("color", "#f3f8fc")
       .style("line-height", "1.3")
       .text(cat.name);
-    txt.append("div")
+    txt
+      .append("div")
       .style("font-size", "10px")
       .style("color", "#b6c1f1")
       .style("line-height", "1.4")
@@ -1264,15 +1365,15 @@ async function createVizWorldMap(useCases) {
   });
 
   // How to read annotation
-  container.append("div")
+  container
+    .append("div")
     .style("margin-top", "4px")
     .style("width", `${width}px`)
     .style("background", "#eef0fc")
     .style("border", "1px solid #b6c1f1")
     .style("border-radius", "14px")
     .style("padding", "16px 20px")
-    .style("box-sizing", "border-box")
-    .html(`
+    .style("box-sizing", "border-box").html(`
       <div style="font-size:13px; font-weight:700; color:#3054f1; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:6px;">How to read this</div>
       <div style="font-size:13px; color:#324ab3; line-height:1.65;">
         Countries are <strong style="color:#060d29;">shaded by the number of documented AI use cases</strong> from banks headquartered in that region — darker purple means more cases. Only highlighted countries have data. Hover any highlighted country to see a breakdown by use case category. Use the search bar above to snap to a region, or drag and scroll to explore.
@@ -1315,8 +1416,11 @@ async function createVizWorldMap(useCases) {
   render();
 
   // Drag to rotate
-  const drag = d3.drag()
-    .on("start", () => { svg.style("cursor", "grabbing"); })
+  const drag = d3
+    .drag()
+    .on("start", () => {
+      svg.style("cursor", "grabbing");
+    })
     .on("drag", (event) => {
       const [λ, φ] = projection.rotate();
       projection.rotate([
@@ -1354,7 +1458,7 @@ async function createVizWorldMap(useCases) {
     const r0 = projection.rotate();
     const r1 = [-lon, Math.max(-90, Math.min(90, -lat))];
     const interp = d3.interpolate(r0, r1);
-    const timer = d3.timer(elapsed => {
+    const timer = d3.timer((elapsed) => {
       const progress = Math.min(1, elapsed / 900);
       projection.rotate(interp(d3.easeCubicInOut(progress)));
       render();
@@ -1362,7 +1466,7 @@ async function createVizWorldMap(useCases) {
     });
   }
 
-  searchInput.on("change", function() {
+  searchInput.on("change", function () {
     const val = this.value.trim();
     const coords = searchTargets[val];
     if (coords) {
@@ -1586,7 +1690,7 @@ async function createUseCasePie(useCases) {
         if (!this._current) this._current = d;
       })
       .transition()
-      .duration(750)
+      .duration(1)
       .attrTween("d", arcTween);
 
     updateLabels(newData);
@@ -1666,16 +1770,13 @@ async function createUseCasePie(useCases) {
 }
 
 async function init() {
-  const { useCasesLong, useCases, evidentAIRanks, financials, aiIndustries } = await fetchData();
+  const { useCasesLong, useCases, evidentAIRanks, financials, aiIndustries } =
+    await fetchData();
   createVizIndustries(aiIndustries);
   createVizWorldMap(useCases);
   createVizRadar(evidentAIRanks, financials);
-  // createViz3(evidentAIRanks, financials);
-  // createUseCaseBar(useCases);
-  // createUseCasePie(useCases);
-  // initCarousel();
-
-  // const { useCases } = await fetchData();
+  createViz3(evidentAIRanks, financials);
+  
   const { updatePie } = await createUseCasePie(useCases); // get the update function
   createUseCaseBar(useCases, updatePie); // pass it to bar chart
 }
