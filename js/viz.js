@@ -1,3 +1,5 @@
+// const { use } = require("react");
+
 async function fetchData() {
   const useCasesLong = await d3.csv("data/IAT355_Final_Proj_Dataset(Uses Cases) - Long.csv", d3.autoType);
   const useCases = await d3.csv("data/IAT_355_Final_Proj_Dataset(Use Cases).csv", d3.autoType);
@@ -1399,13 +1401,283 @@ function initCarousel() {
   });
 }
 
+var selectedBank = null;
+
+async function createUseCaseBar(useCases, updatePie) {
+  // set the dimensions and margins of the graph
+  const margin = { top: 30, right: 30, bottom: 100, left: 60 },
+    width = 720 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+  // append the svg object to the body of the page
+  const svg = d3
+    .select("#use-case-bar")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  const useCaseCounts = d3.rollup(
+    useCases,
+    (v) => v.length, // Reducer: returns the count of rows in the group
+    (d) => d.Bank, // Key: the column to group by
+  );
+  console.log(useCaseCounts);
+
+  const plotData = Array.from(useCaseCounts, ([key, value]) => ({
+    key,
+    value,
+  })).sort((a, b) => b.value - a.value);
+
+  // X axis
+  const x = d3
+    .scaleBand()
+    .range([0, width])
+    .domain(plotData.map((d) => d.key))
+    .padding(0.2);
+
+  svg
+    .append("g")
+    .attr("transform", `translate(0, ${height})`)
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+    .attr("transform", "translate(-10,0)rotate(-45)")
+    .style("text-anchor", "end");
+
+  // Add Y axis
+  const y = d3.scaleLinear().domain([0, 5]).range([height, 0]);
+
+  svg.append("g").call(d3.axisLeft(y));
+
+  // Bars
+  svg
+    .selectAll("mybar")
+    .data(plotData)
+    .join("rect")
+    .attr("x", (d) => x(d.key))
+    .attr("y", (d) => y(d.value))
+    .attr("width", x.bandwidth())
+    .attr("height", (d) => height - y(d.value))
+    .attr("fill", "#B6C1F1")
+    // .attr("hover", "fill", "#B6C1F1")
+    .on("mouseover", function (event, d) {
+      d3.select(this).transition().duration(150).style("fill", "#3054F1");
+    })
+    .on("mouseleave", function (event, d) {
+      if (d.key !== selectedBank) {
+        d3.select(this).transition().duration(200).style("fill", "#B6C1F1");
+      }
+    })
+    .on("click", function (event, d) {
+      selectedBank = d.key;
+      updatePie(d.key); // d.key is the bank name
+      console.log(d.key);
+
+      svg.selectAll("rect").style("fill", "#B6C1F1");
+      d3.select(this).style("fill", "#3054F1");
+    });
+
+  // Add X axis label:
+  svg
+    .append("text")
+    .attr("text-anchor", "end")
+    .attr("x", width)
+    .attr("y", height + margin.top + 50)
+    .text("Financial Institutions");
+
+  // Y axis label:
+  svg
+    .append("text")
+    .attr("text-anchor", "end")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -margin.left + 20)
+    .attr("x", 0)
+    .text("Number of AI Use Cases");
+
+  // title
+  svg
+    .append("text")
+    .attr("text-anchor", "end")
+    .attr("x", width * 0.8)
+    .attr("y", -10)
+    .text("How many AI Use Cases are in Each Bank?")
+    .style("font-weight", "700")
+    .style("font-size", "20px");
+}
+
+async function createUseCasePie(useCases) {
+  const margin = { top: 200, right: 30, bottom: 100, left: 200 },
+    width = 350 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+  const r = height * 2.5 - 10; // radius constant
+  const color = d3
+    .scaleOrdinal()
+    .domain(["Internal", "External"])
+    .range(["#B6C1F1", "#3054F1"]);
+
+  const svg = d3
+    .select("#use-case-pie")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  const arc = d3
+    .arc()
+    .innerRadius(r * 0.2)
+    .outerRadius(r * 0.6);
+
+  const pie = d3
+    .pie()
+    .sort(null)
+    .value((d) => d.value);
+
+  function getStartingData() {
+    const counts = d3.rollup(
+      useCases,
+      (v) => v.length, // Reducer: returns the count of rows in the group
+      (d) => d["Internal/External"], // Key: the column to group by
+    );
+
+    return Array.from(counts, ([key, value]) => ({ key, value }));
+  }
+
+  function getBankData(bankName) {
+    const filtered = useCases.filter((d) => d.Bank === bankName);
+    const counts = d3.rollup(
+      filtered,
+      (v) => v.length,
+      (d) => d["Internal/External"],
+    );
+    return Array.from(counts, ([key, value]) => ({ key, value }));
+  }
+
+  let paths = svg
+    .selectAll("path")
+    .data(pie(getStartingData()))
+    .join("path")
+    .attr("fill", (d) => color(d.data.key))
+    .attr("d", arc)
+    .each(function (d) {
+      this._current = d;
+    });
+
+  function arcTween(a) {
+    const i = d3.interpolate(this._current, a);
+    this._current = i(0);
+    return (t) => arc(i(t));
+  }
+
+  function updatePie(bankName) {
+    const newData = bankName ? getBankData(bankName) : getStartingData();
+
+    // update title
+    svg.select("text.pie-title").text(bankName ? bankName : "All Banks");
+
+    paths = svg
+      .selectAll("path")
+      .data(pie(newData))
+      .join("path")
+      .attr("fill", (d) => color(d.data.key))
+      .each(function (d) {
+        if (!this._current) this._current = d;
+      })
+      .transition()
+      .duration(750)
+      .attrTween("d", arcTween);
+
+    updateLabels(newData);
+  }
+
+  function updateLabels(data) {
+    svg
+      .selectAll("text.slice-label")
+      .data(pie(data))
+      .join("text")
+      .attr("class", "slice-label")
+      .attr("transform", (d) => `translate(${arc.centroid(d)})`)
+      .attr("text-anchor", "middle")
+      .style("fill", (d) => (d.data.key === "External" ? "#F3F8FC" : "#060d29"))
+      .style("font-weight", "700")
+      .each(function (d) {
+        const pct = Math.round(
+          ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100,
+        );
+        d3.select(this).selectAll("tspan").remove();
+        d3.select(this)
+          .append("tspan")
+          .attr("x", 0)
+          .attr("dy", 0)
+          .text(d.data.key);
+
+        d3.select(this)
+          .append("tspan")
+          .attr("x", 0)
+          .attr("dy", "1.2em")
+          .text(`${pct}%`);
+      });
+  }
+
+  updateLabels(getStartingData());
+
+  // legend
+  // svg
+  //   .append("circle")
+  //   .attr("cx", 200)
+  //   .attr("cy", -140)
+  //   .attr("r", 6)
+  //   .style("fill", "#B6C1F1");
+  // svg
+  //   .append("circle")
+  //   .attr("cx", 200)
+  //   .attr("cy", -110)
+  //   .attr("r", 6)
+  //   .style("fill", "#3054F1");
+  // svg
+  //   .append("text")
+  //   .attr("x", 220)
+  //   .attr("y", -140)
+  //   .text("Internal")
+  //   .style("font-size", "15px")
+  //   .attr("alignment-baseline", "middle");
+  // svg
+  //   .append("text")
+  //   .attr("x", 220)
+  //   .attr("y", -110)
+  //   .text("External")
+  //   .style("font-size", "15px")
+  //   .attr("alignment-baseline", "middle");
+
+  // title
+  svg
+    .append("text")
+    .attr("class", "pie-title")
+    .attr("text-anchor", "middle")
+    .attr("x", 0)
+    .attr("y", -175)
+    .text("All Banks")
+    .style("font-weight", "700")
+    .style("font-size", "20px");
+
+  return { updatePie };
+}
+
 async function init() {
   const { useCasesLong, useCases, evidentAIRanks, financials, aiIndustries } = await fetchData();
   createVizIndustries(aiIndustries);
   createVizWorldMap(useCases);
   createVizRadar(evidentAIRanks, financials);
-  createViz3(evidentAIRanks, financials);
-  initCarousel();
+  // createViz3(evidentAIRanks, financials);
+  // createUseCaseBar(useCases);
+  // createUseCasePie(useCases);
+  // initCarousel();
+
+  // const { useCases } = await fetchData();
+  const { updatePie } = await createUseCasePie(useCases); // get the update function
+  createUseCaseBar(useCases, updatePie); // pass it to bar chart
 }
 
 init();
