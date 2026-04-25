@@ -1,23 +1,12 @@
 // const { use } = require("react");
 
 async function fetchData() {
-  const useCasesLong = await d3.csv(
-    "data/IAT355_Final_Proj_Dataset(Uses Cases) - Long.csv",
-    d3.autoType,
-  );
-  const useCases = await d3.csv(
-    "data/IAT_355_Final_Proj_Dataset(Use Cases).csv",
-    d3.autoType,
-  );
-  const evidentAIRanks = await d3.csv(
-    "data/IAT_355_Final_Proj_Dataset(Evident AI - Oct) - IAT_355_Final_Proj_Dataset(Evident AI - Oct.csv",
-    d3.autoType,
-  );
-  const financials = await d3.csv(
-    "data/IAT_355_Final_Proj_Dataset(Fin - IAT_355_Final_Proj_Dataset(Fin (1).csv",
-    d3.autoType,
-  );
-  return { useCasesLong, useCases, evidentAIRanks, financials };
+  const useCasesLong = await d3.csv("data/IAT355_Final_Proj_Dataset(Uses Cases) - Long.csv", d3.autoType);
+  const useCases = await d3.csv("data/IAT_355_Final_Proj_Dataset(Use Cases).csv", d3.autoType);
+  const evidentAIRanks = await d3.csv("data/IAT_355_Final_Proj_Dataset(Evident AI - Oct) - IAT_355_Final_Proj_Dataset(Evident AI - Oct.csv", d3.autoType);
+  const financials = await d3.csv("data/IAT_355_Final_Proj_Dataset(Fin - IAT_355_Final_Proj_Dataset(Fin (1).csv", d3.autoType);
+  const aiIndustries = await d3.csv("data/IAT_355_Final_Proj_Dataset(AI Use Across Industries).csv", d3.autoType);
+  return { useCasesLong, useCases, evidentAIRanks, financials, aiIndustries };
 }
 
 function createViz1(useCasesLong) {
@@ -37,22 +26,22 @@ function createViz1(useCasesLong) {
         sort: ["USA", "Europe", "UK", "Canada", "France", "APAC"],
         axis: {
           labelAngle: 0,
-          labelColor: "#1F2937",
-          titleColor: "#1F2937",
+          labelColor: "#060d29",
+          titleColor: "#060d29",
           title: "Region",
-          domainColor: "#9CA3AF",
-          tickColor: "#9CA3AF",
+          domainColor: "#b6c1f1",
+          tickColor: "#b6c1f1",
         },
       },
       y: {
         aggregate: "count",
         title: "Number of AI Use Cases",
         axis: {
-          labelColor: "#1F2937",
-          titleColor: "#1F2937",
-          gridColor: "#E5E7EB",
-          domainColor: "#9CA3AF",
-          tickColor: "#9CA3AF",
+          labelColor: "#060d29",
+          titleColor: "#060d29",
+          gridColor: "#dde2f8",
+          domainColor: "#b6c1f1",
+          tickColor: "#b6c1f1",
         },
       },
       color: {
@@ -69,8 +58,8 @@ function createViz1(useCasesLong) {
           range: ["#977DFF", "#6B5CE7", "#3A4FE8", "#0033FF", "#0600AB"],
         },
         legend: {
-          labelColor: "#1F2937",
-          titleColor: "#1F2937",
+          labelColor: "#060d29",
+          titleColor: "#060d29",
           title: "AI Category",
           orient: "top",
           columns: 1,
@@ -89,96 +78,135 @@ function createViz1(useCasesLong) {
     background: "transparent",
     config: {
       view: { stroke: "transparent" },
+      axis: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12, titleFontSize: 12 },
+      legend: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12 },
     },
   };
 
   vegaEmbed("#viz-1", spec, { actions: false });
 }
 
-function createVizRegions(useCases) {
-  const cleaned = useCases.map((d) => ({
-    ...d,
-    Region: d.Region.trim().replace(/[^\x20-\x7E]/g, ""),
-  }));
+function createVizIndustries(aiIndustries) {
+  // Remove the aggregate "All businesses" row, we only want individual industry rows
+  const cleaned = aiIndustries
+    .filter(d => d["% of businesses"] !== "All businesses")
+    .map(d => ({
+      industry: d["% of businesses"],
+      q2024: +d["3rd Quarter of 2024"],
+      q2025: +d["3rd Quarter of 2025"],
+      // Flag Finance & Insurance so it can be highlighted differently in the chart
+      isFinance: d["% of businesses"] === "Finance and insurance",
+    }));
 
-  const regionSort = ["USA", "Europe", "UK", "Canada", "France", "APAC"];
-  const categorySort = [
-    "Customer Experience",
-    "Productivity & Automation",
-    "Operations & Infrastructure",
-    "Capital Markets & Research",
-    "Risk & Fraud",
-  ];
+  // Pre-compute the y-axis sort order (highest Q3 2025 adoption at the top)
+  const sortOrder = [...cleaned]
+    .sort((a, b) => b.q2025 - a.q2025)
+    .map(d => d.industry);
 
+  // Shared axis styling using the site's design tokens
   const axisStyle = {
-    labelColor: "#1F2937",
-    titleColor: "#1F2937",
-    domainColor: "#9CA3AF",
-    tickColor: "#9CA3AF",
+    labelColor: "#060d29",
+    titleColor: "#060d29",
+    domainColor: "#b6c1f1",
+    tickColor: "#b6c1f1",
+    gridColor: "#dde2f8",
   };
 
   const spec = {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
     width: "container",
-    height: 300,
+    height: 440,
+    padding: { top: 16, right: 20, bottom: 20, left: 20 },
     data: { values: cleaned },
+    transform: [
+      // Reshape wide (q2024, q2025) into long format so both years share one x scale
+      { fold: ["q2024", "q2025"], as: ["period", "pct"] },
+      // Create a human-readable label for the legend ("Q3 2024" / "Q3 2025")
+      { calculate: "datum.period === 'q2025' ? 'Q3 2025' : 'Q3 2024'", as: "label" },
+    ],
     layer: [
+      // Connecting line between the two dots
       {
-        mark: { type: "rect", cornerRadius: 6 },
+        mark: { type: "line" },
         encoding: {
-          x: {
-            field: "Region",
-            type: "nominal",
-            sort: regionSort,
-            axis: { ...axisStyle, title: "Region", labelAngle: 0 },
-          },
           y: {
-            field: "Category",
+            field: "industry",
             type: "nominal",
-            sort: categorySort,
-            axis: { ...axisStyle, title: null },
+            sort: sortOrder,
+            axis: { ...axisStyle, title: null, labelLimit: 290 },
           },
-          color: {
-            aggregate: "count",
+          x: {
+            field: "pct",
             type: "quantitative",
-            scale: { range: ["#DDD8FF", "#6B5CE7", "#0600AB"] },
+            title: "% of businesses using AI",
+            axis: { ...axisStyle },
+            scale: { zero: true },
+          },
+          detail: { field: "industry", type: "nominal" },
+          color: {
+            condition: { test: "datum.isFinance", value: "#977DFF" },
+            value: "#dde2f8",
+          },
+          strokeWidth: {
+            condition: { test: "datum.isFinance", value: 3 },
+            value: 1.5,
+          },
+        },
+      },
+      // Q3 2024 / Q3 2025 dots
+      {
+        mark: { type: "point", filled: true, size: 72, strokeWidth: 0 },
+        encoding: {
+          y: { field: "industry", type: "nominal", sort: sortOrder },
+          x: { field: "pct", type: "quantitative" },
+          color: {
+            field: "label",
+            type: "nominal",
+            scale: {
+              domain: ["Q3 2024", "Q3 2025"],
+              range: ["#b6c1f1", "#0033FF"],
+            },
             legend: {
-              labelColor: "#1F2937",
-              titleColor: "#1F2937",
-              title: "Use Cases",
+              title: null,
               orient: "top",
-              direction: "horizontal",
-              gradientLength: 120,
+              labelColor: "#060d29",
             },
           },
+          opacity: {
+            condition: { test: "datum.isFinance", value: 1 },
+            value: 0.5,
+          },
           tooltip: [
-            { field: "Region", type: "nominal" },
-            { field: "Category", type: "nominal" },
-            { aggregate: "count", title: "Use Cases", type: "quantitative" },
+            { field: "industry", type: "nominal", title: "Industry" },
+            { field: "label", type: "nominal", title: "Period" },
+            { field: "pct", type: "quantitative", title: "% using AI", format: ".1f" },
           ],
         },
       },
+      // "Banking" label on Finance & Insurance Q3 2025 dot
       {
-        mark: { type: "text", fontSize: 15, fontWeight: "bold" },
+        transform: [
+          { filter: "datum.industry === 'Finance and insurance' && datum.period === 'q2025'" },
+        ],
+        mark: { type: "text", align: "left", dx: 8, fontSize: 11, fontStyle: "italic" },
         encoding: {
-          x: { field: "Region", type: "nominal", sort: regionSort },
-          y: { field: "Category", type: "nominal", sort: categorySort },
-          text: { aggregate: "count", type: "quantitative" },
-          color: {
-            condition: { test: "datum['count'] >= 3", value: "white" },
-            value: "#1F2937",
-          },
+          y: { field: "industry", type: "nominal", sort: sortOrder },
+          x: { field: "pct", type: "quantitative" },
+          text: { value: "Banking" },
+          color: { value: "#0033FF" },
         },
       },
     ],
+    // Each layer uses color differently (condition vs field), so resolve independently
+    // to prevent Vega-Lite from trying to merge their color scales into one
+    resolve: { scale: { color: "independent" } },
     background: "transparent",
-    config: {
-      view: { stroke: "transparent" },
-    },
+    config: { view: { stroke: "transparent" }, axis: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12, titleFontSize: 12 }, legend: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12 } },
   };
 
-  vegaEmbed("#viz-regions", spec, { actions: false });
+  vegaEmbed("#viz-industries", spec, { actions: false });
 }
+
 
 function createVizUseCases(useCases) {
   const cleaned = useCases
@@ -190,10 +218,10 @@ function createVizUseCases(useCases) {
     }));
 
   const axisStyle = {
-    labelColor: "#1F2937",
-    titleColor: "#1F2937",
-    domainColor: "#9CA3AF",
-    tickColor: "#9CA3AF",
+    labelColor: "#060d29",
+    titleColor: "#060d29",
+    domainColor: "#b6c1f1",
+    tickColor: "#b6c1f1",
   };
 
   const spec = {
@@ -213,7 +241,7 @@ function createVizUseCases(useCases) {
         aggregate: "count",
         type: "quantitative",
         title: "Number of Use Cases",
-        axis: { ...axisStyle, gridColor: "#E5E7EB" },
+        axis: { ...axisStyle, gridColor: "#dde2f8" },
       },
       color: {
         field: "Internal/External",
@@ -223,8 +251,8 @@ function createVizUseCases(useCases) {
           range: ["#3A4FE8", "#977DFF"],
         },
         legend: {
-          labelColor: "#1F2937",
-          titleColor: "#1F2937",
+          labelColor: "#060d29",
+          titleColor: "#060d29",
           title: "Audience",
           orient: "top",
           direction: "horizontal",
@@ -241,6 +269,8 @@ function createVizUseCases(useCases) {
     background: "transparent",
     config: {
       view: { stroke: "transparent" },
+      axis: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12, titleFontSize: 12 },
+      legend: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12 },
     },
   };
 
@@ -248,10 +278,11 @@ function createVizUseCases(useCases) {
 }
 
 function createVizRadar(evidentAIRanks, financials) {
+    // Helper to parse numbers that may be stored as comma-formatted strings (e.g. "1,234.5")
   const parseNum = (v) =>
     typeof v === "string" ? parseFloat(v.replace(/,/g, "")) : +v;
 
-  // Join financials with AI ranks
+  // Join the financials and AI rank datasets on company name, then compute the three metrics
   const data = financials
     .map((d) => {
       const rank = evidentAIRanks.find((r) => r.Company === d.Company);
@@ -261,6 +292,7 @@ function createVizRadar(evidentAIRanks, financials) {
         Rank: rank["Overall Rank"],
         ROE: parseNum(d["ROE (%)"]),
         CostToIncome: parseNum(d["Cost-To-Income Ratio"]),
+         // Revenue growth = percentage change from 2022 to 2025
         RevGrowth:
           ((parseNum(d["Revenue 2025"]) - parseNum(d["Revenue 2022"])) /
             parseNum(d["Revenue 2022"])) *
@@ -272,8 +304,10 @@ function createVizRadar(evidentAIRanks, financials) {
         d && !isNaN(d.ROE) && !isNaN(d.CostToIncome) && !isNaN(d.RevGrowth),
     );
 
+  // Reusable average helper
   const avg = (arr, key) => arr.reduce((s, d) => s + d[key], 0) / arr.length;
 
+  // Split banks into three AI maturity tiers for comparison
   const tiers = [
     {
       label: "Top AI (Rank 1–5)",
@@ -292,7 +326,9 @@ function createVizRadar(evidentAIRanks, financials) {
     },
   ];
 
-  const groups = tiers.map((t) => ({
+  // Average each metric across all banks in a tier to get one polygon per tier
+  // Efficiency is inverted: lower cost-to-income ratio = more efficient, so we subtract from 100
+  const groups = tiers.map(t => ({
     label: t.label,
     color: t.color,
     values: {
@@ -304,24 +340,65 @@ function createVizRadar(evidentAIRanks, financials) {
 
   const axes = ["ROE (%)", "Rev. Growth (%)", "Efficiency"];
 
+  // Scale each axis independently so the largest value fills the full radius (× 1.2 for padding)
   const maxVals = {};
   axes.forEach((a) => {
     maxVals[a] = Math.max(...groups.map((g) => g.values[a])) * 1.2;
   });
 
-  const W = 780,
-    H = 680,
-    cx = W / 2,
-    cy = H / 2 + 10,
-    R = 250,
-    levels = 4;
-  const angleFor = (i) => -Math.PI / 2 + (i * 2 * Math.PI) / axes.length;
+  // Canvas dimensions — cx/cy is the radar centre, R is the outer radius, levels = ring count
+  const W = 780, H = 680, cx = W / 2, cy = H / 2 + 10, R = 250, levels = 4;
+  // Spread axes evenly around a full circle, starting straight up (−π/2)
+  const angleFor = i => -Math.PI / 2 + (i * 2 * Math.PI) / axes.length;
 
   const container = d3.select("#viz-radar").style("position", "relative");
-  const svg = container
-    .append("svg")
-    .attr("width", W)
-    .attr("height", H + 80);
+
+  const buttons = container
+    .append("div")
+    .style("display", "flex")
+    .style("gap", "8px")
+    .style("margin-bottom", "4px");
+
+  buttons
+    .append("button")
+    .text("All Ranks")
+    .style("border", `2px solid black`)
+    .style("color", "#000000")
+    .on("click", function () {
+      tiers.forEach((tier) => {
+        const elements = document.querySelectorAll(
+          `.tier-${tier.color.replace("#", "")}`,
+        );
+        elements.forEach((element) => {
+          element.style.opacity = 1;
+        });
+      });
+    });
+
+  tiers.forEach((t, i) => {
+    buttons
+      .append("button")
+      .text(t.label)
+      .style("border", `2px solid ${t.color}`)
+      .style("color", t.color)
+      .on("click", function () {
+        // loop through ALL tiers
+        tiers.forEach((tier) => {
+          const elements = document.querySelectorAll(
+            `.tier-${tier.color.replace("#", "")}`,
+          );
+          elements.forEach((element) => {
+            // if this tier matches the clicked one, show it, otherwise hide it
+            if (tier.color === t.color) {
+              element.style.opacity = 1;
+            } else {
+              element.style.opacity = 0;
+            }
+          });
+        });
+      });
+  });
+  const svg = container.append("svg").attr("width", W).attr("height", H);
 
   // Tooltip div
   const tooltip = container
@@ -329,11 +406,14 @@ function createVizRadar(evidentAIRanks, financials) {
     .style("position", "absolute")
     .style("pointer-events", "none")
     .style("display", "none")
-    .style("background", "#060d29")
-    .style("color", "#f3f8fc")
+    .style("background", "#F3F8FC")
+    .style("color", "060D29")
     .style("font-size", "13px")
     .style("padding", "8px 12px")
     .style("border-radius", "8px")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-color", "060D29")
     .style("line-height", "1.6")
     .style("white-space", "nowrap")
     .style("box-shadow", "0 4px 12px rgba(6,13,41,0.15)");
@@ -406,6 +486,7 @@ function createVizRadar(evidentAIRanks, financials) {
   [...groupPoints].reverse().forEach((g) => {
     svg
       .append("polygon")
+      .attr("class", `tier-${g.color.replace("#", "")}`)
       .attr("points", g.pts.map((p) => p.join(",")).join(" "))
       .attr("fill", g.color)
       .attr("fill-opacity", 0.18)
@@ -421,20 +502,22 @@ function createVizRadar(evidentAIRanks, financials) {
       const val = g.values[axis];
       svg
         .append("circle")
+        .attr("class", `tier-${g.color.replace("#", "")}`)
         .attr("cx", px)
         .attr("cy", py)
         .attr("r", 6)
         .attr("fill", g.color)
         .attr("stroke", "#fff")
         .attr("stroke-width", 2)
-        .style("cursor", "pointer")
+        // .style("cursor", "pointer")
         .on("mousemove", (event) => {
           tooltip
             .style("display", "block")
+            .style("border-color", g.color)
             .style("left", event.offsetX + 14 + "px")
             .style("top", event.offsetY - 10 + "px")
             .html(
-              `<strong style="color:${g.color}">${g.label}</strong><br/>${axis}: <strong>${val.toFixed(1)}%</strong>`,
+              `<strong style="color:"#060d29"">${g.label}</strong><br/>${axis}: <strong>${val.toFixed(1)}%</strong>`,
             );
         })
         .on("mouseleave", () => tooltip.style("display", "none"));
@@ -445,7 +528,8 @@ function createVizRadar(evidentAIRanks, financials) {
   const legendW = groups.length * 180;
   const legend = svg
     .append("g")
-    .attr("transform", `translate(${(W - legendW) / 2}, ${H + 8})`);
+    .attr("transform", `translate(${(W - legendW) / 2}, ${H - 90})`);
+
   groups.forEach((g, i) => {
     const row = legend
       .append("g")
@@ -469,7 +553,7 @@ function createVizRadar(evidentAIRanks, financials) {
   // Annotation card
   container
     .append("div")
-    .style("margin-top", "20px")
+    // .style("margin-top", "20px")
     .style("width", W + "px")
     .style("background", "#eef0fc")
     .style("border", "1px solid #b6c1f1")
@@ -486,6 +570,8 @@ function createVizRadar(evidentAIRanks, financials) {
 }
 
 function createViz3(evidentAIRanks, financials) {
+  // Join the top 15 AI-ranked banks with their financial data
+  // Revenue is stored as a comma-formatted string in some rows, so parse it to a number
   const joined = evidentAIRanks
     .filter((d) => d["Overall Rank"] <= 15)
     .map((d) => {
@@ -504,6 +590,7 @@ function createViz3(evidentAIRanks, financials) {
     })
     .filter(Boolean);
 
+  // Shared axis styling using the site's design tokens
   const axisStyle = {
     labelColor: "#060d29",
     titleColor: "#060d29",
@@ -518,6 +605,7 @@ function createViz3(evidentAIRanks, financials) {
     height: 420,
     data: { values: joined },
     layer: [
+      // Layer 1: vertical dashed rule at the mean ROE across all 15 banks
       {
         mark: {
           type: "rule",
@@ -532,6 +620,7 @@ function createViz3(evidentAIRanks, financials) {
           x: { field: "meanROE", type: "quantitative" },
         },
       },
+      // Layer 2: "Average" text label pinned to the bottom of the rule (AIRank 15)
       {
         mark: {
           type: "text",
@@ -555,12 +644,14 @@ function createViz3(evidentAIRanks, financials) {
           text: { value: "Average" },
         },
       },
+      // Layer 3: the main scatter bubbles — size = revenue, y-axis reversed so rank 1 is at top
+      // Three interactive params: pan/zoom (grid), hover highlight, click-to-select
       {
         params: [
           {
             name: "grid",
             select: "interval",
-            bind: "scales",
+            bind: "scales",   // binds the interval selection to the axis scales for pan/zoom
           },
           {
             name: "hover",
@@ -571,7 +662,7 @@ function createViz3(evidentAIRanks, financials) {
             select: "point",
           },
         ],
-        mark: { type: "point", filled: true, cursor: "pointer" },
+        mark: { type: "point", filled: true },
         encoding: {
           x: {
             field: "ROE",
@@ -642,6 +733,7 @@ function createViz3(evidentAIRanks, financials) {
           ],
         },
       },
+      // Layer 4: bank name labels — dim by default, full opacity on hover/select
       {
         mark: {
           type: "text",
@@ -680,18 +772,20 @@ function createViz3(evidentAIRanks, financials) {
       },
     ],
     background: "transparent",
-    config: { view: { stroke: "transparent" } },
+    config: { view: { stroke: "transparent" }, axis: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12, titleFontSize: 12 }, legend: { labelFontWeight: 300, titleFontWeight: 300, labelFontSize: 12 } },
   };
 
   vegaEmbed("#viz-3", spec, { actions: false }).then(({ view }) => {
     const card = document.getElementById("viz-3-info-card");
 
+    // Format large revenue numbers as $XB / $XM for the info card
     function formatRevenue(v) {
       if (v >= 1e9) return `$${(v / 1e9).toFixed(1)}B`;
       if (v >= 1e6) return `$${(v / 1e6).toFixed(1)}M`;
       return `$${v.toLocaleString()}`;
     }
 
+    // Populate the side card — called with null on load and when hover leaves a selected bank
     function renderCard(d) {
       if (!d || !d.Company) {
         card.innerHTML = `
@@ -720,7 +814,9 @@ function createViz3(evidentAIRanks, financials) {
     }
 
     let selected = null;
+    renderCard(null);  // Show placeholder text on initial load
 
+    // Hover: show hovered bank (falls back to selected on mouseout)
     view.addEventListener("mouseover", (_, item) => {
       if (item && item.datum && item.datum.Company) renderCard(item.datum);
     });
@@ -729,6 +825,7 @@ function createViz3(evidentAIRanks, financials) {
       if (item && item.datum && item.datum.Company) renderCard(selected);
     });
 
+    // Click: pin a bank's details; clicking the same bank again deselects it
     view.addEventListener("click", (_, item) => {
       if (item && item.datum && item.datum.Company) {
         selected =
@@ -742,16 +839,36 @@ function createViz3(evidentAIRanks, financials) {
 }
 
 async function createVizWorldMap(useCases) {
+  // Strip non-ASCII characters from Region values that can cause lookup mismatches
   const cleaned = useCases.map((d) => ({
     ...d,
     Region: d.Region.trim().replace(/[^\x20-\x7E]/g, ""),
   }));
 
+  // Count total AI use cases per region for the choropleth color scale
   const regionCounts = {};
   cleaned.forEach((d) => {
     if (d.Region) regionCounts[d.Region] = (regionCounts[d.Region] || 0) + 1;
   });
 
+  // Count use cases broken down by category per region — used for the hover tooltip breakdown
+  const regionCategoryBreakdown = {};
+  cleaned.forEach((d) => {
+    if (!d.Region || !d.Category) return;
+    if (!regionCategoryBreakdown[d.Region]) regionCategoryBreakdown[d.Region] = {};
+    regionCategoryBreakdown[d.Region][d.Category] = (regionCategoryBreakdown[d.Region][d.Category] || 0) + 1;
+  });
+
+  // Category colors mirror the other charts so colors are consistent across the whole page
+  const categoryColors = {
+    "Customer Experience": "#977DFF",
+    "Productivity & Automation": "#6B5CE7",
+    "Operations & Infrastructure": "#3A4FE8",
+    "Capital Markets & Research": "#0033FF",
+    "Risk & Fraud": "#0600AB",
+  };
+
+  // Maps ISO 3166-1 numeric country IDs (from the world-atlas TopoJSON) to dataset region names
   const countryToRegion = {
     840: "USA",
     124: "Canada",
@@ -808,8 +925,51 @@ async function createVizWorldMap(useCases) {
   container.selectAll("*").remove();
   d3.select("body").selectAll(".map-tooltip").remove();
 
-  const svg = container
-    .append("svg")
+  // Search / snap-to input, only regions that have data
+  const regionAliases = {
+    "USA":    ["United States"],
+    "UK":     ["United Kingdom", "England"],
+    "Canada": [],
+    "France": [],
+    "Europe": [],
+    "APAC":   [],
+  };
+
+  const searchTargets = {};
+  Object.entries(regionLabelCoords).forEach(([region, coords]) => {
+    if (!regionCounts[region]) return;
+    searchTargets[region] = coords;
+    (regionAliases[region] || []).forEach(alias => { searchTargets[alias] = coords; });
+  });
+
+  const searchWrap = container.append("div")
+    .style("display", "flex")
+    .style("gap", "8px")
+    .style("align-items", "center")
+    .style("width", `${width}px`)
+    .style("box-sizing", "border-box");
+
+  const searchInput = searchWrap.append("input")
+    .attr("type", "text")
+    .attr("placeholder", "Snap to region or country… (e.g. Japan, USA, Europe)")
+    .attr("list", "globe-search-list")
+    .style("flex", "1")
+    .style("padding", "8px 14px")
+    .style("border-radius", "8px")
+    .style("border", "1px solid #3054f1")
+    .style("background", "#0d1340")
+    .style("color", "#f3f8fc")
+    .style("font-size", "13px")
+    .style("outline", "none");
+
+  searchWrap.append("datalist")
+    .attr("id", "globe-search-list")
+    .selectAll("option")
+    .data(Object.keys(searchTargets))
+    .join("option")
+    .attr("value", d => d);
+
+  const svg = container.append("svg")
     .attr("width", width)
     .attr("height", height)
     .style("border-radius", "12px")
@@ -894,7 +1054,8 @@ async function createVizWorldMap(useCases) {
   );
   const countries = topojson.feature(world, world.objects.countries);
 
-  const hasData = (d) => {
+  // Returns true if a country's ISO numeric ID maps to a region that has use-case data
+  const hasData = d => {
     const region = countryToRegion[+d.id];
     return region && regionCounts[region] > 0;
   };
@@ -910,8 +1071,8 @@ async function createVizWorldMap(useCases) {
     )
     .attr("stroke", (d) => (hasData(d) ? "#f3f8fc" : "#2a2f50"))
     .attr("stroke-width", 0.4)
-    .attr("stroke-linejoin", "round")
-    .style("cursor", (d) => (hasData(d) ? "pointer" : "default"));
+    .attr("stroke-linejoin", "round");
+  // .style("cursor", (d) => (hasData(d) ? "pointer" : "default"));
 
   // Specular highlight overlay
   svg
@@ -927,14 +1088,24 @@ async function createVizWorldMap(useCases) {
     .attr("fill", "url(#globe-glow)")
     .attr("pointer-events", "none");
 
+  // Hover: highlight country border and populate info panel with category breakdown
+  // Mouseleave: restore default border color and reset info panel to placeholder text
   countryEls
     .on("mousemove", function (_event, d) {
       if (!hasData(d)) return;
       const region = countryToRegion[+d.id];
-      const count = regionCounts[region];
+      const breakdown = regionCategoryBreakdown[region] || {};
       d3.select(this).attr("stroke", "#977DFF").attr("stroke-width", 1.8);
+      const sortedCats = Object.entries(breakdown).sort((a, b) => b[1] - a[1]);
+      const rows = sortedCats.map(([cat, n]) =>
+        `<span style="display:inline-flex;align-items:center;gap:5px;">` +
+        `<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${categoryColors[cat]};flex-shrink:0;"></span>` +
+        `<span style="color:#b6c1f1;">${cat}:</span> <strong style="color:#f3f8fc;">${n}</strong>` +
+        `</span>`
+      ).join("<br/>");
       infoPanel.html(
-        `<strong style="color:#f3f8fc">${region}</strong> &nbsp;·&nbsp; ${count} AI Use Cases`,
+        `<strong style="color:#f3f8fc;font-size:14px;">${region}</strong>` +
+        `<div style="margin-top:4px;font-size:12px;line-height:1.9;">${rows}</div>`
       );
     })
     .on("mouseleave", function (_event, d) {
@@ -961,7 +1132,8 @@ async function createVizWorldMap(useCases) {
     .attr("class", "region-label")
     .attr("pointer-events", "none");
 
-  labelEls.each(function (d) {
+  // Build each region's pill badge (rect + text) — x/y position is set per-frame in render()
+  labelEls.each(function(d) {
     const g = d3.select(this);
     const bh = 18;
     g.append("rect")
@@ -980,7 +1152,7 @@ async function createVizWorldMap(useCases) {
   });
 
   // Below-globe panel: legend + hover info + controls hint
-  const defaultInfo = `<span style="color:#b6c1f1">Hover a country to see region details</span>`;
+  const defaultInfo = `<span style="color:#b6c1f1;font-size:12px;">Hover a highlighted country to see its AI category breakdown</span>`;
 
   const belowPanel = container
     .append("div")
@@ -1035,6 +1207,78 @@ async function createVizWorldMap(useCases) {
     .style("flex-shrink", "0")
     .html("Drag to rotate<br>Scroll to zoom<br>Dbl-click to reset");
 
+  // Category legend
+  const catLegendWrap = container.append("div")
+    .style("display", "flex")
+    .style("flex-wrap", "wrap")
+    .style("align-items", "flex-start")
+    .style("gap", "8px 24px")
+    .style("padding", "12px 16px")
+    .style("background", "#060d29")
+    .style("border-radius", "10px")
+    .style("width", `${width}px`)
+    .style("box-sizing", "border-box");
+
+  catLegendWrap.append("div")
+    .style("font-size", "10px")
+    .style("font-weight", "700")
+    .style("color", "#3054f1")
+    .style("letter-spacing", "0.06em")
+    .style("text-transform", "uppercase")
+    .style("flex-basis", "100%")
+    .text("AI Use Case Categories");
+
+  const categoryDefs = [
+    { name: "Customer Experience",         color: "#977DFF", desc: "Chatbots, personalization, advisors" },
+    { name: "Productivity & Automation",   color: "#6B5CE7", desc: "Workflows, document processing" },
+    { name: "Operations & Infrastructure", color: "#3A4FE8", desc: "Monitoring, code review, security" },
+    { name: "Capital Markets & Research",  color: "#0033FF", desc: "Data queries, research synthesis" },
+    { name: "Risk & Fraud",                color: "#0600AB", desc: "Transaction monitoring, anomaly detection" },
+  ];
+
+  categoryDefs.forEach(cat => {
+    const item = catLegendWrap.append("div")
+      .style("display", "flex")
+      .style("align-items", "flex-start")
+      .style("gap", "7px")
+      .style("min-width", "180px");
+    item.append("div")
+      .style("width", "10px")
+      .style("height", "10px")
+      .style("border-radius", "50%")
+      .style("background", cat.color)
+      .style("flex-shrink", "0")
+      .style("margin-top", "2px");
+    const txt = item.append("div");
+    txt.append("div")
+      .style("font-size", "11px")
+      .style("font-weight", "600")
+      .style("color", "#f3f8fc")
+      .style("line-height", "1.3")
+      .text(cat.name);
+    txt.append("div")
+      .style("font-size", "10px")
+      .style("color", "#b6c1f1")
+      .style("line-height", "1.4")
+      .text(cat.desc);
+  });
+
+  // How to read annotation
+  container.append("div")
+    .style("margin-top", "4px")
+    .style("width", `${width}px`)
+    .style("background", "#eef0fc")
+    .style("border", "1px solid #b6c1f1")
+    .style("border-radius", "14px")
+    .style("padding", "16px 20px")
+    .style("box-sizing", "border-box")
+    .html(`
+      <div style="font-size:13px; font-weight:700; color:#3054f1; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:6px;">How to read this</div>
+      <div style="font-size:13px; color:#324ab3; line-height:1.65;">
+        Countries are <strong style="color:#060d29;">shaded by the number of documented AI use cases</strong> from banks headquartered in that region — darker purple means more cases. Only highlighted countries have data. Hover any highlighted country to see a breakdown by use case category. Use the search bar above to snap to a region, or drag and scroll to explore.
+      </div>
+    `);
+
   function render() {
     // Update sphere, graticule, countries
     sphereEl.attr("d", path);
@@ -1071,12 +1315,8 @@ async function createVizWorldMap(useCases) {
   render();
 
   // Drag to rotate
-  const drag = d3
-    .drag()
-    .on("start", () => {
-      svg.style("cursor", "grabbing");
-      tooltip.style("display", "none");
-    })
+  const drag = d3.drag()
+    .on("start", () => { svg.style("cursor", "grabbing"); })
     .on("drag", (event) => {
       const [λ, φ] = projection.rotate();
       projection.rotate([
@@ -1107,6 +1347,28 @@ async function createVizWorldMap(useCases) {
   svg.on("dblclick", () => {
     projection.rotate([-20, -30]).scale(baseScale);
     render();
+  });
+
+  // Animated snap-to
+  function rotateTo(lon, lat) {
+    const r0 = projection.rotate();
+    const r1 = [-lon, Math.max(-90, Math.min(90, -lat))];
+    const interp = d3.interpolate(r0, r1);
+    const timer = d3.timer(elapsed => {
+      const progress = Math.min(1, elapsed / 900);
+      projection.rotate(interp(d3.easeCubicInOut(progress)));
+      render();
+      if (progress >= 1) timer.stop();
+    });
+  }
+
+  searchInput.on("change", function() {
+    const val = this.value.trim();
+    const coords = searchTargets[val];
+    if (coords) {
+      rotateTo(coords[0], coords[1]);
+      this.value = "";
+    }
   });
 }
 
@@ -1404,8 +1666,8 @@ async function createUseCasePie(useCases) {
 }
 
 async function init() {
-  const { useCases, evidentAIRanks, financials } = await fetchData();
-  // createVizRegions(useCases);
+  const { useCasesLong, useCases, evidentAIRanks, financials, aiIndustries } = await fetchData();
+  createVizIndustries(aiIndustries);
   createVizWorldMap(useCases);
   createVizRadar(evidentAIRanks, financials);
   // createViz3(evidentAIRanks, financials);

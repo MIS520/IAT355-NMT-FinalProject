@@ -1,7 +1,7 @@
 <!doctype html>
 <html
   lang="en"
-  class="scroll-smooth transition duration-150 ease-in-out text-pretty"
+  class="scroll-smooth **:transition-all **:duration-150 **:ease-in-out text-pretty"
 >
   <head>
     <meta charset="UTF-8" />
@@ -44,7 +44,7 @@
           >Timeline</a
         >
         <a
-          href="#vizualizations"
+          href="#performance-viz"
           class="text-bg-black hover:text-cta-primary mobile-body-2 lg:desktop-body-2 transition-colors duration-150 ease-in-out"
           >AI in the Banking Industry</a
         >
@@ -71,7 +71,7 @@
         <div class="flex flex-col items-center w-full">
           <h1 class="mobile-header-1 lg:desktop-header-1">Banking on</h1>
           <h1
-            class="mobile-header-1 lg:desktop-header-1 bg-linear-to-l from-[#977DFF] via-[#0033FF] to-[#0600AB] font-medium! pb-2 bg-clip-text w-fit text-transparent"
+            class="mobile-header-1 lg:desktop-header-1 font-medium! pb-2 w-fit gradient-text-animated"
           >
             Intelligence
           </h1>
@@ -119,7 +119,7 @@
             >
               What We're Analyzing
             </h3>
-            <p class="mobile-body-1 lg:desktop-body-1">
+            <p class="mobile-body-2 lg:desktop-body-2">
               The following is an analysis of the top 50 banks in Evident
               Insights’s AI index, their financial performance based on
               available data from Yahoo Finance and the Wall Street Journal, and
@@ -132,7 +132,7 @@
             >
               Our Learning Goals
             </h3>
-            <p class="mobile-body-1 lg:desktop-body-1">
+            <p class="mobile-body-2 lg:desktop-body-2">
               We aim to explore how the integration of artificial intelligence
               has affected the banking industry, both internally (development
               processes) and externally (customer perceptions and satisfaction).
@@ -150,25 +150,20 @@
           <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
             Artificial Intelligence is Everywhere
           </h2>
-          <p class="mobile-body-2 lg:desktop-body-2 mb-4 lg:mb-8 max-w-200">
-            Every major bank now runs AI in production, yet their
-            implementations reveal fundamentally different strategies. Among the
-            top 50 banks globally, AI deployment concentrates in five core
-            categories: Customer Experience (CX) leads with the most use cases,
-            followed by Productivity & Automation, Operations & Infrastructure,
-            Capital Markets & Research, and Risk & Fraud detection. The US
-            dominates AI adoption with nearly 20 documented use cases, while
-            Europe and Canada show moderate integration. This geographic
-            concentration raises a central question: what determines how banks
-            choose to deploy AI?
+          <p class="mobile-body-2 lg:desktop-body-2 mb-2 lg:mb-4 max-w-200">
+            Major banks worldwide use AI, but with varied strategies. Globally, the top 50 banks 
+            focus AI deployment across five main areas: <b>Customer Experience/CX</b> (leading), <b>Productivity & Automation</b>, 
+            <b>Operations & Infrastructure</b>, <b>Capital Markets & Research</b>, and <b>Risk & Fraud</b>. The US leads significantly in 
+            AI adoption, contrasting with moderate integration in Europe and Canada. This geographic 
+            difference raises the core question: <b>what drives banks' AI deployment choices?</b>
           </p>
         </div>
-        <div>
-          <!-- <p class="mobile-subheader-3 lg:desktop-subheader-3 text-t-details">
-            Visualization 1 - Hover over each point for more info!
-          </p> -->
-          <!-- vizualization 1 goes here -->
-          <!-- <div id="viz-radar"></div> -->
+        <div id="viz-industries" class="w-full"></div>
+        <div style="margin-top:12px; background:#eef0fc; border:1px solid #b6c1f1; border-radius:14px; padding:16px 20px;" class="max-w-200">
+          <div style="font-size:13px; font-weight:700; color:#3054f1; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:6px;">How to read this</div>
+          <div style="font-size:13px; color:#324ab3; line-height:1.65;">
+            Each row is an industry. The <strong style="color:#060d29;">left dot</strong> (light) marks Q3 2024 AI adoption; the <strong style="color:#060d29;">right dot</strong> (dark blue) marks Q3 2025. A wider gap means faster year-over-year growth. <strong style="color:#060d29;">Finance &amp; Insurance</strong> is highlighted in purple — it jumped from 17.9% to 31.5%, one of the largest single-year gains in the dataset.
+          </div>
         </div>
       </section>
 
@@ -193,20 +188,20 @@
           >
             <p
               id="scrubber-name"
-              class="text-nowrap ml-8 hidden opacity-0 2xl:opacity-100 lg:flex desktop-body-1"
+              class="text-nowrap ml-8 hidden opacity-0 2xl:opacity-100 lg:flex desktop-body-2"
             ></p>
           </div>
 
           <!-- using data-years as a label for the scrubber to list the correct years -->
           <div class="timeline-item" data-years="1950 - 1969">
-            <img />
+            <img src="assets/timeline ATM.webp" alt="An ATM representing early banking automation" class="rounded-[2rem] w-24 h-24 object-cover" />
             <div>
               <h3
                 class="mobile-subheader-3 lg:desktop-subheader-3 text-t-tertiary"
               >
                 Early Automation
               </h3>
-              <p class="mobile-body-1 lg:desktop-body-1 max-w-120">
+              <p class="mobile-body-2 lg:desktop-body-2 max-w-120">
                 The introduction of “AI” in banking was with automated processes
                 during the 50s and 60s, such as ATMs. This was primarily
                 internal, assisting bank employees in completing calculations
@@ -219,19 +214,19 @@
             </div>
           </div>
           <div class="timeline-item" data-years="1970 - 1989">
-            <img />
+            <img src="assets/timeline CC 70s.webp" alt="An electronic credit card from the 1970s" class="rounded-[2rem] w-24 h-24 object-cover" />
             <div>
               <h3
                 class="mobile-subheader-3 lg:desktop-subheader-3 text-t-tertiary"
               >
                 The Advent of AI
               </h3>
-              <p class="mobile-body-1 lg:desktop-body-1 max-w-120">
+              <p class="mobile-body-2 lg:desktop-body-2 max-w-120">
                 The years between 1970 and 1989 were spent integrating more
                 automated processes in the customer flow, such as electronic
                 credit cards. Additionally, the 1980s saw the beginning of AI
-                development as we know it, with “over two-thirds of Fortune 1000
-                companies [developing] at least one AI project.”(Durkin, 2003 in
+                development as we know it, with "over two-thirds of Fortune 1000
+                companies [developing] at least one AI project."(Durkin, 2003 in
                 Swaine-Simon, 2019) These systems involved creating artificial
                 neural networks to predict stock market movement to optimize
                 investing strategies, as well as creating financial plans for
@@ -242,14 +237,14 @@
             </div>
           </div>
           <div class="timeline-item" data-years="1990 - 2009">
-            <img />
+            <img src="assets/timeline FEIS.png" alt="The FinCEN Artificial Intelligence System (FAIS)" class="rounded-[2rem] w-24 h-24 object-cover" />
             <div>
               <h3
                 class="mobile-subheader-3 lg:desktop-subheader-3 text-t-tertiary"
               >
                 Digital Banking Arrives
               </h3>
-              <p class="mobile-body-1 lg:desktop-body-1 max-w-120">
+              <p class="mobile-body-2 lg:desktop-body-2 max-w-120">
                 The 1990s saw a growth in the use of AI for fraud detection and
                 prevention by financial institutions. The implementation
                 involved using AI to filter through transactions and financial
@@ -264,14 +259,14 @@
             </div>
           </div>
           <div class="timeline-item" data-years="2010 - Today">
-            <img />
+            <img src="assets/timeline Nomi.png" alt="Nomi, an AI digital assistant used in modern banking" class="rounded-[2rem] w-24 h-24 object-cover" />
             <div>
               <h3
                 class="mobile-subheader-3 lg:desktop-subheader-3 text-t-tertiary"
               >
                 AI at Scale
               </h3>
-              <p class="mobile-body-1 lg:desktop-body-1 max-w-120">
+              <p class="mobile-body-2 lg:desktop-body-2 max-w-120">
                 In today’s scope (particularly the past 5 years), the
                 progression of AI integration in companies has surged, with a
                 reported 78% of organizations now using AI in at least one
@@ -279,7 +274,7 @@
                 Internally, generative AI is being used for fraud detection,
                 software development, and financial prediction. Externally, this
                 can be seen in online and mobile banking interfaces, as AI
-                chatbots and “digital assistants” are used for customer service
+                chatbots and "digital assistants" are used for customer service
                 purposes (Weiss, 2023).
               </p>
             </div>
@@ -289,7 +284,7 @@
           class="mobile-body-2 self-center lg:desktop-body-2 italic! mt-8 z-10"
         >
           See the
-          <a
+          
             href="#sources"
             class="underline text-t-primary hover:text-t-tertiary"
             >Sources</a
@@ -297,36 +292,55 @@
           section for more info!
         </p>
       </section>
-
       <!-- performance visualization section -->
       <section
+        id="performance-viz"
         class="flex flex-col items-start w-full justify-around py-20"
         style="min-height: 100vh; gap: 48px"
       >
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-4 w-full">
           <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
             Performance of Banks with AI
           </h2>
 
-          <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8">
-            <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
-              Banks with higher AI maturity demonstrate stronger financial
-              performance across three key metrics: return on equity, revenue
-              growth, and operational efficiency. Top-ranked banks (AI Maturity
-              Rank 1-5) show higher returns and efficiency compared to mid-tier
-              and lower-tier adopters. The performance gap is most pronounced in
-              profitability and efficiency rather than revenue growth,
-              suggesting AI’s primary impact lies in operational optimization
-              (doing more with existing resources, rather than simply expanding
-              faster).
+          <div class="flex gap-6 items-start flex-wrap">
+            <div id="viz-3"></div>
+            <div
+              id="viz-3-info-card"
+              style="min-width:180px; width:200px; padding:16px 20px; background:#eef0fc; border:1px solid #b6c1f1; border-radius:14px; box-sizing:border-box; flex-shrink:0; align-self:flex-start;"
+            ></div>
+          </div>
+
+          <div style="margin-top:4px; background:#eef0fc; border:1px solid #b6c1f1; border-radius:14px; padding:16px 20px;" class="max-w-200">
+            <div style="font-size:13px; font-weight:700; color:#3054f1; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:6px;">How to read this</div>
+            <div style="font-size:13px; color:#324ab3; line-height:1.65;">
+              Each bubble is a bank. <strong style="color:#060d29;">Vertical position</strong> shows AI Maturity Rank — higher up means more AI-advanced (rank 1 at top). <strong style="color:#060d29;">Horizontal position</strong> shows Return on Equity — further right means more profitable. <strong style="color:#060d29;">Bubble size</strong> reflects total revenue. The dashed vertical line marks the average ROE across all 15 banks. Hover any bubble to see details; click to pin them.
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8 max-w-200">
+            <p class="mobile-body-2 lg:desktop-body-2">
+              Top-ranked AI banks (rank 1–5) lead in ROE, but the relationship
+              is not simply linear — mid-tier banks (rank 6–10) show
+              <em>lower</em> ROE than the lower-ranked group (rank 11–15). This
+              is largely explained by a single outlier: <strong style="color:#6B5CE7;">Capital One</strong>.
+              As a credit card–focused bank rather than a full-service universal
+              bank, Capital One carries structurally higher ROE due to its
+              business model — credit cards generate far higher returns on equity
+              than traditional lending — not its AI maturity rank. Mid-tier banks,
+              by contrast, are mostly large, globally-systemic institutions where
+              stricter capital requirements compress ROE regardless of AI
+              investment. Remove Capital One from the lower-ranked group, and the
+              pattern becomes more consistent: higher AI maturity broadly aligns
+              with stronger financial performance.
             </p>
-            <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
-              This pattern raises an important question on whether banks are
-              high performers because they have invested in AI or if their
-              existing strength enabled greater AI investment. Likely, it is
-              both in a reinforcing cycle where financial position funds AI
-              development, which strengthens competitive advantages through
-              reduced operational friction and improved decision-making.
+            <p class="mobile-body-2 lg:desktop-body-2">
+              The consistent signal is at the top: the highest AI maturity banks
+              sustain both deep AI investment and strong profitability. Whether
+              AI drives that performance or profitability funds AI investment is
+              likely both — a reinforcing cycle where financial strength enables
+              AI development, which compounds competitive advantage through
+              reduced operational friction and better decision-making.
             </p>
           </div>
           <div id="viz-radar"></div>
@@ -344,16 +358,12 @@
 
           <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8">
             <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
-              How banks prioritized these newly tractable problems reveal
-              distinct implementation philosophies. CX applications are the most
-              prevalent with 13 use cases, addressing conversational AI
-              (chatbots), personalized recommendations, and intelligent routing.
-              These visible deployments carry risk in reputation, with failures
-              directly impacting brand perception. Productivity and automation
-              follows closely with 10 cases, streamlining internal processes
-              such as document processing, workflow optimization, and automated
-              reporting. These implementations offer lower differentiation but
-              with it, lower risk exposure.
+              How banks prioritize these problems reveals <b>distinct implementation philosophies</b>. 
+              CX applications lead with 13 use cases spanning conversational AI, personalized 
+              recommendations, and intelligent routing, carrying <b>reputational risk</b> where failures 
+              directly impact brand perception. Productivity and automation follows with 10 cases 
+              covering document processing and workflow optimization, offering <b>lower 
+              differentiation but lower risk exposure</b>.
             </p>
           </div>
         </div>
@@ -391,17 +401,6 @@
               requirements. Canadian banks emphasize CX and Productivity within
               smaller, more regulated markets.
             </p>
-            <p class="mobile-body-2 lg:desktop-body-2 max-w-200">
-              APAC banks demonstrate notable emphasis on Operations and Capital
-              Markets applications. Many bypass legacy infrastructure
-              constraints entirely, focusing on cloud-native core systems where
-              AI integration presents fewer architectural challenges. The
-              technical debt constraining Western institutions exerts less
-              influence on their deployment choices. These variations represent
-              system-level constraints that determine which AI implementations
-              are technically feasible, legally permissible, and economically
-              rational within specific contexts.
-            </p>
           </div>
         </div>
         <div>
@@ -415,6 +414,7 @@
 
       <!-- conclusion section -->
       <section
+        id="conclusion"
         class="h-fit flex flex-col items-start w-full justify-start py-20 gap-4"
       >
         <h2 class="mobile-subheader-1 lg:desktop-subheader-1 self-start">
@@ -422,32 +422,22 @@
         </h2>
         <div class="flex flex-col gap-2 lg:gap-4 mb-4 lg:mb-8 max-w-200">
           <p class="mobile-body-2 lg:desktop-body-2">
-            The geographic and categorical patterns in AI deployment reveal that
-            banks face different technical and regulatory constraints, leading
-            them to prioritize distinct use cases rather than following a
-            universal guideline. Successful AI deployment in banking depends not
-            on model superiority, but on strategic problem
-            selection/prioritization within institutional constraints. Banks
-            aligning implementation with their technical infrastructure,
-            regulatory environment, and competitive position show measurable
-            advantages.
+            Banks deploy AI based on their unique technical and regulatory constraints, 
+            prioritizing distinct use cases instead of following universal guidelines. 
+            Successful AI deployment hinges on strategically selecting problems aligning 
+            with institutional constraints (infrastructure, regulation, competitive position), 
+            not merely superior models.
           </p>
           <p class="mobile-body-2 lg:desktop-body-2">
-            These patterns carry implications beyond sector competition. Banks
-            process trillions in transactions, determine credit access for
-            billions, and influence global economic stability. The AI systems
-            that deploy shape tangible outcomes at scale. Credit models trained
-            on historical data risk perpetuating bias, fraud detection systems
-            may disproportionately flag specific populations, or customer
-            service AI may lack appropriate escalation and cause compliance
-            exposure.
+            These patterns are critical because banking AI influences global economic stability, 
+            credit access, and billions of transactions. AI systems can perpetuate bias (credit models), 
+            disproportionately flag specific groups (fraud detection), or create compliance exposure 
+            (customer service AI).
           </p>
           <p class="mobile-body-2 lg:desktop-body-2">
-            This environment provides a high-stakes case study in AI deployment
-            when systems are complex and have significant consequences. The
-            patterns observed here anticipate challenges every sector faces as
-            AI transitions from experimental deployment to production
-            infrastructure shaping millions of decisions daily.
+            Banking offers a high-stakes case study for complex AI deployment with significant consequences, 
+            anticipating challenges all sectors face as AI moves from experimental to production infrastructure 
+            shaping countless daily decisions.
           </p>
         </div>
       </section>
@@ -464,136 +454,136 @@
           </h3>
           <ul class="w-full flex flex-col gap-4 max-w-160">
             <li class="">
-              <p class="mobile-body-1 lg:desktop-body-1">
+              <p class="mobile-body-2 lg:desktop-body-2">
                 Evident - Banking AI index. Evident Insights. (2025, October).
               </p>
               <a
-                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                class="text-t-details hover:text-cta-primary mobile-body-2 lg:desktop-body-2"
                 target="_blank"
                 href="https://evidentinsights.com/ai-index/"
                 >Link to Website -></a
               >
             </li>
             <li class="">
-              <p class="mobile-body-1 lg:desktop-body-1">
+              <p class="mobile-body-2 lg:desktop-body-2">
                 Oliviera, F. (2024, Mar 24). Core banking: How AI can transform
                 legacy systems. SBS.
               </p>
               <a
-                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                class="text-t-details hover:text-cta-primary mobile-body-2 lg:desktop-body-2"
                 target="_blank"
                 href="https://sbs-software.com/insights/core-banking/core-banking-ai-transform-legacy-systems/#:~:text=However%2C%20few%20(if%20any),are%20the%20future%20of%20banking"
                 >Link to Website -></a
               >
             </li>
             <li class="">
-              <p class="mobile-body-1 lg:desktop-body-1">
+              <p class="mobile-body-2 lg:desktop-body-2">
                 The Economist. (2020). Forging new frontiers: advanced
                 technologies will revolutionise banking. The Economist
                 Intelligence Unit.
               </p>
               <a
-                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                class="text-t-details hover:text-cta-primary mobile-body-2 lg:desktop-body-2"
                 target="_blank"
                 href="https://www.temenos.com/wp-content/uploads/2020/05/EIU-2020-report-2020-May-27.pdf"
                 >Link to PDF -></a
               >
             </li>
             <li class="">
-              <p class="mobile-body-1 lg:desktop-body-1">
+              <p class="mobile-body-2 lg:desktop-body-2">
                 Krogdahl, P. & Cesaretti, F. (n.d.). Accelerating AI &
                 Innovation: The future of banking depends on core modernization.
                 IBM.
               </p>
               <a
-                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                class="text-t-details hover:text-cta-primary mobile-body-2 lg:desktop-body-2"
                 target="_blank"
                 href="https://www.ibm.com/think/insights/core-banking-ai-future"
                 >Link to Website -></a
               >
             </li>
             <li class="">
-              <p class="mobile-body-1 lg:desktop-body-1">
+              <p class="mobile-body-2 lg:desktop-body-2">
                 MIT. (2026 , April 2). Inside the Bank: How Artificial
                 Intelligence is Changing Banking Operations.
               </p>
               <a
-                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                class="text-t-details hover:text-cta-primary mobile-body-2 lg:desktop-body-2"
                 target="_blank"
                 href="https://executive.mit.edu/inside-the-bank-how-artificial-intelligence-is-changing-banking-operations.html"
                 >Link to Website -></a
               >
             </li>
             <li class="">
-              <p class="mobile-body-1 lg:desktop-body-1">
+              <p class="mobile-body-2 lg:desktop-body-2">
                 Fares, O. H., Butt, I., & Lee, S. H. M. (2022). Utilization of
                 artificial intelligence in the banking sector: a systematic
                 literature review. Journal of Financial Services Marketing,
                 1–18. Advance online publication.
               </p>
               <a
-                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                class="text-t-details hover:text-cta-primary mobile-body-2 lg:desktop-body-2"
                 target="_blank"
                 href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9366789/"
                 >Link to Website -></a
               >
             </li>
             <li class="">
-              <p class="mobile-body-1 lg:desktop-body-1">
+              <p class="mobile-body-2 lg:desktop-body-2">
                 Njegic, J. (2025, July 14). The Five-Year Evolution of AI in
                 Banking: Promise, Progress, and Hidden Pitfalls. LinkedIn.
               </p>
               <a
-                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                class="text-t-details hover:text-cta-primary mobile-body-2 lg:desktop-body-2"
                 target="_blank"
                 href="https://www.linkedin.com/pulse/five-year-evolution-ai-banking-promise-progress-hidden-jovan-njegic-uep2e/ "
                 >Link to Website -></a
               >
             </li>
             <li class="">
-              <p class="mobile-body-1 lg:desktop-body-1">
+              <p class="mobile-body-2 lg:desktop-body-2">
                 Capitol Technology University. (2025, Jan 10). How Banks &
                 Financial Industry are Navigating the Artificial Intelligence
                 Landscape.
               </p>
               <a
-                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                class="text-t-details hover:text-cta-primary mobile-body-2 lg:desktop-body-2"
                 target="_blank"
                 href="https://www.captechu.edu/blog/ai-in-the-banking-and-financial-industry#:~:text=AI%20has%20been%20a%20part,extend%20credit%20to%20underserved%20populations"
                 >Link to Website -></a
               >
             </li>
             <li class="">
-              <p class="mobile-body-1 lg:desktop-body-1">
+              <p class="mobile-body-2 lg:desktop-body-2">
                 Swaine-Simon, S. (2018, Mar 8). The History of AI in Finance.
                 Medium.
               </p>
               <a
-                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                class="text-t-details hover:text-cta-primary mobile-body-2 lg:desktop-body-2"
                 target="_blank"
                 href="https://medium.com/district3/the-history-of-ai-in-finance-7a03fcb4a498"
                 >Link to Website -></a
               >
             </li>
             <li class="">
-              <p class="mobile-body-1 lg:desktop-body-1">
+              <p class="mobile-body-2 lg:desktop-body-2">
                 Weiss, B. (2023, July 21). Banks have used A.I. for decades—but
                 now it’s going to take off like never before. Fortune.
               </p>
               <a
-                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                class="text-t-details hover:text-cta-primary mobile-body-2 lg:desktop-body-2"
                 target="_blank"
                 href="https://fortune.com/2023/07/21/ai-finance-history-regressions-generative-artificial-intelligence-pagaya-kasisto/"
                 >Link to Website -></a
               >
             </li>
             <li class="">
-              <p class="mobile-body-1 lg:desktop-body-1">
+              <p class="mobile-body-2 lg:desktop-body-2">
                 Murphy, A. & Schifrin, M. (2025, June 12). The Global 2000.
                 Forbes.
               </p>
               <a
-                class="text-t-details hover:text-cta-primary mobile-body-1 lg:desktop-body-1"
+                class="text-t-details hover:text-cta-primary mobile-body-2 lg:desktop-body-2"
                 target="_blank"
                 href="https://www.forbes.com/lists/global2000/"
                 >Link to Website -></a
