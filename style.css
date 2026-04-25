@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 body,
 a {
   cursor: none;
@@ -30,6 +31,10 @@ body:has(button:hover) .custom-cursor {
   transition:
     width 0.1s ease-in-out,
     height 0.1s ease-in-out;
+}
+
+body:has(#viz-map:hover) .custom-cursor {
+  opacity: 0;
 }
 
 /* === MOBILE === */
