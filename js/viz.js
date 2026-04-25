@@ -1476,44 +1476,44 @@ async function createVizWorldMap(useCases) {
   });
 }
 
-function initCarousel() {
-  const el = document.getElementById("category-carousel");
-  const heading = document.getElementById("carousel-heading");
-  if (!el || !heading) return;
+// function initCarousel() {
+//   const el = document.getElementById("category-carousel");
+//   const heading = document.getElementById("carousel-heading");
+//   if (!el || !heading) return;
 
-  const alignPadding = () => {
-    const left = heading.getBoundingClientRect().left;
-    el.style.paddingLeft = left + "px";
-  };
-  alignPadding();
-  window.addEventListener("resize", alignPadding);
+//   const alignPadding = () => {
+//     const left = heading.getBoundingClientRect().left;
+//     el.style.paddingLeft = left + "px";
+//   };
+//   alignPadding();
+//   window.addEventListener("resize", alignPadding);
 
-  let isDown = false,
-    startX,
-    scrollLeft;
-  el.addEventListener("mousedown", (e) => {
-    isDown = true;
-    startX = e.pageX;
-    scrollLeft = el.scrollLeft;
-  });
-  el.addEventListener("mouseleave", () => (isDown = false));
-  el.addEventListener("mouseup", () => (isDown = false));
-  el.addEventListener("mousemove", (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    el.scrollLeft = scrollLeft - (e.pageX - startX);
-  });
-}
+//   let isDown = false,
+//     startX,
+//     scrollLeft;
+//   el.addEventListener("mousedown", (e) => {
+//     isDown = true;
+//     startX = e.pageX;
+//     scrollLeft = el.scrollLeft;
+//   });
+//   el.addEventListener("mouseleave", () => (isDown = false));
+//   el.addEventListener("mouseup", () => (isDown = false));
+//   el.addEventListener("mousemove", (e) => {
+//     if (!isDown) return;
+//     e.preventDefault();
+//     el.scrollLeft = scrollLeft - (e.pageX - startX);
+//   });
+// }
 
-var selectedBank = null;
+var selectedBank = null; // create selectedBank variable
 
 async function createUseCaseBar(useCases, updatePie) {
   // set the dimensions and margins of the graph
-  const margin = { top: 30, right: 30, bottom: 100, left: 60 },
+  const margin = { top: 30, right: 30, bottom: 100, left: 60 }, // set margins for the viz
     width = 720 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
-  // append the svg object to the body of the page
+  // create the svg and select the div in the html
   const svg = d3
     .select("#use-case-bar")
     .append("svg")
@@ -1522,31 +1522,33 @@ async function createUseCaseBar(useCases, updatePie) {
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
+  // use rollup to group the amount of rows with the same bank and add them to useCaseCounts
   const useCaseCounts = d3.rollup(
     useCases,
     (v) => v.length, // Reducer: returns the count of rows in the group
     (d) => d.Bank, // Key: the column to group by
   );
-  console.log(useCaseCounts);
 
+  // get the plot data in an array from the key value pairs stored in useCaseCounts
   const plotData = Array.from(useCaseCounts, ([key, value]) => ({
     key,
     value,
-  })).sort((a, b) => b.value - a.value);
+  })).sort((a, b) => b.value - a.value); // use .sort to sort the bar graph in descending order by total number of AI use cases
 
   // X axis
   const x = d3
     .scaleBand()
     .range([0, width])
-    .domain(plotData.map((d) => d.key))
+    .domain(plotData.map((d) => d.key)) // use d.key for the domain because its the key of useCaseCounts
     .padding(0.2);
 
+  // bank name labels
   svg
     .append("g")
     .attr("transform", `translate(0, ${height})`)
     .call(d3.axisBottom(x))
     .selectAll("text")
-    .attr("transform", "translate(-10,0)rotate(-45)")
+    .attr("transform", "translate(-10,0)rotate(-45)") // translate then rotate names to fit them all next to each other
     .style("text-anchor", "end");
 
   // Add Y axis
@@ -1557,29 +1559,30 @@ async function createUseCaseBar(useCases, updatePie) {
   // Bars
   svg
     .selectAll("mybar")
-    .data(plotData)
+    .data(plotData) // use plotData to get the sorted and aggregated values
     .join("rect")
     .attr("x", (d) => x(d.key))
     .attr("y", (d) => y(d.value))
     .attr("width", x.bandwidth())
     .attr("height", (d) => height - y(d.value))
     .attr("fill", "#B6C1F1")
-    // .attr("hover", "fill", "#B6C1F1")
+    // when mouse goes over the bar change the colour to dark blue
     .on("mouseover", function (event, d) {
       d3.select(this).transition().duration(150).style("fill", "#3054F1");
     })
+    // when mouse leaves the bar change the colour back to light blue, UNLESS its the selectedBank, in which case stay dark blue
     .on("mouseleave", function (event, d) {
       if (d.key !== selectedBank) {
         d3.select(this).transition().duration(200).style("fill", "#B6C1F1");
       }
     })
+    // when a bar is clicked, assign it to selectedBank, call the updatePie() function, and
     .on("click", function (event, d) {
-      selectedBank = d.key;
-      updatePie(d.key); // d.key is the bank name
-      console.log(d.key);
-
-      svg.selectAll("rect").style("fill", "#B6C1F1");
-      d3.select(this).style("fill", "#3054F1");
+      selectedBank = d.key; // d.key is the bank name
+      updatePie(d.key);
+      // console.log(d.key);
+      svg.selectAll("rect").style("fill", "#B6C1F1"); // set all bars to light blue
+      d3.select(this).style("fill", "#3054F1"); // set the clicked bar to dark blue
     });
 
   // Add X axis label:
@@ -1603,7 +1606,7 @@ async function createUseCaseBar(useCases, updatePie) {
   svg
     .append("text")
     .attr("text-anchor", "end")
-    .attr("x", width * 0.8)
+    .attr("x", width * 0.85)
     .attr("y", -10)
     .text("How many AI Use Cases are in Each Bank?")
     .style("font-weight", "700")
@@ -1611,16 +1614,20 @@ async function createUseCaseBar(useCases, updatePie) {
 }
 
 async function createUseCasePie(useCases) {
+  // set the dimensions and margins of the graph
   const margin = { top: 200, right: 30, bottom: 100, left: 200 },
     width = 350 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
-  const r = height * 2.5 - 10; // radius constant
+  const r = height * 2.5 - 10; // radius value for future inner and outer circle implementation
+
+  // set colors with scaleOrdinal and use domain and range to ensure light blue is always encoded to Internal and dark blue is always encoded to External
   const color = d3
     .scaleOrdinal()
     .domain(["Internal", "External"])
     .range(["#B6C1F1", "#3054F1"]);
 
+  // create the svg and select the div in the html
   const svg = d3
     .select("#use-case-pie")
     .append("svg")
@@ -1629,27 +1636,32 @@ async function createUseCasePie(useCases) {
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
+  // create an arc values to draw the donut chart
   const arc = d3
     .arc()
     .innerRadius(r * 0.2)
     .outerRadius(r * 0.6);
 
+  // create the pie to divide the donut
   const pie = d3
     .pie()
     .sort(null)
     .value((d) => d.value);
 
   function getStartingData() {
+    // get the initial data for the donut, which is the percentages of Internal and External use cases in all the banks in the dataset
+    // use rollup to group the amount of rows with the Internal/External value and add them to counts
     const counts = d3.rollup(
       useCases,
       (v) => v.length, // Reducer: returns the count of rows in the group
       (d) => d["Internal/External"], // Key: the column to group by
     );
-
+    // return the data in an array from the key value pairs stored in useCaseCounts
     return Array.from(counts, ([key, value]) => ({ key, value }));
   }
 
   function getBankData(bankName) {
+    // get the splits for Internal/External for each bank, so that when users click on a bar, they can see the data for the specific bank
     const filtered = useCases.filter((d) => d.Bank === bankName);
     const counts = d3.rollup(
       filtered,
@@ -1659,28 +1671,32 @@ async function createUseCasePie(useCases) {
     return Array.from(counts, ([key, value]) => ({ key, value }));
   }
 
+  // create pie
   let paths = svg
     .selectAll("path")
-    .data(pie(getStartingData()))
+    .data(pie(getStartingData())) // use getStartingData to initialize the pie data
     .join("path")
-    .attr("fill", (d) => color(d.data.key))
+    .attr("fill", (d) => color(d.data.key)) // get the key value
     .attr("d", arc)
     .each(function (d) {
       this._current = d;
     });
 
   function arcTween(a) {
-    const i = d3.interpolate(this._current, a);
+    // use d3 arcTween to smootly transition between slices when a new bank is selected
+    const i = d3.interpolate(this._current, a); // creates an interpolator to get the starting point and target points
     this._current = i(0);
     return (t) => arc(i(t));
   }
 
+  // function to update the pie when a new bar is clicked
   function updatePie(bankName) {
-    const newData = bankName ? getBankData(bankName) : getStartingData();
+    const newData = bankName ? getBankData(bankName) : getStartingData(); // use ternary operator to check if bank name selected otherwise just show the starting data
 
-    // update title
+    // use ternary operator again to update title text based on the selected bank
     svg.select("text.pie-title").text(bankName ? bankName : "All Banks");
 
+    // redraw the donut with the new data which is retrieved from getBankData(bankName)
     paths = svg
       .selectAll("path")
       .data(pie(newData))
@@ -1693,9 +1709,10 @@ async function createUseCasePie(useCases) {
       .duration(1)
       .attrTween("d", arcTween);
 
-    updateLabels(newData);
+    updateLabels(newData); // call update labels
   }
 
+  // update the labels using the same method as updatePie() to change the text on each slice and the title of the viz
   function updateLabels(data) {
     svg
       .selectAll("text.slice-label")
@@ -1727,35 +1744,7 @@ async function createUseCasePie(useCases) {
 
   updateLabels(getStartingData());
 
-  // legend
-  // svg
-  //   .append("circle")
-  //   .attr("cx", 200)
-  //   .attr("cy", -140)
-  //   .attr("r", 6)
-  //   .style("fill", "#B6C1F1");
-  // svg
-  //   .append("circle")
-  //   .attr("cx", 200)
-  //   .attr("cy", -110)
-  //   .attr("r", 6)
-  //   .style("fill", "#3054F1");
-  // svg
-  //   .append("text")
-  //   .attr("x", 220)
-  //   .attr("y", -140)
-  //   .text("Internal")
-  //   .style("font-size", "15px")
-  //   .attr("alignment-baseline", "middle");
-  // svg
-  //   .append("text")
-  //   .attr("x", 220)
-  //   .attr("y", -110)
-  //   .text("External")
-  //   .style("font-size", "15px")
-  //   .attr("alignment-baseline", "middle");
-
-  // title
+  // default title before the user selects a bank
   svg
     .append("text")
     .attr("class", "pie-title")
@@ -1766,19 +1755,21 @@ async function createUseCasePie(useCases) {
     .style("font-weight", "700")
     .style("font-size", "20px");
 
-  return { updatePie };
+  return { updatePie }; // return updatePie function so that it can be accessed outside of createUseCasePie
 }
 
 async function init() {
+  // fetch data for each of the datasets
   const { useCasesLong, useCases, evidentAIRanks, financials, aiIndustries } =
     await fetchData();
+
+  // call each of our visualization creation functions
   createVizIndustries(aiIndustries);
   createVizWorldMap(useCases);
   createVizRadar(evidentAIRanks, financials);
   createViz3(evidentAIRanks, financials);
-  
-  const { updatePie } = await createUseCasePie(useCases); // get the update function
-  createUseCaseBar(useCases, updatePie); // pass it to bar chart
+  const { updatePie } = await createUseCasePie(useCases); // get the update function for updatePie()
+  createUseCaseBar(useCases, updatePie);
 }
 
 init();
