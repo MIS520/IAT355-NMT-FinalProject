@@ -417,7 +417,7 @@ function createVizRadar(evidentAIRanks, financials) {
   buttons
     .append("button")
     .text("All Ranks")
-    .style("padding", "8px 16px") 
+    .style("padding", "8px 16px")
     .style("border", `2px solid black`)
     .style("border-radius", "8px")
     .style("color", "#000000")
@@ -438,7 +438,7 @@ function createVizRadar(evidentAIRanks, financials) {
       .text(t.label)
       .style("border", `2px solid ${t.color}`)
       .style("border-radius", "8px")
-      .style("padding", "8px 16px") 
+      .style("padding", "8px 16px")
       .style("color", t.color)
       .on("click", function () {
         // loop through ALL tiers
@@ -1688,7 +1688,7 @@ async function createUseCasePie(useCases) {
 
   function arcTween(a) {
     // use d3 arcTween to smootly transition between slices when a new bank is selected
-    const i = d3.interpolate(this._current, a); // creates an interpolator to get the starting point and target points
+    const i = d3.interpolate(this._current, a); // creates an interpolator betweeen the starting point and target points
     this._current = i(0);
     return (t) => arc(i(t));
   }
@@ -1725,20 +1725,21 @@ async function createUseCasePie(useCases) {
       .attr("class", "slice-label")
       .attr("transform", (d) => `translate(${arc.centroid(d)})`)
       .attr("text-anchor", "middle")
-      .style("fill", (d) => (d.data.key === "External" ? "#F3F8FC" : "#060d29"))
+      .style("fill", (d) => (d.data.key === "External" ? "#F3F8FC" : "#060d29")) // use a ternary operator to make the text white if its on the External slice
       .style("font-weight", "700")
       .each(function (d) {
         const pct = Math.round(
+          // use a formula to get the percentages of each slice from the start and end points of the slice's arc
           ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100,
         );
-        d3.select(this).selectAll("tspan").remove();
-        d3.select(this)
+        d3.select(this).selectAll("tspan").remove(); // remove previous tspan elements when changing the donut chart
+        d3.select(this) // create a tspan to display the Internal or External title
           .append("tspan")
           .attr("x", 0)
           .attr("dy", 0)
           .text(d.data.key);
 
-        d3.select(this)
+        d3.select(this) //  create a second tspan to display the percentage which the arc takes up
           .append("tspan")
           .attr("x", 0)
           .attr("dy", "1.2em")
