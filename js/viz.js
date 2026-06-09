@@ -982,9 +982,9 @@ async function createVizWorldMap(useCases) {
     APAC: [118, 22],
   };
 
-  const width = 1100,
-    height = 560;
-  const baseScale = 260;
+  const width = 960,
+    height = 500;
+  const baseScale = 230;
   const maxCount = Math.max(...Object.values(regionCounts));
 
   const container = d3
