@@ -332,6 +332,9 @@
   .max-w-64 {
     max-width: calc(var(--spacing) * 64);
   }
+  .max-w-40 {
+    max-width: calc(var(--spacing) * 40);
+  }
   .max-w-80 {
     max-width: calc(var(--spacing) * 80);
   }
@@ -507,6 +510,13 @@
     text-align: center;
   }
   .desktop-body-2 {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 300;
+    font-style: normal;
+    letter-spacing: 0em;
+  }
+  .mobile-body-1 {
     font-size: 20px;
     line-height: 24px;
     font-weight: 300;
@@ -743,6 +753,25 @@
   .lg\:px-96 {
     @media (width >= 64rem) {
       padding-inline: calc(var(--spacing) * 96);
+    }
+  }
+  .lg\:pl-80 {
+    @media (width >= 64rem) {
+      padding-left: calc(var(--spacing) * 80);
+    }
+  }
+  .lg\:pr-12 {
+    @media (width >= 64rem) {
+      padding-right: calc(var(--spacing) * 12);
+    }
+  }
+  .lg\:desktop-body-1 {
+    @media (width >= 64rem) {
+      font-size: 24px;
+      line-height: 28px;
+      font-weight: 300;
+      font-style: normal;
+      letter-spacing: 0em;
     }
   }
   .lg\:desktop-body-2 {
