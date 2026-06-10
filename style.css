@@ -93,7 +93,7 @@ body:has(#viz-map:hover) .custom-cursor {
 
 /* === DESKTOP === */
 @utility desktop-header-1 {
-  font-size: 96px;
+  font-size: 72px;
   line-height: 102px;
   font-weight: 300;
   font-style: normal;
@@ -101,7 +101,7 @@ body:has(#viz-map:hover) .custom-cursor {
 }
 
 @utility desktop-subheader-1 {
-  font-size: 64px;
+  font-size: 48px;
   line-height: 68px;
   font-weight: 500;
   font-style: normal;
@@ -109,7 +109,7 @@ body:has(#viz-map:hover) .custom-cursor {
 }
 
 @utility desktop-subheader-2 {
-  font-size: 48px;
+  font-size: 32px;
   line-height: 56px;
   font-weight: 300;
   font-style: normal;
@@ -117,7 +117,7 @@ body:has(#viz-map:hover) .custom-cursor {
 }
 
 @utility desktop-subheader-3 {
-  font-size: 32px;
+  font-size: 28px;
   line-height: 42px;
   font-weight: 500;
   font-style: normal;
@@ -125,7 +125,7 @@ body:has(#viz-map:hover) .custom-cursor {
 }
 
 @utility desktop-body-1 {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 28px;
   font-weight: 300;
   font-style: normal;
@@ -133,7 +133,7 @@ body:has(#viz-map:hover) .custom-cursor {
 }
 
 @utility desktop-body-2 {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
   font-weight: 300;
   font-style: normal;
@@ -164,4 +164,54 @@ body:has(#viz-map:hover) .custom-cursor {
   --color-black: #060d29;
   --color-white: #f3f8fc;
   --color-grey: #b6c1f1;
+}
+
+/* === Timeline: scale text, images, and progress bar down ~30% === */
+/* Make room for the progress bar so it stops overlapping the era text */
+/* #timeline .timeline-item {
+  padding-left: 2rem;
+}
+
+/* Era heading (was mobile-body-1 / lg:desktop-body-1) */
+#timeline .timeline-item h3 {
+  font-size: 14px;
+  line-height: 17px;
+}
+@media (width >= 64rem) {
+  #timeline .timeline-item h3 {
+    font-size: 17px;
+    line-height: 20px;
+  }
+}
+
+/* Era body copy (was mobile-body-2 / lg:desktop-body-2, max-w-80) */
+#timeline .timeline-item p {
+  font-size: 11px;
+  line-height: 14px;
+  max-width: 14rem;
+}
+@media (width >= 64rem) {
+  #timeline .timeline-item p {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+/* Era images (was max-w-40 = 160px) */
+#timeline .timeline-item img {
+  max-width: 7rem;
+}
+
+/* Progress bar + scrubber (was w-4/h-8, ml-3) */
+#timeline-bar,
+#timeline-scrubber {
+  width: 0.7rem;
+  margin-left: 0.5rem;
+}
+#timeline-scrubber {
+  height: 1.4rem;
+}
+#timeline-scrubber #scrubber-name {
+  font-size: 14px;
+  line-height: 17px;
 }
