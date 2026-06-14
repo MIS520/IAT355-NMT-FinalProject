@@ -194,12 +194,18 @@ body:has(#viz-map:hover) .custom-cursor {
   #timeline .timeline-item p {
     font-size: 14px;
     line-height: 17px;
+    max-width: 28rem;
   }
 }
 
 /* Era images (was max-w-40 = 160px) */
 #timeline .timeline-item img {
   max-width: 7rem;
+}
+@media (width >= 64rem) {
+  #timeline .timeline-item img {
+    max-width: 18rem;
+  }
 }
 
 /* Progress bar + scrubber (was w-4/h-8, ml-3) */
