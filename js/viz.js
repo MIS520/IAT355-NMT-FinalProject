@@ -1380,7 +1380,7 @@ async function createVizWorldMap(useCases) {
     .style("box-sizing", "border-box").html(`
       <div style="font-size:13px; font-weight:700; color:#3054f1; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:6px;">How to read this</div>
       <div style="font-size:13px; color:#324ab3; line-height:1.65;">
-        Countries are <strong style="color:#060d29;">shaded by the number of documented AI use cases</strong> from banks headquartered in that region — darker purple means more cases. Only highlighted countries have data. Hover any highlighted country to see a breakdown by use case category. Use the search bar above to snap to a region, or drag and scroll to explore.
+        Countries are <strong style="color:#060d29;">shaded by the number of documented AI use cases</strong> from banks headquartered in that region, where darker purple means more cases. Only highlighted countries have data. Hover any highlighted country to see a breakdown by use case category. Use the search bar above to snap to a region, or drag and scroll to explore.
       </div>
     `);
 

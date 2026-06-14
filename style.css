@@ -168,7 +168,7 @@ body:has(#viz-map:hover) .custom-cursor {
 
 /* === Timeline: scale text, images, and progress bar down ~30% === */
 /* Make room for the progress bar so it stops overlapping the era text */
-/* #timeline .timeline-item {
+#timeline .timeline-item {
   padding-left: 2rem;
 }
 
