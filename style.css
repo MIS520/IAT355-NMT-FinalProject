@@ -192,9 +192,9 @@ body:has(#viz-map:hover) .custom-cursor {
 }
 @media (width >= 64rem) {
   #timeline .timeline-item p {
-    /* match desktop-body-2 used by the other sections */
-    font-size: 18px;
-    line-height: 24px;
+    /* match desktop-body-1 used by the other sections */
+    font-size: 20px;
+    line-height: 28px;
     max-width: none;
   }
 }
